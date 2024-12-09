@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demandes de réservation</title>
+    <style>
+        :root {
+            --primary-blue: #4666E5;
+            --background-dark: #1a1a1a;
+            --card-background: #2a2a2a;
+            --text-primary: #ffffff;
+            --text-secondary: #9ca3af;
+            --border-color: #3f3f3f;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background-color: var(--background-dark);
+            color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        .card {
+            background-color: var(--card-background);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            background-color: var(--card-background);
+        }
+
+        th {
+            text-align: left;
+            padding: 1rem;
+            border-bottom: 2px solid var(--border-color);
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        button {
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .confirm-btn {
+            background-color: var(--primary-blue);
+            color: white;
+        }
+
+        .confirm-btn:hover {
+            background-color: #3b55cc;
+        }
+
+        .reject-btn {
+            background-color: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .reject-btn:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        tr:hover {
+            background-color: rgba(255, 255, 255, 0.03);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <h1>Demandes de réservation</h1>
+        <table>
+            <thead>
+            <tr>
+                <th>Customer</th>
+                <th>Date de début</th>
+                <th>Date de fin</th>
+                <th>Nom de la voiture</th>
+                <th>Car ID</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="booking : ${bookingRequests}">
+                <td th:text="${booking.customerId}"></td>
+                <td th:text="${booking.bookingDateFrom}"></td>
+                <td th:text="${booking.bookingDateTo}"></td>
+                <td th:text="${booking.carId}"></td>
+                <td th:text="${booking.carId}"></td>
+                <td class="actions">
+                    <td class="actions">
+    <form th:action="@{/confirm-booking}" method="post" style="margin: 0;">
+        <input type="hidden" name="bookingId" th:value="${booking.bookingId}" />
+        <button type="submit" class="confirm-btn">Confirmer</button>
+    </form>
+    <form th:action="@{/reject-booking}" method="post" style="margin: 0;">
+        <input type="hidden" name="bookingId" th:value="${booking.bookingId}" />
+        <button type="submit" class="reject-btn">Rejeter</button>
+    </form>
+    <form th:action="@{/generate-contract}" method="get" style="margin: 0;">
+        <input type="hidden" name="bookingId" th:value="${booking.bookingId}" />
+        <button type="submit" class="contract-btn">Contrat</button>
+    </form>
+</td>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

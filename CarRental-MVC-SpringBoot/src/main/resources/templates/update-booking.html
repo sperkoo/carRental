@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Your Booking</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --primary-color: #ff4d4d;
+            --text-color: #333;
+            --background-color: #f4f4f4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background-color: var(--primary-color);
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav a, .right {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav a:hover, .right:hover {
+            opacity: 0.8;
+        }
+
+        .container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .sub-container-update {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .confirm-update {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .confirm-update span {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .element form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        input[type="date"] {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e1e1e1;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            outline: none;
+        }
+
+        input[type="date"]:focus {
+            border-color: var(--primary-color);
+        }
+
+        .confirm-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .confirm-button:hover {
+            background-color: #ff3333;
+            transform: translateY(-2px);
+        }
+
+        .confirm-button:active {
+            transform: translateY(0);
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: auto;
+        }
+
+        footer span {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .sub-container-update {
+                padding: 1.5rem;
+            }
+
+            .confirm-update span {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<header class='header'>
+    <nav>
+        <ul class='nav'>
+            <li><a th:href="@{/cars}">Home</a></li>
+            <li><a th:href="@{/orders(customerId=1)}">Orders</a></li>
+        </ul>
+        <a th:href="@{/logout}" class="right">Logout</a>
+    </nav>
+</header>
+
+<div class="container">
+    <div class="sub-container-update">
+        <div class="confirm-update">
+            <span>Update Your Order</span>
+        </div>
+        <div class="element">
+            <form th:action="@{/save-update(bookingId=${booking.getBookingId()})}" th:object="${booking}" method="post">
+                <input type="hidden" th:value="*{bookingId}" />
+                <input type="hidden" th:value="*{carId}" />
+                <input type="date" id="datefrom" th:field="*{bookingDateFrom}" placeholder="From" required />
+                <input type="date" id="dateto" th:field="*{bookingDateTo}" placeholder="To" required />
+                <button type="submit" class="confirm-button">Update Booking</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <span>Cars Booking</span>
+</footer>
+
+<script>
+    // Set min date to today for both inputs
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('datefrom').min = today;
+
+    // Update dateto min when datefrom changes
+    document.getElementById('datefrom').addEventListener('change', function() {
+        document.getElementById('dateto').min = this.value;
+    });
+</script>
+</body>
+</html>

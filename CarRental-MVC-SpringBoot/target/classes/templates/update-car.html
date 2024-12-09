@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin : Update cars info</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --primary-color: #ff4d4d;
+            --text-color: #333;
+            --background-color: #f4f4f4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .header {
+            background-color: var(--primary-color);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav a, .right {
+            color: white;
+            text-decoration: none;
+            margin-right: 1rem;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 2rem auto;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .confirm {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .element-customer form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .element-customer label {
+            margin-bottom: 1rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .element-customer input[type="text"] {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-top: 0.5rem;
+        }
+
+        .confirm-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 1rem;
+            width: 100%;
+        }
+
+        .confirm-button:hover {
+            background-color: #ff1a1a;
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<header class='header'>
+    <ul class='nav'>
+        <li><a th:href="@{/admin/vehicles}">Cars</a></li>
+    </ul>
+    <a th:href="@{/logout}" class="right">Logout</a>
+</header>
+
+<div class="container">
+    <div class="sub-container">
+        <div class="confirm">
+            <span>Update Car</span>
+        </div>
+        <div class="element-customer">
+            <form th:action="@{/save-cars}" th:object="${car}" method="post">
+                <input type="hidden" th:field="*{carId}" placeholder="Car Id" />
+
+                <label>Car Name:
+                    <input type="text" th:field="*{carName}" placeholder="Car Name" />
+                </label>
+
+                <label>Car Model:
+                    <input type="text" th:field="*{carModel}" placeholder="Model" />
+                </label>
+
+                <label>Car Price:
+                    <input type="text" th:field="*{carPrice}" placeholder="Price" />
+                </label>
+
+                <label>Car Image:
+                    <input type="text" th:field="*{carImage}" placeholder="Phone" />
+                </label>
+
+                <input type="hidden" th:field="*{carStatus}" placeholder="Status" />
+
+                <input class="confirm-button" type="submit" value="Update" />
+            </form>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <span>Cars Booking</span>
+</footer>
+</body>
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Easy Rent - Dashboard</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    body {
+      background-color: #f8f9fa;
+      min-height: 100vh;
+      display: flex;
+    }
+
+    /* Sidebar Styles */
+    .sidebar {
+      width: 250px;
+      background-color: white;
+      padding: 2rem 0;
+      border-right: 1px solid #e9ecef;
+      height: 100vh;
+      position: fixed;
+    }
+
+    .logo {
+      padding: 0 1.5rem;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .logo span:first-child {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .logo span:last-child {
+      color: #ff4d4d;
+      font-weight: 600;
+      font-size: 1.5rem;
+    }
+
+    .nav-links {
+      list-style: none;
+    }
+
+    .nav-links li {
+      margin-bottom: 0.5rem;
+    }
+
+    .nav-links a {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 1.5rem;
+      color: #6c757d;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .nav-links a:hover {
+      background-color: #f8f9fa;
+      color: #ff4d4d;
+    }
+
+    .nav-links a.active {
+      color: #ff4d4d;
+      background-color: #fff1f1;
+      border-right: 3px solid #ff4d4d;
+    }
+
+    .nav-divider {
+      height: 1px;
+      background-color: #e9ecef;
+      margin: 1rem 1.5rem;
+    }
+
+    /* Main Content Styles */
+    .main-content {
+      margin-left: 250px;
+      flex: 1;
+      padding: 2rem;
+    }
+
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      margin-bottom: 2rem;
+      color: #6c757d;
+    }
+
+    .breadcrumb a {
+      color: #6c757d;
+      text-decoration: none;
+    }
+
+    .page-title {
+      font-size: 1.5rem;
+      color: #333;
+      margin-bottom: 2rem;
+    }
+
+    /* Table Styles */
+    .container {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      padding: 1.5rem;
+    }
+
+    .table-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .table-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .add-button {
+      background-color: #ff4d4d;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+
+    .add-button:hover {
+      background-color: #ff3333;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th {
+      text-align: left;
+      padding: 1rem;
+      border-bottom: 2px solid #e9ecef;
+      color: #495057;
+      font-weight: 600;
+    }
+
+    td {
+      padding: 1rem;
+      border-bottom: 1px solid #e9ecef;
+      color: #6c757d;
+    }
+
+    .action-buttons a {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      margin-right: 0.5rem;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .action-buttons .update-btn {
+      color: #fff;
+      background-color: #28a745;
+    }
+
+    .action-buttons .delete-btn {
+      color: #fff;
+      background-color: #dc3545;
+    }
+
+    .action-buttons a:hover {
+      opacity: 0.9;
+    }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 250px;
+      right: 0;
+      padding: 1rem 2rem;
+      background-color: white;
+      border-top: 1px solid #e9ecef;
+      text-align: center;
+      color: #6c757d;
+    }
+  </style>
+</head>
+<body>
+<div class="sidebar">
+  <div class="logo">
+    <span>Easy</span>
+    <span>Rent.</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#" class="active">🚗 Gerer les voitures</a></li>
+      <li><a th:href="@{/admin/statistics}" class="active">📊 Statistiques</a></li>
+    <li><a th:href="@{/admin/customers}">👥 Customers</a></li>
+    <li><a th:href="@{/admin/booking-requests}">📅 Demandes de réservation</a></li> <!-- New button -->
+    <div class="nav-divider"></div>
+    <li><a th:href="@{/logout}">🚪 LogOut</a></li>
+  </ul>
+</div>
+
+<div class="main-content">
+  <div class="breadcrumb">
+    <a href="#">Home</a>
+    <span>&nbsp; / &nbsp;</span>
+    <span>Cars List</span>
+  </div>
+
+  <h1 class="page-title">Cars Management</h1>
+
+  <div class="container">
+    <div class="table-header">
+      <span class="table-title">Cars List</span>
+      <a th:href="@{/admin/add-vehicle}" class="add-button">Add New Car</a>
+    </div>
+
+    <table>
+      <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Model</th>
+        <th>Price</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <!-- admin-cars.html -->
+<tbody>
+    <tr th:each="car: ${carList}">
+        <td th:text="${car.getCarId()}"></td>
+        <td th:text="${car.getCarName()}"></td>
+        <td th:text="${car.getCarModel()}"></td>
+        <td th:text="${car.getCarPrice()}"></td>
+        <td th:text="${car.getCarStatus()}"></td> <!-- Display the status -->
+        <td class="action-buttons">
+            <a th:href="@{/admin/vehicle(carId=${car.getCarId()})}" class="update-btn">Update</a>
+            <a th:href="@{/delete-cars(carId=${car.getCarId()})}" class="delete-btn">Delete</a>
+        </td>
+    </tr>
+</tbody>
+    </table>
+  </div>
+</div>
+
+<footer>
+  <span>Cars Booking</span>
+</footer>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Détails de la Voiture</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .header {
+            background-color: #1e1e1e;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav a, .logout-btn {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+
+        .nav a:hover {
+            color: #4c6ef5;
+        }
+
+        .logout-btn {
+            background-color: #4c6ef5;
+            color: white;
+        }
+
+        .logout-btn:hover {
+            background-color: #364fc7;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            background-color: #2a2a2a;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        .car-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .car-details {
+            margin-top: 1rem;
+        }
+
+        .car-details h2 {
+            color: #4c6ef5;
+            margin-bottom: 1rem;
+        }
+
+        .car-details p {
+            margin-bottom: 0.5rem;
+        }
+
+        .rent-btn {
+            display: inline-block;
+            background-color: #4c6ef5;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .rent-btn:hover {
+            background-color: #364fc7;
+        }
+
+        footer {
+            background-color: #1e1e1e;
+            color: #ffffff;
+            text-align: center;
+            padding: 1rem;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+<header class="header">
+    <nav>
+        <ul class="nav">
+            <li><a th:href="@{/cars}">Home</a></li>
+            <li><a th:href="@{/orders(customerId=1)}">Orders</a></li>
+            <li><a th:href="@{/settings(customerId=1)}">Settings</a></li>
+        </ul>
+        <a th:href="@{/logout}" class="logout-btn">Logout</a>
+    </nav>
+</header>
+
+<div class="container">
+    <div class="car-image">
+        <img th:src="@{${car.carImage}}" alt="Image de la voiture">
+    </div>
+    <div class="car-details">
+        <h2 th:text="${car.carName}">Nom de la voiture</h2>
+        <p th:text="'Modèle: ' + ${car.carModel}">Modèle de la voiture</p>
+        <p th:text="'Type: ' + ${car.carType}">Type de la voiture</p>
+        <p th:text="'Prix: ' + ${car.carPrice} + ' MAD/jour'">Prix de la voiture</p>
+        <p th:text="'Statut: ' + (${car.carStatus} ? 'Disponible' : 'Indisponible')">Statut de la voiture</p>
+        <a th:href="@{/bookingform(carId=${car.carId})}" class="rent-btn">Louer</a>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2024 Cars Booking. All Rights Reserved.</p>
+</footer>
+</body>
+</html>

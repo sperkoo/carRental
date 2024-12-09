@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmer votre réservation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --primary-color: #ff4d4d;
+            --text-color: #333;
+            --background-color: #f4f4f4;
+            --border-color: #ddd;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            position: relative;
+            padding-bottom: 60px;
+        }
+
+        .header {
+            background-color: var(--primary-color);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .nav {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav a, .right {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav a:hover, .right:hover {
+            opacity: 0.8;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 3rem auto;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .confirm {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+            font-size: 1.75rem;
+            font-weight: bold;
+        }
+
+        .element form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .date-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .date-label {
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        input[type="date"] {
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            width: 100%;
+        }
+
+        input[type="date"]:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(255, 77, 77, 0.1);
+        }
+
+        .confirm-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            margin-top: 1rem;
+        }
+
+        .confirm-button:hover {
+            background-color: #ff3333;
+            transform: translateY(-1px);
+        }
+
+        .confirm-button:active {
+            transform: translateY(0);
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                margin: 2rem 1rem;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<header class='header'>
+    <ul class='nav'>
+        <li><a th:href="@{/cars}">Accueil</a></li>
+        <li><a th:href="@{/orders(customerId=1)}">Réservations</a></li>
+    </ul>
+    <a th:href="@{/logout}" class="right">Déconnexion</a>
+</header>
+
+<div class="container">
+    <div class="sub-container">
+        <div class="confirm">
+            <span>Confirmer votre réservation</span>
+        </div>
+        <div class="element">
+            <form th:action="@{/send-booking-request(carId=${booking.getCarId()})}" th:object="${booking}" method="post">
+            <input type="hidden" th:value="*{carId}" />
+
+                <div class="date-input-group">
+                    <label class="date-label" for="datefrom">Date de début:</label>
+                    <input type="date"
+                           id="datefrom"
+                           th:field="*{bookingDateFrom}"
+                           th:min="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"
+                           required />
+                </div>
+
+                <div class="date-input-group">
+                    <label class="date-label" for="dateto">Date de fin:</label>
+                    <input type="date"
+                           id="dateto"
+                           th:field="*{bookingDateTo}"
+                           th:min="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"
+                           required />
+                </div>
+
+                <button class="confirm-button" type="submit">Envoyer la demande</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <span>Location de Véhicules</span>
+</footer>
+
+<script>
+    // Ensure end date is not before start date
+    document.getElementById('datefrom').addEventListener('change', function() {
+        document.getElementById('dateto').min = this.value;
+    });
+
+    // Ensure start date is not after end date
+    document.getElementById('dateto').addEventListener('change', function() {
+        if(this.value < document.getElementById('datefrom').value) {
+            document.getElementById('datefrom').value = this.value;
+        }
+    });
+</script>
+</body>
+</html>

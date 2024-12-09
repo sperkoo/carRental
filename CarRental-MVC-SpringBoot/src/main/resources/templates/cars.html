@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Location de Véhicules</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --primary-color: #4c6ef5;
+            --text-color: #ffffff;
+            --background-color: #1a1a1a;
+            --card-background: #2a2a2a;
+            --input-background: #333333;
+            --hover-color: #364fc7;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .header {
+            background-color: #1e1e1e;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav a, .logout-btn {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+
+        .nav a:hover {
+            color: var(--primary-color);
+        }
+
+        .logout-btn {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .logout-btn:hover {
+            background-color: var(--hover-color);
+        }
+
+        .search-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            background-color: var(--card-background);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        .search-form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .search-form input,
+        .search-form select {
+            flex-grow: 1;
+            padding: 0.5rem;
+            background-color: var(--input-background);
+            border: 1px solid #444;
+            border-radius: 4px;
+            color: var(--text-color);
+        }
+
+        .search-form input::placeholder {
+            color: #888;
+        }
+
+        .search-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-btn:hover {
+            background-color: var(--hover-color);
+        }
+
+        .dynamic-search {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .dynamic-search input {
+            padding: 0.5rem;
+            background-color: var(--input-background);
+            border: 1px solid #444;
+            border-radius: 4px;
+            color: var(--text-color);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .cars-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .car-card {
+            background-color: var(--card-background);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            width: 300px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .car-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .car-image img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .car-details {
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .car-details h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .car-info {
+            margin-bottom: 1rem;
+        }
+
+        .rent-btn, .details-btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+            margin: 0.5rem;
+        }
+
+        .rent-btn:hover, .details-btn:hover {
+            background-color: var(--hover-color);
+        }
+
+        footer {
+            background-color: #1e1e1e;
+            color: var(--text-color);
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+<header class="header">
+    <nav>
+        <ul class="nav">
+            <li><a th:href="@{/cars}">Home</a></li>
+            <li><a th:href="@{/orders(customerId=1)}">Orders</a></li>
+            <li><a th:href="@{/settings(customerId=1)}">Settings</a></li>
+        </ul>
+        <a th:href="@{/logout}" class="logout-btn">Logout</a>
+    </nav>
+</header>
+
+<div class="search-container">
+    <form class="search-form" th:action="@{/search}" method="get">
+        <input type="date" name="start-date" placeholder="Date de début">
+        <input type="date" name="end-date" placeholder="Date de fin">
+        <select name="vehicle-type">
+            <option value="">Sélectionnez le type de véhicule</option>
+            <option value="compact">Compact</option>
+            <option value="sedan">Sedan</option>
+            <option value="suv">SUV</option>
+            <option value="luxe">Luxe</option>
+        </select>
+        <input type="number" name="min-price" placeholder="Prix min">
+        <input type="number" name="max-price" placeholder="Prix max">
+        <button type="submit" class="search-btn">Rechercher</button>
+    </form>
+    <div class="dynamic-search">
+        <input type="text" id="search-bar" placeholder="Rechercher par nom de voiture...">
+    </div>
+</div>
+
+<main class="cars-container" id="cars-container">
+    <div th:each="car : ${carList}" class="car-card">
+        <div class="car-image">
+            <img th:src="@{${car.carImage}}" alt="Image de la voiture">
+        </div>
+        <div class="car-details">
+            <h3 th:text="${car.carName}">Nom de la voiture</h3>
+            <p class="car-info" th:text="${car.carModel}">Modèle de la voiture</p>
+            <p class="car-info" th:text="${car.carPrice} + ' MAD/jour'">Prix de la voiture</p>
+            <a th:href="@{/bookingform(carId=${car.carId})}" class="rent-btn">Louer</a>
+            <a th:href="@{/car-details(carId=${car.carId})}" class="details-btn">Détails</a>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2024 Cars Booking. All Rights Reserved.</p>
+</footer>
+
+<script>
+    document.getElementById('search-bar').addEventListener('input', function() {
+        const searchQuery = this.value.toLowerCase();
+        const carCards = document.querySelectorAll('.car-card');
+
+        carCards.forEach(card => {
+            const carName = card.querySelector('.car-details h3').textContent.toLowerCase();
+            if (carName.includes(searchQuery)) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    });
+</script>
+</body>
+</html>

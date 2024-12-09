@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mes Réservations</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --primary-color: #ff4d4d;
+            --text-color: #333;
+            --background-color: #f4f4f4;
+            --card-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --border-radius: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            position: relative;
+            padding-bottom: 60px;
+        }
+
+        .header {
+            background-color: var(--primary-color);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .nav {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav a, .right {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav a:hover, .right:hover {
+            opacity: 0.8;
+        }
+
+        .item-main-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .item-container {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            display: flex;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .item-container:hover {
+            transform: translateY(-2px);
+        }
+
+        .image-div {
+            width: 300px;
+            min-width: 300px;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .item-container:hover .image {
+            transform: scale(1.05);
+        }
+
+        .details {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            flex-grow: 1;
+        }
+
+        .details strong {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .details strong:last-of-type {
+            margin-bottom: 1rem;
+        }
+
+        .rent-div {
+            display: flex;
+            gap: 1rem;
+            margin-top: auto;
+        }
+
+        .rent {
+            padding: 0.75rem 1.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+            text-align: center;
+            min-width: 120px;
+        }
+
+        .rent:hover {
+            background-color: #ff3333;
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .item-container {
+                flex-direction: column;
+            }
+
+            .image-div {
+                width: 100%;
+                height: 200px;
+            }
+
+            .details {
+                padding: 1rem;
+            }
+
+            .rent-div {
+                flex-direction: column;
+            }
+
+            .rent {
+                width: 100%;
+            }
+        }
+
+        /* Animation pour les nouveaux éléments */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .item-main-container {
+            animation: fadeIn 0.5s ease forwards;
+        }
+    </style>
+</head>
+<body>
+<header class='header'>
+    <ul class='nav'>
+        <li><a th:href="@{/cars}">Accueil</a></li>
+        <li><a th:href="@{/orders(customerId=1)}">Réservations</a></li>
+    </ul>
+    <a th:href="@{/logout}" class="right">Déconnexion</a>
+</header>
+
+<div th:each="booking : ${bookingList}">
+    <div class="item-main-container" th:if="${booking.status == 'Reserved'}">
+        <div class="item-container">
+            <div class="image-div">
+                <img class="image" th:src="@{${booking.image}}" alt="Véhicule"/>
+            </div>
+            <div class="details">
+                <strong>N° de réservation : <span th:text="${booking.bookingId}"></span></strong>
+                <strong>N° de véhicule : <span th:text="${booking.carId}"></span></strong>
+                <strong>N° de client : <span th:text="${booking.customerId}"></span></strong>
+                <strong>Date de début : <span th:text="${booking.bookingDateFrom}"></span></strong>
+                <strong>Date de fin : <span th:text="${booking.bookingDateTo}"></span></strong>
+                <strong>Prix par jour : <span th:text="${booking.priceDay} + ' MAD'"></span></strong>
+                <strong>Prix total : <span th:text="${booking.totalPrice} + ' MAD'"></span></strong>
+
+                <div class="rent-div">
+    <a class="rent" th:href="@{/update-booking(bookingId=${booking.bookingId})}">Modifier</a>
+    <form th:action="@{/return-car(bookingId=${booking.bookingId},carId=${booking.carId})}" th:object="${booking}" method="post">
+        <button class="rent" type="submit">Retourner</button>
+    </form>
+    <form th:action="@{/generate-invoice}" method="get" style="margin: 0;">
+        <input type="hidden" name="bookingId" th:value="${booking.bookingId}" />
+        <button type="submit" class="rent">Facture</button>
+    </form>
+</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <span>Location de Véhicules</span>
+</footer>
+</body>
+</html>
