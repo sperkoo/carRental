@@ -48,4 +48,12 @@ public class CarController {
         modelAndView.addObject("carList", carList);
         return modelAndView;
     }
+
+    @GetMapping("/cars/non-reserved")
+    public ModelAndView showNonReservedCars() {
+        ModelAndView modelAndView = new ModelAndView("cars");
+        List<Car> carList = carServices.findNonReservedCars(); // Fetch only non-reserved cars
+        modelAndView.addObject("carList", carList);
+        return modelAndView;
+    }
 }

@@ -13,4 +13,6 @@ public interface CarRepo extends JpaRepository<Car, Integer>, JpaSpecificationEx
     List<Car> findAllByCarStatus(String status);
     List<Car> findByCarStatusAndRentalDate(String carStatus, LocalDate rentalDate);
     int countByCarStatus(String status); // Add this method
+    List<Car> findByCarStatus(String status);
+
 }

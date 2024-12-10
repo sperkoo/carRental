@@ -229,6 +229,9 @@
 </div>
 
 <div class="all-cars-button-container">
+    <form th:action="@{/cars/non-reserved}" method="get">
+        <button type="submit" class="non-reserved-cars-btn">Show Non-Reserved Cars</button>
+    </form>
     <form th:action="@{/cars/all}" method="get">
         <button type="submit" class="all-cars-btn">Show All Cars</button>
     </form>

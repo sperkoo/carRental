@@ -1,3 +1,4 @@
+// CarService.java
 package com.cars.cars.Service;
 
 import com.cars.cars.Model.Car;
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CarService implements CarServices{
+public class CarService implements CarServices {
 
     @Autowired
     private CarRepo carRepo;
@@ -50,13 +51,15 @@ public class CarService implements CarServices{
         Car car;
         if (optional.isPresent()) {
             car = optional.get();
-        }
-        else {
-            throw new RuntimeException(
-                    "Car not found for id : " + carId);
+        } else {
+            throw new RuntimeException("Car not found for id : " + carId);
         }
         return car;
+    }
 
+    @Override
+    public List<Car> findNonReservedCars() {
+        return carRepo.findByCarStatus("Available"); // Fetch only non-reserved cars
     }
 
     @Override
@@ -68,6 +71,4 @@ public class CarService implements CarServices{
     public void DeleteCar(int carId) {
         carRepo.deleteById(carId);
     }
-
-
 }

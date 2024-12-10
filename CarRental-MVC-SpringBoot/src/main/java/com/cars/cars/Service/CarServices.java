@@ -13,4 +13,5 @@ public interface CarServices {
     void DeleteCar(int carId);
     List<Car> searchCars(Date startDate, Date endDate, String type, Integer minPrice, Integer maxPrice);
 
+    List<Car> findNonReservedCars();
 }
