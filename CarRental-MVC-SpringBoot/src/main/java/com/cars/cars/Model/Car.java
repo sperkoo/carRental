@@ -15,9 +15,11 @@ public class Car {
     private String carModel;
     private String carImage;
     private int carPrice;
-    private String carStatus; // available, reserved, or maintenance
+    private String carStatus;
     private String carType;
     private LocalDate rentalDate;
+    private LocalDate reservationStartDate;
+    private LocalDate reservationEndDate;
 
     public Car() {
     }

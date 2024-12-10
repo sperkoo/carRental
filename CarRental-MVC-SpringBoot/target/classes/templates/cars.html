@@ -187,6 +187,20 @@
             background-color: var(--hover-color);
         }
 
+        .car-image {
+            position: relative;
+        }
+
+        .badge {
+            background-color: #ff4d4d;
+            color: white;
+            padding: 0.5rem;
+            position: absolute;
+            top: 0;
+            right: 0;
+            border-radius: 0 0 0 8px;
+        }
+
         footer {
             background-color: #1e1e1e;
             color: var(--text-color);
@@ -241,6 +255,7 @@
     <div th:each="car : ${carList}" class="car-card">
         <div class="car-image">
             <img th:src="@{${car.carImage}}" alt="Image de la voiture">
+            <div th:if="${car.carStatus == 'Reserved'}" class="badge">Réservée</div>
         </div>
         <div class="car-details">
             <h3 th:text="${car.carName}">Nom de la voiture</h3>
