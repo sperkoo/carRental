@@ -40,4 +40,12 @@ public class CarController {
         modelAndView.addObject("car", car);
         return modelAndView;
     }
+
+    @GetMapping("/cars/all")
+    public ModelAndView showAllCars() {
+        ModelAndView modelAndView = new ModelAndView("cars");
+        List<Car> carList = carServices.GetAllCars(); // Fetch all cars, including reserved ones
+        modelAndView.addObject("carList", carList);
+        return modelAndView;
+    }
 }

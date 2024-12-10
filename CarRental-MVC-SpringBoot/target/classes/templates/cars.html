@@ -228,6 +228,12 @@
     </div>
 </div>
 
+<div class="all-cars-button-container">
+    <form th:action="@{/cars/all}" method="get">
+        <button type="submit" class="all-cars-btn">Show All Cars</button>
+    </form>
+</div>
+
 <main class="cars-container" id="cars-container">
     <div th:each="car : ${carList}" class="car-card">
         <div class="car-image">
