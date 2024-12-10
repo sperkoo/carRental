@@ -220,6 +220,10 @@
         <input type="hidden" name="bookingId" th:value="${booking.bookingId}" />
         <button type="submit" class="rent">Facture</button>
     </form>
+                    <form th:action="@{/pay}" method="post" style="margin: 0;">
+    <input type="hidden" name="bookingId" th:value="${booking.bookingId}" />
+    <button type="submit" class="rent">Pay</button>
+</form>
 </div>
             </div>
         </div>
