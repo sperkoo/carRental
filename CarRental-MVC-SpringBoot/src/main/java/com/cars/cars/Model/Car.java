@@ -18,8 +18,7 @@ public class Car {
     private String carStatus;
     private String carType;
     private LocalDate rentalDate;
-    private LocalDate reservationStartDate;
-    private LocalDate reservationEndDate;
+
 
     public Car() {
     }
@@ -97,4 +96,5 @@ public class Car {
     public void setRentalDate(LocalDate rentalDate) {
         this.rentalDate = rentalDate;
     }
+
 }

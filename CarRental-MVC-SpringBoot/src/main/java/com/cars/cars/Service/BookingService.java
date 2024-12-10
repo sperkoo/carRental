@@ -45,4 +45,9 @@ public class BookingService implements BookingServices {
     public List<Booking> findAllByStatus(String status) {
         return bookingRepo.findAllByStatus(status);
     }
+
+    @Override
+    public List<Booking> findAll() {
+        return bookingRepo.findAll();
+    }
 }

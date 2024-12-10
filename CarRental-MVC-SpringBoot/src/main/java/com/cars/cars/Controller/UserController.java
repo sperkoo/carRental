@@ -5,12 +5,14 @@ import com.cars.cars.Model.Car;
 import com.cars.cars.Model.Customer;
 import com.cars.cars.Service.BookingService;
 import com.cars.cars.Service.CarService;
+import com.cars.cars.Service.CarServices;
 import com.cars.cars.Service.CustomerService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,6 +37,9 @@ public class UserController {
     @Autowired
     private CustomerService customerService;
 
+    @Autowired
+    private CarServices carServices;
+
     private Integer getCurrentCustomerId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
@@ -50,32 +55,32 @@ public class UserController {
     }
 
     @PostMapping("/send-booking-request")
-public String sendBookingRequest(@ModelAttribute Booking booking, @RequestParam Integer carId) {
-    booking.setStatus("Pending");
-    booking.setCarId(carId);
-    booking.setCustomerId(getCurrentCustomerId());
+    public String sendBookingRequest(@ModelAttribute Booking booking, @RequestParam Integer carId) {
+        booking.setStatus("Pending");
+        booking.setCarId(carId);
+        booking.setCustomerId(getCurrentCustomerId());
 
-    Car car = carService.findCarById(carId);
-    booking.setPriceDay(car.getCarPrice());
-    booking.setImage(car.getCarImage());
-    car.setCarStatus("Maintenance"); // Set status to Maintenance
+        Car car = carService.findCarById(carId);
+        booking.setPriceDay(car.getCarPrice());
+        booking.setImage(car.getCarImage());
+        car.setCarStatus("Maintenance"); // Set status to Maintenance
 
-    LocalDate dateBefore = LocalDate.parse(booking.getBookingDateFrom());
-    LocalDate dateAfter = LocalDate.parse(booking.getBookingDateTo());
-    long noOfDaysBetween = ChronoUnit.DAYS.between(dateBefore, dateAfter);
-    if (noOfDaysBetween < 1) {
-        booking.setTotalPrice(car.getCarPrice());
-    } else {
-        booking.setTotalPrice(car.getCarPrice() * noOfDaysBetween);
+        LocalDate dateBefore = LocalDate.parse(booking.getBookingDateFrom());
+        LocalDate dateAfter = LocalDate.parse(booking.getBookingDateTo());
+        long noOfDaysBetween = ChronoUnit.DAYS.between(dateBefore, dateAfter);
+        if (noOfDaysBetween < 1) {
+            booking.setTotalPrice(car.getCarPrice());
+        } else {
+            booking.setTotalPrice(car.getCarPrice() * noOfDaysBetween);
+        }
+
+        carService.SaveCar(car);
+        bookingService.BookingSave(booking);
+        logger.info("User sent a booking request and car status set to Maintenance");
+        return "redirect:/user-cars";
     }
 
-    carService.SaveCar(car);
-    bookingService.BookingSave(booking);
-    logger.info("User sent a booking request and car status set to Maintenance");
-    return "redirect:/cars";
-}
-
-    @GetMapping("/cars")
+    @GetMapping("/user-cars")
     public ModelAndView GetAllCars(){
         ModelAndView modelAndView = new ModelAndView("cars");
         List<Car> carList = carService.findAllByCarStatusTrue();
@@ -98,7 +103,7 @@ public String sendBookingRequest(@ModelAttribute Booking booking, @RequestParam 
     public String UpdateUser(@ModelAttribute Customer customer) {
         customerService.SaveCustomer(customer);
         logger.info("User updated information");
-        return "redirect:/cars";
+        return "redirect:/user-cars";
     }
 
     @GetMapping("/orders")
@@ -144,7 +149,7 @@ public String sendBookingRequest(@ModelAttribute Booking booking, @RequestParam 
         carService.SaveCar(car);
         bookingService.BookingSave(booking);
         logger.info("User rented a car");
-        return "redirect:/cars";
+        return "redirect:/user-cars";
     }
 
     @GetMapping("/update-booking")
@@ -165,7 +170,7 @@ public String sendBookingRequest(@ModelAttribute Booking booking, @RequestParam 
         bookingService.DeleteBooking(booking1.getBookingId());
         carService.SaveCar(car);
         logger.info("User returned a car");
-        return "redirect:/cars";
+        return "redirect:/user-cars";
     }
 
     @PostMapping("/save-update")
@@ -184,7 +189,13 @@ public String sendBookingRequest(@ModelAttribute Booking booking, @RequestParam 
         booking1.setBookingDateTo(booking.getBookingDateTo());
         bookingService.BookingSave(booking1);
         logger.info("User updated booking");
-        return "redirect:/cars";
+        return "redirect:/user-cars";
     }
+
+//    @GetMapping("/user-cars")
+//    public String GetAllCars(Model model) {
+//        model.addAttribute("carList", carServices.GetAllCars());
+//        return "user-cars";
+//    }
 
 }

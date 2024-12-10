@@ -1,6 +1,8 @@
 package com.cars.cars.Controller;
 
+import com.cars.cars.Model.Booking;
 import com.cars.cars.Model.Car;
+import com.cars.cars.Service.BookingService;
 import com.cars.cars.Service.CarServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -18,6 +20,9 @@ public class CarController {
 
     @Autowired
     private CarServices carServices;
+
+    @Autowired
+    private BookingService bookingService;
 
     @GetMapping("/search")
     public String searchCars(
@@ -55,5 +60,14 @@ public class CarController {
         List<Car> carList = carServices.findNonReservedCars(); // Fetch only non-reserved cars
         modelAndView.addObject("carList", carList);
         return modelAndView;
+    }
+
+    @GetMapping("/cars")
+    public String showCars(Model model) {
+        List<Car> carList = carServices.GetAllCars();
+        List<Booking> bookingList = bookingService.findAll(); // Fetch all bookings
+        model.addAttribute("carList", carList);
+        model.addAttribute("bookingList", bookingList); // Add bookings to the model
+        return "cars";
     }
 }

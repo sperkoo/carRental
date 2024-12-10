@@ -9,6 +9,6 @@ public interface BookingServices {
     void BookingSave(Booking booking);
     Booking FindBooking(int bookingId);
     void DeleteBooking(int bookingId);
-
+    List<Booking> findAll();
 
 }
