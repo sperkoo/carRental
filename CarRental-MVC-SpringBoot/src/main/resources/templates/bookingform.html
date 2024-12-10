@@ -160,7 +160,7 @@
         </div>
         <div class="element">
             <form th:action="@{/send-booking-request(carId=${booking.getCarId()})}" th:object="${booking}" method="post">
-            <input type="hidden" th:value="*{carId}" />
+                <input type="hidden" th:value="*{carId}" />
 
                 <div class="date-input-group">
                     <label class="date-label" for="datefrom">Date de début:</label>
@@ -180,6 +180,8 @@
                            required />
                 </div>
 
+                <div th:if="errorMessage" style="color : red;">[[${errorMessage}]]</div>
+
                 <button class="confirm-button" type="submit">Envoyer la demande</button>
             </form>
         </div>
@@ -191,14 +193,27 @@
 </footer>
 
 <script>
-    // Ensure end date is not before start date
+    const futureBookings = /*[[${futureBookings}]]*/ [];
+
+    function validateBookingDates() {
+        const startDate = document.getElementById('datefrom').value;
+        const endDate = document.getElementById('dateto').value;
+
+        for (const booking of futureBookings) {
+            if ((startDate <= booking.bookingDateTo) && (endDate >= booking.bookingDateFrom)) {
+                document.getElementById('error-message').style.display = 'block';
+                return false;
+            }
+        }
+        return true;
+    }
+
     document.getElementById('datefrom').addEventListener('change', function() {
         document.getElementById('dateto').min = this.value;
     });
 
-    // Ensure start date is not after end date
     document.getElementById('dateto').addEventListener('change', function() {
-        if(this.value < document.getElementById('datefrom').value) {
+        if (this.value < document.getElementById('datefrom').value) {
             document.getElementById('datefrom').value = this.value;
         }
     });

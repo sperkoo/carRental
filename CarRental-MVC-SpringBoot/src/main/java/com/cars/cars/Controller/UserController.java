@@ -55,15 +55,24 @@ public class UserController {
     }
 
     @PostMapping("/send-booking-request")
-    public String sendBookingRequest(@ModelAttribute Booking booking, @RequestParam Integer carId) {
-        booking.setStatus("Pending");
+    public String sendBookingRequest(@ModelAttribute Booking booking, @RequestParam Integer carId, Model model) {
+
         booking.setCarId(carId);
         booking.setCustomerId(getCurrentCustomerId());
+
+        boolean isConflit = bookingService.isBookingConflict(booking.getCarId(), booking.getBookingDateFrom(), booking.getBookingDateTo());
+        if (isConflit) {
+            model.addAttribute("errorMessage", "Impossible de réserver dans cette date car la voiture est déjà réservée.");
+            model.addAttribute("booking", booking);
+            model.addAttribute("futureBookings", bookingService.findFutureBookingsByCarId(carId));
+            return "bookingform";
+        }
 
         Car car = carService.findCarById(carId);
         booking.setPriceDay(car.getCarPrice());
         booking.setImage(car.getCarImage());
         car.setCarStatus("Maintenance"); // Set status to Maintenance
+        booking.setStatus("Pending");
 
         LocalDate dateBefore = LocalDate.parse(booking.getBookingDateFrom());
         LocalDate dateAfter = LocalDate.parse(booking.getBookingDateTo());
@@ -116,17 +125,20 @@ public class UserController {
         return modelAndView;
     }
 
-    @GetMapping("/bookingform")
-    public ModelAndView BookingCar(@RequestParam Integer carId){
-        ModelAndView modelAndView = new ModelAndView("bookingform");
-        Car car = carService.findCarById(carId);
-        Booking booking = new Booking();
-        booking.setCarId(car.getCarId());
-        booking.setCustomerId(getCurrentCustomerId());
-        modelAndView.addObject("booking",booking);
-        logger.info("Some user trying to rent a car");
-        return modelAndView;
-    }
+    // src/main/java/com/cars/cars/Controller/UserController.java
+@GetMapping("/bookingform")
+public ModelAndView BookingCar(@RequestParam Integer carId){
+    ModelAndView modelAndView = new ModelAndView("bookingform");
+    Car car = carService.findCarById(carId);
+    Booking booking = new Booking();
+    booking.setCarId(car.getCarId());
+    booking.setCustomerId(getCurrentCustomerId());
+    List<Booking> futureBookings = bookingService.findFutureBookingsByCarId(carId);
+    modelAndView.addObject("booking", booking);
+    modelAndView.addObject("futureBookings", futureBookings);
+    logger.info("Some user trying to rent a car");
+    return modelAndView;
+}
 
     @PostMapping("/save-booking")
     public String SaveBooking(@ModelAttribute Booking booking, @RequestParam Integer carId){
@@ -197,5 +209,7 @@ public class UserController {
 //        model.addAttribute("carList", carServices.GetAllCars());
 //        return "user-cars";
 //    }
+
+
 
 }

@@ -55,4 +55,15 @@ public List<Booking> findFutureBookingsByCarId(int carId) {
     public List<Booking> findAllByStatus(String status) {
         return bookingRepo.findAllByStatus(status); // Add this line
     }
+
+// src/main/java/com/cars/cars/Service/BookingService.java
+public boolean isBookingConflict(int carId, String startDate, String endDate) {
+    List<Booking> futureBookings = bookingRepo.findFutureBookingsByCarId(carId);
+    for (Booking booking : futureBookings) {
+        if ((startDate.compareTo(booking.getBookingDateTo()) <= 0) && (endDate.compareTo(booking.getBookingDateFrom()) >= 0)) {
+            return true;
+        }
+    }
+    return false;
+}
 }
