@@ -19,13 +19,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("User").password(passwordEncoder().encode("User")).roles("USER")
-                .and()
-                .withUser("Admin").password(passwordEncoder().encode("Admin")).roles("ADMIN")
-                .and()
-                .and()
-                .userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
     @Bean
@@ -40,16 +34,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/cars").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/orders/**").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/bookingform/**").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/admin/add-vehicle").hasAnyRole("ADMIN")
-                .antMatchers("/new-customer/**").hasAnyRole("ADMIN")
+                .antMatchers("/admin/add-vehicle").hasRole("ADMIN")
+                .antMatchers("/new-customer/**").hasRole("ADMIN")
                 .antMatchers("/update-booking/**").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/update-car/**").hasAnyRole("ADMIN")
-                .antMatchers("/update-customer/**").hasAnyRole("ADMIN")
-                .antMatchers("/error-delete").hasAnyRole("ADMIN")
-                .antMatchers("/customers/**").hasAnyRole("ADMIN")
-                .antMatchers("/admin/**").hasAnyRole("ADMIN")
-                .antMatchers("/admin/vehicles").hasAnyRole("ADMIN")
-                .antMatchers("/admin/customers").hasAnyRole("ADMIN")
+                .antMatchers("/update-car/**").hasRole("ADMIN")
+                .antMatchers("/update-customer/**").hasRole("ADMIN")
+                .antMatchers("/error-delete").hasRole("ADMIN")
+                .antMatchers("/customers/**").hasRole("ADMIN")
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/admin/vehicles").hasRole("ADMIN")
+                .antMatchers("/admin/customers").hasRole("ADMIN")
                 .and()
                 .formLogin()
                 .loginPage("/login")

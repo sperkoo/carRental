@@ -115,7 +115,6 @@ public String rejectBooking(@RequestParam Integer bookingId) {
     return "redirect:/admin/booking-requests";
 }
 
-
     @GetMapping("/admin/vehicles")
     public ModelAndView GetAllCarsForAdmin(){
         ModelAndView modelAndView = new ModelAndView("admin-cars");
@@ -205,6 +204,23 @@ public ModelAndView getBookingRequests() {
         modelAndView.addObject("customer",customer);
         logger.info("Admin trying to add  a new customer");
         return modelAndView;
+    }
+
+    @GetMapping("/admin/add-admin")
+    public ModelAndView addAdmin() {
+        ModelAndView modelAndView = new ModelAndView("new-admin");
+        Customer customer = new Customer();
+        modelAndView.addObject("customer", customer);
+        logger.info("Admin trying to add a new admin");
+        return modelAndView;
+    }
+
+    @PostMapping("/save-admin")
+    public String saveAdmin(@ModelAttribute Customer customer, RedirectAttributes redirectAttributes) {
+        customer.setRole("ADMIN"); // Set role to ADMIN
+        customerService.SaveCustomer(customer);
+        redirectAttributes.addFlashAttribute("successMessage", "Admin successfully added!");
+        return "redirect:/admin/vehicles";
     }
 
 

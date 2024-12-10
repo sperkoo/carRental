@@ -17,11 +17,12 @@ public class Customer {
     private String customerPhone;
     private String customerUserName;
     private String customerPassword;
+    private String role; // New attribute
 
     public Customer() {
     }
 
-    public Customer(int customerId, String customerFirstName, String customerLastName, String customerAddress, String customerEmail, String customerPhone, String customerUserName, String customerPassword) {
+    public Customer(int customerId, String customerFirstName, String customerLastName, String customerAddress, String customerEmail, String customerPhone, String customerUserName, String customerPassword, String role) {
         this.customerId = customerId;
         this.customerFirstName = customerFirstName;
         this.customerLastName = customerLastName;
@@ -30,8 +31,16 @@ public class Customer {
         this.customerPhone = customerPhone;
         this.customerUserName = customerUserName;
         this.customerPassword = customerPassword;
+        this.role = role;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
     public int getCustomerId() {
         return customerId;
     }

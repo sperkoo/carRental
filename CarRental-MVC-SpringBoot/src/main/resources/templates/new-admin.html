@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin : add a new admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Styles similaires à new-customer.html */
+    </style>
+</head>
+<body>
+<header class='header'>
+    <ul class='nav'>
+        <li><a th:href="@{/admin/customers}">Cars</a></li>
+    </ul>
+    <a th:href="@{/logout}" class="right">Logout</a>
+</header>
+
+<div class="container">
+    <div class="sub-container">
+        <div class="confirm">
+            <span>New Admin</span>
+        </div>
+        <div class="element-customer">
+            <form th:action="@{/save-admin}" th:object="${customer}" method="post">
+                <label>First Name:
+                    <input type="text" th:field="*{customerFirstName}" placeholder="First Name" />
+                </label>
+                <label>Last Name:
+                    <input type="text" th:field="*{customerLastName}" placeholder="Last Name" />
+                </label>
+                <label>Address:
+                    <input type="text" th:field="*{customerAddress}" placeholder="Address" />
+                </label>
+                <label>Email:
+                    <input type="text" th:field="*{customerEmail}" placeholder="Email" />
+                </label>
+                <label>Phone:
+                    <input type="text" th:field="*{customerPhone}" placeholder="Phone" />
+                </label>
+                <label>Username:
+                    <input type="text" th:field="*{customerUserName}" placeholder="Username" />
+                </label>
+                <label>Password:
+                    <input type="password" th:field="*{customerPassword}" placeholder="Password" />
+                </label>
+                <input type="hidden" th:field="*{customerId}" placeholder="Id" />
+                <input type="hidden" th:field="*{role}" value="ADMIN" /> <!-- Set role to ADMIN -->
+
+                <input class="confirm-button" type="submit" value="Add Admin" />
+            </form>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <span>Cars Booking</span>
+</footer>
+</body>
+</html>
