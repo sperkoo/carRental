@@ -38,13 +38,15 @@ public class CarController {
         return "cars";
     }
 
-    @GetMapping("/car-details")
-    public ModelAndView getCarDetails(@RequestParam Integer carId) {
-        ModelAndView modelAndView = new ModelAndView("car-details");
-        Car car = carServices.findCarById(carId);
-        modelAndView.addObject("car", car);
-        return modelAndView;
-    }
+@GetMapping("/car-details")
+public ModelAndView getCarDetails(@RequestParam Integer carId) {
+    ModelAndView modelAndView = new ModelAndView("car-details");
+    Car car = carServices.findCarById(carId);
+    List<Booking> futureBookings = bookingService.findFutureBookingsByCarId(carId); // Ajoutez cette ligne
+    modelAndView.addObject("car", car);
+    modelAndView.addObject("futureBookings", futureBookings); // Ajoutez cette ligne
+    return modelAndView;
+}
 
     @GetMapping("/cars/all")
     public ModelAndView showAllCars() {

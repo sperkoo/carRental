@@ -258,7 +258,6 @@
             <img th:src="@{${car.carImage}}" alt="Image de la voiture">
             <div th:if="${car.carStatus == 'Reserved'}" class="badge">
                 Réservée<br>
-                <span th:each="booking : ${bookingList}" th:if="${booking.carId == car.carId}" th:text="'Du ' + ${booking.bookingDateFrom} + ' au ' + ${booking.bookingDateTo}"></span>
             </div>
         </div>
         <div class="car-details">

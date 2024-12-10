@@ -132,6 +132,12 @@
         <p th:text="'Statut: ' + (${car.carStatus} ? 'Disponible' : 'Indisponible')">Statut de la voiture</p>
         <a th:href="@{/bookingform(carId=${car.carId})}" class="rent-btn">Louer</a>
     </div>
+    <div class="future-bookings">
+    <h2>Futures Réservations</h2>
+    <ul>
+        <li th:each="booking : ${futureBookings}" th:text="'Du ' + ${booking.bookingDateFrom} + ' au ' + ${booking.bookingDateTo}"></li>
+    </ul>
+</div>
 </div>
 
 <footer>

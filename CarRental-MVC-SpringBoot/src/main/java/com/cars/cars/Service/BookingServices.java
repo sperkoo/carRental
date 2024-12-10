@@ -10,5 +10,7 @@ public interface BookingServices {
     Booking FindBooking(int bookingId);
     void DeleteBooking(int bookingId);
     List<Booking> findAll();
+    List<Booking> findFutureBookingsByCarId(int carId); // Add this line
 
+    List<Booking> findAllByStatus(String status);
 }

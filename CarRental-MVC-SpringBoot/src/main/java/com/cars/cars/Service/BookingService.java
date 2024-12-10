@@ -31,8 +31,7 @@ public class BookingService implements BookingServices {
         if (optional.isPresent()) {
             booking = optional.get();
         } else {
-            throw new RuntimeException(
-                    "Car not found for id : " + bookingId);
+            throw new RuntimeException("Car not found for id : " + bookingId);
         }
         return booking;
     }
@@ -42,12 +41,18 @@ public class BookingService implements BookingServices {
         bookingRepo.deleteById(bookingId);
     }
 
-    public List<Booking> findAllByStatus(String status) {
-        return bookingRepo.findAllByStatus(status);
-    }
-
     @Override
     public List<Booking> findAll() {
         return bookingRepo.findAll();
+    }
+
+    @Override
+public List<Booking> findFutureBookingsByCarId(int carId) {
+    return bookingRepo.findFutureBookingsByCarId(carId);
+}
+
+    @Override
+    public List<Booking> findAllByStatus(String status) {
+        return bookingRepo.findAllByStatus(status); // Add this line
     }
 }
