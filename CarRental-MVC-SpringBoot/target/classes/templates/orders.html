@@ -222,7 +222,9 @@
     </form>
                     <form th:action="@{/pay}" method="post" style="margin: 0;">
     <input type="hidden" name="bookingId" th:value="${booking.bookingId}" />
+    <input type="hidden" name="totalPrice" th:value="${booking.totalPrice}" />
     <button type="submit" class="rent">Pay</button>
+</form>
 </form>
 </div>
             </div>

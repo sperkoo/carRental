@@ -18,16 +18,16 @@ public class PayPalController {
     private PayPalService payPalService;
 
     @PostMapping("/pay")
-    public RedirectView pay(@RequestParam("bookingId") Long bookingId) {
+    public RedirectView pay(@RequestParam("bookingId") Long bookingId, @RequestParam("totalPrice") Double totalPrice) {
         try {
             Payment payment = payPalService.createPayment(
-                10.00, // Example amount
-                "USD",
-                "paypal",
-                "sale",
-                "Payment description",
-                "http://localhost:8080/cancel",
-                "http://localhost:8080/success"
+                    totalPrice/10, // Use the totalPrice from the request
+                    "USD",
+                    "paypal",
+                    "sale",
+                    "Payment description",
+                    "http://localhost:8080/cancel",
+                    "http://localhost:8080/success"
             );
             for (Links link : payment.getLinks()) {
                 if (link.getRel().equals("approval_url")) {
