@@ -8,6 +8,8 @@ import com.cars.cars.Service.CarService;
 import com.cars.cars.Service.CustomerService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
@@ -223,6 +225,21 @@ public ModelAndView getBookingRequests() {
         return "redirect:/admin/vehicles";
     }
 
+    @GetMapping("/admin/profile")
+    public ModelAndView getAdminProfile() {
+        Integer adminId = getCurrentAdminId();
+        ModelAndView modelAndView = new ModelAndView("admin-profile");
+        Customer admin = customerService.FindCustomerById(adminId);
+        modelAndView.addObject("customer", admin);
+        return modelAndView;
+    }
+
+    @PostMapping("/update-admin")
+public String updateAdmin(@ModelAttribute Customer customer) {customer.setRole("ADMIN");
+    customerService.SaveCustomer(customer);
+    return "redirect:/admin/profile?success=Updated successfully";
+}
+
 
     @PostMapping("/save-cars")
 public String saveCar(
@@ -263,6 +280,14 @@ public String saveCar(
         return "redirect:/admin/add-vehicle";
     }
 }
+
+
+    private Integer getCurrentAdminId() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Customer admin = customerService.findByCustomerUserName(username);
+        return admin.getCustomerId();
+    }
 
 
 }
