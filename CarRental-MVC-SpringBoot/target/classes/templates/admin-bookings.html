@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Easy Rent - Bookings</title>
+  <style>
+    /* Ajoutez ici vos styles CSS */
+  </style>
+</head>
+<body>
+<div class="main-content">
+  <div class="breadcrumb">
+    <a href="#">Home</a>
+    <span>&nbsp; / &nbsp;</span>
+    <span>Bookings List</span>
+  </div>
+
+  <h1 class="page-title">Bookings Management</h1>
+
+  <div class="container">
+    <div class="table-header">
+      <span class="table-title">Bookings List</span>
+    </div>
+
+    <table>
+      <thead>
+      <tr>
+        <th>Booking ID</th>
+        <th>Car ID</th>
+        <th>Customer ID</th>
+        <th>Booking Date From</th>
+        <th>Booking Date To</th>
+        <th>Total Price</th>
+        <th>Status</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="booking : ${bookingList}">
+        <td th:text="${booking.bookingId}"></td>
+        <td th:text="${booking.carId}"></td>
+        <td th:text="${booking.customerId}"></td>
+        <td th:text="${booking.bookingDateFrom}"></td>
+        <td th:text="${booking.bookingDateTo}"></td>
+        <td th:text="${booking.totalPrice}"></td>
+        <td th:text="${booking.status}"></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</body>
+</html>

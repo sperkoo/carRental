@@ -217,6 +217,15 @@ public ModelAndView getBookingRequests() {
         return modelAndView;
     }
 
+    @GetMapping("/admin/bookings")
+    public ModelAndView getAllBookings() {
+        ModelAndView modelAndView = new ModelAndView("admin-bookings");
+        List<Booking> bookingList = bookingService.findAll();
+        modelAndView.addObject("bookingList", bookingList);
+        logger.info("Admin viewing all bookings");
+        return modelAndView;
+    }
+
     @PostMapping("/save-admin")
     public String saveAdmin(@ModelAttribute Customer customer, RedirectAttributes redirectAttributes) {
         customer.setRole("ADMIN"); // Set role to ADMIN
