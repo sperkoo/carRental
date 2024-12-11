@@ -71,4 +71,10 @@ public class CarService implements CarServices {
     public void DeleteCar(int carId) {
         carRepo.deleteById(carId);
     }
+
+    public void updateCarStatus(Integer carId, String status) {
+    Car car = carRepo.findById(carId).orElseThrow(() -> new IllegalArgumentException("Invalid car Id:" + carId));
+    car.setCarStatus(status);
+    carRepo.save(car);
 }
+}c

@@ -1,5 +1,9 @@
 package com.cars.cars.Controller;
 
+import com.cars.cars.Model.Booking;
+import com.cars.cars.Model.Car;
+import com.cars.cars.Service.BookingService;
+import com.cars.cars.Service.CarService;
 import com.cars.cars.Service.PayPalService;
 import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Payment;
@@ -17,17 +21,23 @@ public class PayPalController {
     @Autowired
     private PayPalService payPalService;
 
+    @Autowired
+    private BookingService bookingService;
+
+    @Autowired
+    private CarService carService;
+
     @PostMapping("/pay")
     public RedirectView pay(@RequestParam("bookingId") Long bookingId, @RequestParam("totalPrice") Double totalPrice) {
         try {
             Payment payment = payPalService.createPayment(
-                    totalPrice/10, // Use the totalPrice from the request
+                    totalPrice / 10, // Use the totalPrice from the request
                     "USD",
                     "paypal",
                     "sale",
                     "Payment description",
                     "http://localhost:8080/cancel",
-                    "http://localhost:8080/success"
+                    "http://localhost:8080/success?bookingId=" + bookingId
             );
             for (Links link : payment.getLinks()) {
                 if (link.getRel().equals("approval_url")) {
@@ -46,7 +56,11 @@ public class PayPalController {
     }
 
     @GetMapping("/success")
-    public String successPay() {
+    public String successPay(@RequestParam("bookingId") Long bookingId) {
+        Booking booking = bookingService.FindBooking(Math.toIntExact(bookingId));
+        Car car = carService.findCarById(booking.getCarId());
+        car.setCarStatus("Payed");
+        carService.SaveCar(car);
         return "success";
     }
 }
