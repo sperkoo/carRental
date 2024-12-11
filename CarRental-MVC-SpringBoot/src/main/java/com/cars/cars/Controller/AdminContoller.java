@@ -235,10 +235,11 @@ public ModelAndView getBookingRequests() {
     }
 
     @PostMapping("/update-admin")
-public String updateAdmin(@ModelAttribute Customer customer) {customer.setRole("ADMIN");
-    customerService.SaveCustomer(customer);
-    return "redirect:/admin/profile?success=Updated successfully";
-}
+    public String updateAdmin(@ModelAttribute Customer customer) {
+        customer.setRole("ADMIN");
+        customerService.SaveCustomer(customer);
+        return "redirect:/admin/vehicles"; // Redirect to admin-cars page
+    }
 
 
     @PostMapping("/save-cars")
