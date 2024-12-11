@@ -109,16 +109,12 @@ public class UserController {
     }
 
     // UserController.java
-@PostMapping("/update-user")
-public String UpdateUser(@ModelAttribute Customer customer, Model model) {
-    if (!customerService.isUsernameUnique(customer.getCustomerUserName())) {
-        model.addAttribute("errorMessage", "Username already exists. Please choose a different username.");
-        return "settings"; // Return to the settings page with an error message
+    @PostMapping("/update-user")
+    public String UpdateUser(@ModelAttribute Customer customer, Model model) {
+        customerService.SaveCustomer(customer);
+        logger.info("User updated information");
+        return "redirect:/user-cars";
     }
-    customerService.SaveCustomer(customer);
-    logger.info("User updated information");
-    return "redirect:/user-cars";
-}
 
     @GetMapping("/orders")
     public ModelAndView GetMyOrders(){

@@ -26,26 +26,25 @@ public class CustomerService implements CustomerServices {
         if (optional.isPresent()) {
             customer = optional.get();
         } else {
-            throw new RuntimeException("Customer not found for id : " + customerId);
+            // Handle the case where the customer is not found
+            throw new RuntimeException("Customer not found for id :: " + customerId);
         }
         return customer;
     }
 
     @Override
-    public Customer findByCustomerUserName(String username) {
-        return customerRepo.findByCustomerUserName(username);
+public Customer findByCustomerUserName(String username) {
+    List<Customer> customers = customerRepo.findByCustomerUserName(username);
+    if (customers.isEmpty()) {
+        throw new RuntimeException("Customer not found for username :: " + username);
     }
-
+    // Assuming the first customer in the list is the one to return
+    return customers.get(0);
+}
     @Override
     public void SaveCustomer(Customer customer) {
         customerRepo.save(customer);
     }
-
-    // CustomerService.java
-public boolean isUsernameUnique(String username) {
-    Customer existingCustomer = customerRepo.findByCustomerUserName(username);
-    return existingCustomer == null;
-}
 
     @Override
     public void DeleteCustomer(Customer customer) {

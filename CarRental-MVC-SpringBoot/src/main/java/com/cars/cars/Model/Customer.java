@@ -12,7 +12,6 @@ public class Customer {
     private String customerAddress;
     private String customerEmail;
     private String customerPhone;
-    @Column(unique = true)
     private String customerUserName;
     private String customerPassword;
     private String role; // New attribute
