@@ -1595,3 +1595,14 @@
 2024-12-11 21:29:46,816 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
 2024-12-11 21:29:52,593 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
 2024-12-11 21:29:53,771 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-11 21:31:23,971 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-11 21:31:42,177 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-11 21:31:45,780 * INFO * com.cars.cars.Controller.UserController * GetMyOrders * User viewing orders
+2024-12-11 21:32:10,523 * INFO * com.cars.cars.Controller.UserController * GetMyOrders * User viewing orders
+2024-12-11 21:40:01,799 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-11 21:40:18,283 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-11 21:40:22,407 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-11 21:40:23,601 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-11 21:41:15,073 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-11 21:41:16,351 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-11 21:41:23,262 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars

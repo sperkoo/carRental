@@ -19,7 +19,7 @@ public class CarRentalService {
     }
 
     public int getTotalAmount() {
-        List<Car> reservedCars = carRepo.findAllByCarStatus("Reserved");
+        List<Car> reservedCars = carRepo.findAllByCarStatus("Payed");
         return reservedCars.stream().mapToInt(Car::getCarPrice).sum();
     }
 
