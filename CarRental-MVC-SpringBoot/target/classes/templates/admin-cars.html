@@ -109,6 +109,35 @@
             font-size: 1.5rem;
             color: #333333;
             margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .search-form {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-input {
+            padding: 0.5rem;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            margin-right: 0.5rem;
+        }
+
+        .search-button {
+            padding: 0.5rem 1rem;
+            background-color: #ff4d4d;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .search-button:hover {
+            background-color: #ff3333;
         }
 
         /* Car List Styles */
@@ -230,8 +259,13 @@
             <span>&nbsp; / &nbsp;</span>
             <span>Cars List</span>
         </div>
-        <h1 class="page-title">Cars Management</h1>
-        <div class="car-list">
+        <div class="page-title">
+            <h1>Cars Management</h1>
+            <form class="search-form">
+                <input type="text" id="search-bar" class="search-input" placeholder="Search by car name">
+            </form>
+        </div>
+        <div class="car-list" id="car-list">
             <div class="car-card" th:each="car: ${carList}">
                 <div class="car-image">
                     <img th:src="@{${car.carImage}}" alt="Image de la voiture">
@@ -253,5 +287,21 @@
 <footer>
     <span>Cars Booking</span>
 </footer>
+
+<script>
+    document.getElementById('search-bar').addEventListener('input', function() {
+        const searchQuery = this.value.toLowerCase();
+        const carCards = document.querySelectorAll('.car-card');
+
+        carCards.forEach(card => {
+            const carName = card.querySelector('.car-name').textContent.toLowerCase();
+            if (carName.includes(searchQuery)) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    });
+</script>
 </body>
 </html>
