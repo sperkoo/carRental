@@ -1437,3 +1437,76 @@
 2024-12-11 17:57:54,531 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
 2024-12-11 17:57:59,749 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
 2024-12-11 17:58:09,742 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-11 17:59:47,127 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-11 17:59:48,003 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-11 17:59:55,708 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-11 18:01:18,376 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-11 18:01:34,794 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-11 18:01:38,464 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-11 18:01:43,095 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-11 18:01:45,755 * ERROR * com.cars.cars.Controller.UserController * getCurrentAdminId * Admin not found for username: root
+2024-12-11 18:01:48,132 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-11 18:01:49,209 * ERROR * com.cars.cars.Controller.UserController * getCurrentAdminId * Admin not found for username: root
+2024-12-11 18:01:49,852 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-11 18:01:50,873 * INFO * com.cars.cars.Controller.UserController * addAdmin * Admin trying to add a new admin
+2024-12-11 18:01:51,664 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-11 18:01:53,109 * ERROR * com.cars.cars.Controller.UserController * getCurrentAdminId * Admin not found for username: root
+2024-12-11 18:01:54,629 * ERROR * com.cars.cars.Controller.UserController * getCurrentAdminId * Admin not found for username: root
+2024-12-11 18:01:55,037 * ERROR * com.cars.cars.Controller.UserController * getCurrentAdminId * Admin not found for username: root
+2024-12-11 18:01:55,221 * ERROR * com.cars.cars.Controller.UserController * getCurrentAdminId * Admin not found for username: root
+2024-12-11 18:01:55,767 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-11 18:01:56,223 * ERROR * com.cars.cars.Controller.UserController * getCurrentAdminId * Admin not found for username: root
+2024-12-11 18:01:57,136 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-11 18:01:58,144 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-11 18:02:04,677 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-11 18:02:07,147 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-11 18:02:11,865 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-11 18:02:17,840 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-11 18:02:26,033 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-11 18:02:27,086 * ERROR * com.cars.cars.Controller.UserController * getCurrentAdminId * Admin not found for username: root1
+2024-12-11 18:02:27,914 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-11 18:02:29,353 * ERROR * com.cars.cars.Controller.UserController * getCurrentAdminId * Admin not found for username: root1
+2024-12-11 18:02:29,949 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-11 18:02:33,556 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-11 18:03:03,576 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-11 18:03:05,879 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-11 18:03:11,769 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-11 18:03:18,662 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-11 18:04:55,879 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-11 18:05:05,749 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-11 18:05:07,672 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-11 18:05:16,158 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-11 18:05:18,995 * ERROR * com.cars.cars.Controller.UserController * getCurrentAdminId * Admin not found for username: root2
+2024-12-11 18:06:25,972 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-11 18:06:28,206 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-11 18:06:32,035 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-11 18:06:34,170 * ERROR * com.cars.cars.Controller.UserController * getCurrentAdminId * Admin not found for username: root
+2024-12-11 18:06:42,655 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-11 18:06:43,889 * ERROR * com.cars.cars.Controller.UserController * getCurrentAdminId * Admin not found for username: root
+2024-12-11 18:06:44,600 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-11 18:07:34,303 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-11 18:07:37,561 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-11 18:07:38,537 * INFO * com.cars.cars.Controller.UserController * getCurrentAdminId * Admin found: 23
+2024-12-11 18:07:41,823 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-11 18:07:43,940 * ERROR * com.cars.cars.Controller.UserController * getCurrentAdminId * Admin not found for username: root1
+2024-12-11 18:07:47,982 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-11 18:08:14,866 * ERROR * com.cars.cars.Controller.UserController * getCurrentAdminId * Admin not found for username: root1
+2024-12-11 18:08:15,720 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-11 18:08:18,289 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-11 18:08:21,254 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-11 18:08:23,691 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-11 18:08:24,607 * INFO * com.cars.cars.Controller.UserController * getCurrentAdminId * Admin found: 23
+2024-12-11 18:10:52,644 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-11 18:10:55,959 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-11 18:10:58,057 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-11 18:10:59,057 * INFO * com.cars.cars.Controller.UserController * getCurrentAdminId * Admin found: 23
+2024-12-11 18:11:03,623 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-11 18:11:05,069 * ERROR * com.cars.cars.Controller.UserController * getCurrentAdminId * Admin not found for username: root
+2024-12-11 18:11:06,161 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-11 18:11:12,949 * ERROR * com.cars.cars.Controller.UserController * getCurrentAdminId * Admin not found for username: root
+2024-12-11 18:11:13,844 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-11 18:11:15,023 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-11 18:11:20,554 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-11 18:11:22,393 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-11 18:11:23,613 * INFO * com.cars.cars.Controller.UserController * getCurrentAdminId * Admin found: 23
+2024-12-11 18:11:37,169 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars

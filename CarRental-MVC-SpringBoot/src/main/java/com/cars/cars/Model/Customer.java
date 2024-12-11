@@ -1,9 +1,6 @@
 package com.cars.cars.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Customer {
@@ -15,6 +12,7 @@ public class Customer {
     private String customerAddress;
     private String customerEmail;
     private String customerPhone;
+    @Column(unique = true)
     private String customerUserName;
     private String customerPassword;
     private String role; // New attribute

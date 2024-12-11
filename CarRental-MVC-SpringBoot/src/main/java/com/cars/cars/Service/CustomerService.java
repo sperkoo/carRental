@@ -41,6 +41,12 @@ public class CustomerService implements CustomerServices {
         customerRepo.save(customer);
     }
 
+    // CustomerService.java
+public boolean isUsernameUnique(String username) {
+    Customer existingCustomer = customerRepo.findByCustomerUserName(username);
+    return existingCustomer == null;
+}
+
     @Override
     public void DeleteCustomer(Customer customer) {
         customerRepo.delete(customer);

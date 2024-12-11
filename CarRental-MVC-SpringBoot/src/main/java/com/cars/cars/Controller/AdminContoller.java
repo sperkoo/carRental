@@ -226,13 +226,17 @@ public ModelAndView getBookingRequests() {
     }
 
     @GetMapping("/admin/profile")
-    public ModelAndView getAdminProfile() {
-        Integer adminId = getCurrentAdminId();
-        ModelAndView modelAndView = new ModelAndView("admin-profile");
-        Customer admin = customerService.FindCustomerById(adminId);
-        modelAndView.addObject("customer", admin);
-        return modelAndView;
+public ModelAndView getAdminProfile() {
+    Integer adminId = getCurrentAdminId();
+    if (adminId == null) {
+        return new ModelAndView("error-page").addObject("errorMessage", "Admin not found or not authenticated");
     }
+
+    ModelAndView modelAndView = new ModelAndView("admin-profile");
+    Customer admin = customerService.FindCustomerById(adminId);
+    modelAndView.addObject("customer", admin);
+    return modelAndView;
+}
 
     @PostMapping("/update-admin")
     public String updateAdmin(@ModelAttribute Customer customer) {
@@ -284,11 +288,27 @@ public String saveCar(
 
 
     private Integer getCurrentAdminId() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        Customer admin = customerService.findByCustomerUserName(username);
-        return admin.getCustomerId();
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    if (authentication == null || !authentication.isAuthenticated()) {
+        logger.error("Authentication is null or not authenticated");
+        return null;
     }
+
+    String username = authentication.getName();
+    if (username == null) {
+        logger.error("Username is null");
+        return null;
+    }
+
+    Customer admin = customerService.findByCustomerUserName(username);
+    if (admin == null) {
+        logger.error("Admin not found for username: " + username);
+        return null;
+    }
+
+    logger.info("Admin found: " + admin.getCustomerId());
+    return admin.getCustomerId();
+}
 
 
 }
