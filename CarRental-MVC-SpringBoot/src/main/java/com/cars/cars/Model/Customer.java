@@ -14,7 +14,7 @@ public class Customer {
     private String customerPhone;
     private String customerUserName;
     private String customerPassword;
-    private String role; // New attribute
+    private String role;
 
     public Customer() {
     }
