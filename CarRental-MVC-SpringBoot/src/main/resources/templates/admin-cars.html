@@ -273,7 +273,7 @@
                 <div class="car-details">
                     <h3 class="car-name" th:text="${car.carName}"></h3>
                     <p class="car-model" th:text="${car.carModel}"></p>
-                    <p class="car-price" th:text="${car.carPrice} + ' €'"></p>
+                    <p class="car-price" th:text="${car.carPrice} + ' MAD'"></p>
                     <p class="car-status" th:text="${car.carStatus}"></p>
                     <div class="action-buttons">
                         <a th:href="@{/admin/vehicle(carId=${car.carId})}" class="update-btn">Update</a>
