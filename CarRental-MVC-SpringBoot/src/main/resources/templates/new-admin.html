@@ -2,59 +2,211 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Admin : add a new admin</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Admin - Easy Rent</title>
     <style>
-        /* Styles similaires à new-customer.html */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+        body {
+            background-color: #f8f9fa;
+            min-height: 100vh;
+            display: flex;
+        }
+
+        .container {
+            display: flex;
+            flex-grow: 1;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 250px;
+            background-color: #ffffff;
+            padding: 2rem 0;
+            border-right: 1px solid #e9ecef;
+            height: 100vh;
+            position: fixed;
+        }
+
+        .logo {
+            padding: 0 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo span:first-child {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333333;
+        }
+
+        .logo span:last-child {
+            color: #ff4d4d;
+            font-weight: 600;
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            color: #6c757d;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #f8f9fa;
+            color: #ff4d4d;
+        }
+
+        .nav-links a.active {
+            color: #ff4d4d;
+            background-color: #fff1f1;
+            border-right: 3px solid #ff4d4d;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            margin-left: 250px;
+            flex-grow: 1;
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .personal-info-container {
+            width: 100%;
+            max-width: 800px;
+            background: #fff;
+            border-radius: 15px;
+            padding: 2.5rem;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            text-align: center;
+            color: #ff4d4d;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e1e1e1;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            border-color: #ff4d4d;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(77, 136, 255, 0.1);
+        }
+
+        .btn-primary {
+            display: block;
+            width: 100%;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 8px;
+            background: #ff4d4d;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: #ff3333;
+        }
     </style>
 </head>
 <body>
-<header class='header'>
-    <ul class='nav'>
-        <li><a th:href="@{/admin/customers}">Cars</a></li>
-    </ul>
-    <a th:href="@{/logout}" class="right">Logout</a>
-</header>
-
 <div class="container">
-    <div class="sub-container">
-        <div class="confirm">
-            <span>New Admin</span>
+    <div class="sidebar">
+        <div class="logo">
+            <span>Easy</span>
+            <span>Rent.</span>
         </div>
-        <div class="element-customer">
+        <ul class="nav-links">
+            <li><a th:href="@{/admin/cars}">🚗 Gerer les voitures</a></li>
+            <li><a th:href="@{/admin/bookings}">📅 Bookings</a></li>
+            <li><a th:href="@{/admin/statistics}">📊 Statistiques</a></li>
+            <li><a th:href="@{/admin/customers}">👥 Customers</a></li>
+            <li><a th:href="@{/admin/booking-requests}">📅 Demandes de réservation</a></li>
+            <li><a href="#" class="active">➕ Ajouter admin</a></li>
+            <li><a th:href="@{/admin/profile}">Profile</a></li>
+            <div class="nav-divider"></div>
+            <li><a th:href="@{/logout}">🚪 LogOut</a></li>
+        </ul>
+    </div>
+    <div class="main-content">
+        <div class="personal-info-container">
+            <h1 class="section-title">Ajouter un nouvel admin</h1>
             <form th:action="@{/save-admin}" th:object="${customer}" method="post">
-                <label>First Name:
-                    <input type="text" th:field="*{customerFirstName}" placeholder="First Name" />
-                </label>
-                <label>Last Name:
-                    <input type="text" th:field="*{customerLastName}" placeholder="Last Name" />
-                </label>
-                <label>Address:
-                    <input type="text" th:field="*{customerAddress}" placeholder="Address" />
-                </label>
-                <label>Email:
-                    <input type="text" th:field="*{customerEmail}" placeholder="Email" />
-                </label>
-                <label>Phone:
-                    <input type="text" th:field="*{customerPhone}" placeholder="Phone" />
-                </label>
-                <label>Username:
-                    <input type="text" th:field="*{customerUserName}" placeholder="Username" />
-                </label>
-                <label>Password:
-                    <input type="password" th:field="*{customerPassword}" placeholder="Password" />
-                </label>
-                <input type="hidden" th:field="*{customerId}" placeholder="Id" />
-                <input type="hidden" th:field="*{role}" value="ADMIN" /> <!-- Set role to ADMIN -->
-
-                <input class="confirm-button" type="submit" value="Add Admin" />
+                <div class="form-group">
+                    <label for="firstName">Prénom</label>
+                    <input type="text" id="firstName" th:field="*{customerFirstName}" placeholder="Prénom" required>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Nom</label>
+                    <input type="text" id="lastName" th:field="*{customerLastName}" placeholder="Nom" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Adresse</label>
+                    <input type="text" id="address" th:field="*{customerAddress}" placeholder="Adresse" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" th:field="*{customerEmail}" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Téléphone</label>
+                    <input type="tel" id="phone" th:field="*{customerPhone}" placeholder="Téléphone" required>
+                </div>
+                <div class="form-group">
+                    <label for="username">Nom d'utilisateur</label>
+                    <input type="text" id="username" th:field="*{customerUserName}" placeholder="Nom d'utilisateur" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" id="password" th:field="*{customerPassword}" placeholder="Mot de passe" required>
+                </div>
+                <input type="hidden" th:field="*{customerId}" />
+                <input type="hidden" th:field="*{role}" value="ADMIN" />
+                <button type="submit" class="btn-primary">Ajouter admin</button>
             </form>
         </div>
     </div>
 </div>
-
-<footer>
-    <span>Cars Booking</span>
-</footer>
 </body>
 </html>
