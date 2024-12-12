@@ -244,7 +244,7 @@
         <ul class="nav-links">
             <li><a href="#" class="active">🚗 Gerer les voitures</a></li>
             <li><a th:href="@{/admin/bookings}">📅 Bookings</a></li>
-            <li><a th:href="@{/admin/statistics}" class="active">📊 Statistiques</a></li>
+            <li><a th:href="@{/admin/statistics}">📊 Statistiques</a></li>
             <li><a th:href="@{/admin/customers}">👥 Customers</a></li>
             <li><a th:href="@{/admin/booking-requests}">📅 Demandes de réservation</a></li>
             <li><a th:href="@{/admin/add-admin}" class="add-button">Ajouter admin</a></li>
@@ -273,7 +273,7 @@
                 <div class="car-details">
                     <h3 class="car-name" th:text="${car.carName}"></h3>
                     <p class="car-model" th:text="${car.carModel}"></p>
-                    <p class="car-price" th:text="${car.carPrice} + ' €'"></p>
+                    <p class="car-price" th:text="${car.carPrice} + ' MAD'"></p>
                     <p class="car-status" th:text="${car.carStatus}"></p>
                     <div class="action-buttons">
                         <a th:href="@{/admin/vehicle(carId=${car.carId})}" class="update-btn">Update</a>
