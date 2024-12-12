@@ -5,63 +5,139 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Demandes de réservation</title>
     <style>
-        :root {
-            --primary-blue: #4666E5;
-            --background-dark: #1a1a1a;
-            --card-background: #2a2a2a;
-            --text-primary: #ffffff;
-            --text-secondary: #9ca3af;
-            --border-color: #3f3f3f;
-        }
-
-        body {
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+        body {
+            background-color: #f8f9fa;
             min-height: 100vh;
-            background-color: var(--background-dark);
-            color: var(--text-primary);
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            display: flex;
         }
 
         .container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 2rem;
+            display: flex;
+            flex-grow: 1;
         }
 
-        h1 {
-            font-size: 2rem;
+        /* Sidebar Styles */
+        .sidebar {
+            width: 250px;
+            background-color: #ffffff;
+            padding: 2rem 0;
+            border-right: 1px solid #e9ecef;
+            height: 100vh;
+            position: fixed;
+        }
+
+        .logo {
+            padding: 0 1.5rem;
             margin-bottom: 2rem;
-            color: var(--text-primary);
-            text-align: center;
+            display: flex;
+            align-items: center;
         }
 
-        .card {
-            background-color: var(--card-background);
-            border-radius: 12px;
+        .logo span:first-child {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333333;
+        }
+
+        .logo span:last-child {
+            color: #ff4d4d;
+            font-weight: 600;
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            color: #6c757d;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #f8f9fa;
+            color: #ff4d4d;
+        }
+
+        .nav-links a.active {
+            color: #ff4d4d;
+            background-color: #fff1f1;
+            border-right: 3px solid #ff4d4d;
+        }
+
+        .nav-divider {
+            height: 1px;
+            background-color: #e9ecef;
+            margin: 1rem 1.5rem;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            margin-left: 250px;
+            flex-grow: 1;
             padding: 2rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        table {
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            color: #6c757d;
+        }
+
+        .breadcrumb a {
+            color: #6c757d;
+            text-decoration: none;
+        }
+
+        .page-title {
+            font-size: 1.5rem;
+            color: #333333;
+            margin-bottom: 2rem;
+        }
+
+        /* Booking Requests Table Styles */
+        .booking-requests-table {
+            width: 100%;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        .booking-requests-table table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 1rem;
-            background-color: var(--card-background);
         }
 
-        th {
+        .booking-requests-table th, .booking-requests-table td {
+            padding: 1rem;
             text-align: left;
-            padding: 1rem;
-            border-bottom: 2px solid var(--border-color);
-            color: var(--text-secondary);
-            font-weight: 500;
+            border-bottom: 1px solid #e9ecef;
         }
 
-        td {
-            padding: 1rem;
-            border-bottom: 1px solid var(--border-color);
-            color: var(--text-primary);
+        .booking-requests-table th {
+            background-color: #f8f9fa;
+            color: #333333;
+            font-weight: 600;
+        }
+
+        .booking-requests-table tr:last-child td {
+            border-bottom: none;
         }
 
         .actions {
@@ -69,81 +145,121 @@
             gap: 0.5rem;
         }
 
-        button {
+        .action-btn {
             padding: 0.5rem 1rem;
-            border-radius: 6px;
+            border-radius: 4px;
             border: none;
             font-weight: 500;
             cursor: pointer;
             transition: background-color 0.2s;
+            text-decoration: none;
         }
 
         .confirm-btn {
-            background-color: var(--primary-blue);
-            color: white;
+            color: #ffffff;
+            background-color: #28a745;
         }
 
         .confirm-btn:hover {
-            background-color: #3b55cc;
+            background-color: #218838;
         }
 
         .reject-btn {
-            background-color: transparent;
-            color: var(--text-primary);
-            border: 1px solid var(--border-color);
+            color: #ffffff;
+            background-color: #dc3545;
         }
 
         .reject-btn:hover {
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: #c82333;
         }
 
-        tr:hover {
-            background-color: rgba(255, 255, 255, 0.03);
+        .contract-btn {
+            color: #ffffff;
+            background-color: #4666E5;
+        }
+
+        .contract-btn:hover {
+            background-color: #3b55cc;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 250px;
+            right: 0;
+            padding: 1rem 2rem;
+            background-color: #ffffff;
+            border-top: 1px solid #e9ecef;
+            text-align: center;
+            color: #6c757d;
         }
     </style>
 </head>
 <body>
 <div class="container">
-    <div class="card">
-        <h1>Demandes de réservation</h1>
-        <table>
-            <thead>
-            <tr>
-                <th>Customer</th>
-                <th>Date de début</th>
-                <th>Date de fin</th>
-                <th>Nom de la voiture</th>
-                <th>Car ID</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="booking : ${bookingRequests}">
-                <td th:text="${booking.customerId}"></td>
-                <td th:text="${booking.bookingDateFrom}"></td>
-                <td th:text="${booking.bookingDateTo}"></td>
-                <td th:text="${booking.carId}"></td>
-                <td th:text="${booking.carId}"></td>
-                <td class="actions">
+    <div class="sidebar">
+        <div class="logo">
+            <span>Easy</span>
+            <span>Rent.</span>
+        </div>
+        <ul class="nav-links">
+            <li><a th:href="@{/admin/cars}">🚗 Gerer les voitures</a></li>
+            <li><a th:href="@{/admin/bookings}">📅 Bookings</a></li>
+            <li><a th:href="@{/admin/statistics}">📊 Statistiques</a></li>
+            <li><a href="#" class="active">📅 Demandes de réservation</a></li>
+            <li><a th:href="@{/admin/customers}">👥 Customers</a></li>
+            <li><a th:href="@{/admin/add-admin}" class="add-button">Ajouter admin</a></li>
+            <li><a th:href="@{/admin/profile}" class="add-button">Profile</a></li>
+            <div class="nav-divider"></div>
+            <li><a th:href="@{/logout}">🚪 LogOut</a></li>
+        </ul>
+    </div>
+    <div class="main-content">
+        <div class="breadcrumb">
+            <a href="#">Home</a>
+            <span>&nbsp; / &nbsp;</span>
+            <span>Booking Requests</span>
+        </div>
+        <h1 class="page-title">Booking Requests</h1>
+        <div class="booking-requests-table">
+            <table>
+                <thead>
+                <tr>
+                    <th>Customer</th>
+                    <th>Date de début</th>
+                    <th>Date de fin</th>
+                    <th>Car ID</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="booking : ${bookingRequests}">
+                    <td th:text="${booking.customerId}"></td>
+                    <td th:text="${booking.bookingDateFrom}"></td>
+                    <td th:text="${booking.bookingDateTo}"></td>
+                    <td th:text="${booking.carId}"></td>
                     <td class="actions">
-    <form th:action="@{/confirm-booking}" method="post" style="margin: 0;">
-        <input type="hidden" name="bookingId" th:value="${booking.bookingId}" />
-        <button type="submit" class="confirm-btn">Confirmer</button>
-    </form>
-    <form th:action="@{/reject-booking}" method="post" style="margin: 0;">
-        <input type="hidden" name="bookingId" th:value="${booking.bookingId}" />
-        <button type="submit" class="reject-btn">Rejeter</button>
-    </form>
-    <form th:action="@{/generate-contract}" method="get" style="margin: 0;">
-        <input type="hidden" name="bookingId" th:value="${booking.bookingId}" />
-        <button type="submit" class="contract-btn">Contrat</button>
-    </form>
-</td>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+                        <form th:action="@{/confirm-booking}" method="post" style="display: inline;">
+                            <input type="hidden" name="bookingId" th:value="${booking.bookingId}" />
+                            <button type="submit" class="action-btn confirm-btn">Confirmer</button>
+                        </form>
+                        <form th:action="@{/reject-booking}" method="post" style="display: inline;">
+                            <input type="hidden" name="bookingId" th:value="${booking.bookingId}" />
+                            <button type="submit" class="action-btn reject-btn">Rejeter</button>
+                        </form>
+                        <form th:action="@{/generate-contract}" method="get" style="display: inline;">
+                            <input type="hidden" name="bookingId" th:value="${booking.bookingId}" />
+                            <button type="submit" class="action-btn contract-btn">Contrat</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
+<footer>
+    <span>Cars Booking</span>
+</footer>
 </body>
 </html>
