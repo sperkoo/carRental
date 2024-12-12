@@ -1,43 +1,109 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Admin Profile - Car Rental</title>
+    <title>Personal Information - Car Rental</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
+        /* Styles similaires à l'image fournie */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
         body {
+            background-color: #f8f9fa;
             min-height: 100vh;
+            display: flex;
+        }
+
+        .container {
+            display: flex;
+            flex-grow: 1;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 250px;
+            background-color: #ffffff;
+            padding: 2rem 0;
+            border-right: 1px solid #e9ecef;
+            height: 100vh;
+            position: fixed;
+        }
+
+        .logo {
+            padding: 0 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo span:first-child {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333333;
+        }
+
+        .logo span:last-child {
+            color: #ff4d4d;
+            font-weight: 600;
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            color: #6c757d;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #f8f9fa;
+            color: #ff4d4d;
+        }
+
+        .nav-links a.active {
+            color: #ff4d4d;
+            background-color: #fff1f1;
+            border-right: 3px solid #ff4d4d;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            margin-left: 250px;
+            flex-grow: 1;
+            padding: 2rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #6bafff 0%, #4d88ff 100%);
-            padding: 20px;
-            font-family: 'Segoe UI', Arial, sans-serif;
         }
 
-        .settings-container {
+        .personal-info-container {
             width: 100%;
-            max-width: 400px;
+            max-width: 800px;
             background: #fff;
             border-radius: 15px;
             padding: 2.5rem;
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
         }
 
-        .settings-header {
+        .section-title {
             text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .settings-header h1 {
-            color: #4d88ff;
+            color: #ff4d4d;
             font-size: 2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .settings-header p {
-            color: #666;
-            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
         }
 
         .form-group {
@@ -61,17 +127,18 @@
         }
 
         .form-group input:focus {
-            border-color: #4d88ff;
+            border-color: #ff4d4d;
             outline: none;
             box-shadow: 0 0 0 3px rgba(77, 136, 255, 0.1);
         }
 
         .btn-primary {
+            display: block;
             width: 100%;
             padding: 0.75rem;
             border: none;
             border-radius: 8px;
-            background: #4d88ff;
+            background: #ff4d4d;
             color: white;
             font-size: 1rem;
             font-weight: 600;
@@ -80,50 +147,66 @@
         }
 
         .btn-primary:hover {
-            background: #3666cc;
+            background: #ff4d4d;
         }
     </style>
 </head>
 <body>
-<div class="settings-container">
-    <div class="settings-header">
-        <h1>Update Admin Information</h1>
-        <p>Update your account information</p>
+<div class="container">
+    <div class="sidebar">
+        <div class="logo">
+            <span>Easy</span>
+            <span>Rent.</span>
+        </div>
+        <ul class="nav-links">
+            <li><a th:href="@{/admin/vehicles}">🚗 Gerer les voitures</a></li>
+            <li><a th:href="@{/admin/bookings}">📅 Bookings</a></li>
+            <li><a th:href="@{/admin/statistics}">📊 Statistiques</a></li>
+            <li><a th:href="@{/admin/customers}">👥 Customers</a></li>
+            <li><a th:href="@{/admin/booking-requests}">📅 Demandes de réservation</a></li>
+            <li><a th:href="@{/admin/add-admin}" class="add-button">Ajouter admin</a></li>
+            <li><a th:href="@{/admin/profile}" class="active">Profile</a></li>
+            <div class="nav-divider"></div>
+            <li><a th:href="@{/logout}">🚪 LogOut</a></li>
+        </ul>
     </div>
-
-    <form th:action="@{/update-admin}" method="post">
-    <input type="hidden" name="customerId" th:value="${customer.customerId}">
-    <input type="hidden" name="role" value="ADMIN"> <!-- Hidden field to set role to ADMIN -->
-    <div class="form-group">
-        <label for="firstName">First Name</label>
-        <input type="text" id="firstName" name="customerFirstName" th:value="${customer.customerFirstName}" required>
+    <div class="main-content">
+        <div class="personal-info-container">
+            <h1 class="section-title">Personal Information</h1>
+            <form th:action="@{/update-user}" method="post">
+                <input type="hidden" name="customerId" th:value="${customer.customerId}">
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <input type="text" id="firstName" name="customerFirstName" th:value="${customer.customerFirstName}" required>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" id="lastName" name="customerLastName" th:value="${customer.customerLastName}" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <input type="text" id="address" name="customerAddress" th:value="${customer.customerAddress}" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="text" id="phone" name="customerPhone" th:value="${customer.customerPhone}" required>
+                </div>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="customerUserName" th:value="${customer.customerUserName}" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="customerEmail" th:value="${customer.customerEmail}" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="customerPassword" th:value="${customer.customerPassword}" required>
+                </div>
+                <button type="submit" class="btn-primary">Save Changes</button>
+            </form>
+        </div>
     </div>
-    <div class="form-group">
-        <label for="lastName">Last Name</label>
-        <input type="text" id="lastName" name="customerLastName" th:value="${customer.customerLastName}" required>
-    </div>
-    <div class="form-group">
-        <label for="address">Address</label>
-        <input type="text" id="address" name="customerAddress" th:value="${customer.customerAddress}" required>
-    </div>
-    <div class="form-group">
-        <label for="phone">Phone</label>
-        <input type="text" id="phone" name="customerPhone" th:value="${customer.customerPhone}" required>
-    </div>
-    <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" id="username" name="customerUserName" th:value="${customer.customerUserName}" required>
-    </div>
-    <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="customerEmail" th:value="${customer.customerEmail}" required>
-    </div>
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" name="customerPassword" th:value="${customer.customerPassword}" required>
-    </div>
-    <button type="submit" class="btn-primary">Save Changes</button>
-</form>
 </div>
 </body>
 </html>
