@@ -10,7 +10,6 @@
             box-sizing: border-box;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
         }
-
         body {
             background-color: #f8f9fa;
             min-height: 100vh;
@@ -126,18 +125,18 @@
             color: #333;
         }
 
-        .add-button {
-            background-color: #ff4d4d;
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            text-decoration: none;
-            transition: background-color 0.3s;
-        }
+        /*.add-button {*/
+        /*    background-color: #ff4d4d;*/
+        /*    color: white;*/
+        /*    padding: 0.5rem 1rem;*/
+        /*    border-radius: 4px;*/
+        /*    text-decoration: none;*/
+        /*    transition: background-color 0.3s;*/
+        /*}*/
 
-        .add-button:hover {
-            background-color: #ff3333;
-        }
+        /*.add-button:hover {*/
+        /*    background-color: #ff3333;*/
+        /*}*/
 
         table {
             width: 100%;
@@ -201,20 +200,23 @@
         <span>Rent.</span>
     </div>
     <ul class="nav-links">
-        <li><a th:href="@{/admin/vehicles}">📊 Dashboard</a></li>
+        <li><a th:href="@{/admin/cars}">🚗 Gérer les voitures</a></li>
+        <li><a th:href="@{/admin/bookings}">📅 Bookings</a></li>
+        <li><a th:href="@{/admin/statistics}">📊 Statistiques</a></li>
         <li><a href="#" class="active">👥 Customers</a></li>
+        <li><a th:href="@{/admin/booking-requests}">📅 Demandes de réservation</a></li>
+        <li><a th:href="@{/admin/add-admin}" class="add-button">Ajouter admin</a></li>
+        <li><a th:href="@{/admin/profile}" class="add-button">Profile</a></li>
         <div class="nav-divider"></div>
         <li><a th:href="@{/logout}">🚪 LogOut</a></li>
     </ul>
 </div>
-
 <div class="main-content">
     <div class="breadcrumb">
         <a href="#">Home</a>
         <span>&nbsp; / &nbsp;</span>
         <span>Customers List</span>
     </div>
-
     <h1 class="page-title">Customer Management</h1>
 
     <div class="container">
@@ -248,7 +250,6 @@
         </table>
     </div>
 </div>
-
 <footer>
     <span>Cars Booking</span>
 </footer>
