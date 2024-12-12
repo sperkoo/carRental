@@ -9,36 +9,105 @@
     <style>
         /* Styles existants */
         :root {
-            --primary-color: #2563eb;
-            --secondary-color: #1e40af;
-            --background-color: #f1f5f9;
+            --primary-color: #ff4d4d;
+            --secondary-color: #ff3333;
+            --background-color: #f8f9fa;
             --card-background: #ffffff;
-            --text-primary: #1e293b;
-            --text-secondary: #64748b;
-            --success-color: #16a34a;
+            --text-primary: #333333;
+            --text-secondary: #6c757d;
+            --success-color: #28a745;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
         }
 
         body {
             background-color: var(--background-color);
             color: var(--text-primary);
             line-height: 1.5;
+            min-height: 100vh;
+            display: flex;
         }
 
         .container {
-            max-width: 1200px;
-            margin: 2rem auto;
+            display: flex;
+            flex-grow: 1;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #ffffff;
+            padding: 2rem 0;
+            border-right: 1px solid #e9ecef;
+            height: 100vh;
+            position: fixed;
+        }
+
+        .logo {
             padding: 0 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo span:first-child {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333333;
+        }
+
+        .logo span:last-child {
+            color: #ff4d4d;
+            font-weight: 600;
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            color: #6c757d;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #f8f9fa;
+            color: #ff4d4d;
+        }
+
+        .nav-links a.active {
+            color: #ff4d4d;
+            background-color: #fff1f1;
+            border-right: 3px solid #ff4d4d;
+        }
+
+        .nav-divider {
+            height: 1px;
+            background-color: #e9ecef;
+            margin: 1rem 1.5rem;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            flex-grow: 1;
+            padding: 2rem;
         }
 
         .title {
-            font-size: 2rem;
+            font-size: 1.5rem;
             font-weight: 600;
             color: var(--text-primary);
             margin-bottom: 2rem;
@@ -55,7 +124,7 @@
 
         .stat-card {
             background: var(--card-background);
-            border-radius: 12px;
+            border-radius: 8px;
             padding: 1.5rem;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
             transition: transform 0.2s ease-in-out;
@@ -106,13 +175,13 @@
         }
 
         @media (max-width: 768px) {
-            .container {
-                margin: 1rem auto;
-                padding: 0 1rem;
+            .main-content {
+                margin-left: 0;
+                padding: 1.5rem;
             }
 
             .title {
-                font-size: 1.75rem;
+                font-size: 1.25rem;
             }
 
             .stats-grid {
@@ -128,7 +197,24 @@
     </style>
 </head>
 <body>
-<div class="container">
+<div class="sidebar">
+    <div class="logo">
+        <span>Easy</span>
+        <span>Rent.</span>
+    </div>
+    <ul class="nav-links">
+        <li><a th:href="@{/admin/cars}">🚗 Gérer les voitures</a></li>
+        <li><a th:href="@{/admin/bookings}">📅 Bookings</a></li>
+        <li><a href="#" class="active">📊 Statistiques</a></li>
+        <li><a th:href="@{/admin/customers}">👥 Customers</a></li>
+        <li><a th:href="@{/admin/booking-requests}">📅 Demandes de réservation</a></li>
+        <li><a th:href="@{/admin/add-admin}" class="add-button">Ajouter admin</a></li>
+        <li><a th:href="@{/admin/profile}" class="add-button">Profile</a></li>
+        <div class="nav-divider"></div>
+        <li><a th:href="@{/logout}">🚪 LogOut</a></li>
+    </ul>
+</div>
+<div class="main-content">
     <h1 class="title">Tableau de Bord</h1>
 
     <div class="stats-grid">
@@ -237,8 +323,8 @@
                 datasets: [{
                     label: 'Montant Total',
                     data: totalAmounts,
-                    borderColor: 'rgba(37, 99, 235, 1)',
-                    backgroundColor: 'rgba(37, 99, 235, 0.2)',
+                    borderColor: 'rgba(255, 77, 77, 1)',
+                    backgroundColor: 'rgba(255, 77, 77, 0.2)',
                     fill: true,
                     tension: 0.1
                 }]
