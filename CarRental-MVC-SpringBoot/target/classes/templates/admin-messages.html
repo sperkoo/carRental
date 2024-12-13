@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Messages</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .messages-container {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .messages-header {
+            background-color: #007bff;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .messages-list {
+            flex-grow: 1;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        .message-item {
+            padding: 0.5rem;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .message-input {
+            display: flex;
+            padding: 1rem;
+            border-top: 1px solid #ddd;
+        }
+
+        .message-input input {
+            flex-grow: 1;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-right: 0.5rem;
+        }
+
+        .message-input button {
+            padding: 0.5rem 1rem;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .message-input button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="messages-container">
+        <div class="messages-header">
+            <h2>Admin Messages</h2>
+        </div>
+        <div class="messages-list" id="messages-list">
+            <!-- Messages will be displayed here -->
+        </div>
+        <div class="message-input">
+            <input type="text" id="admin-message-input" placeholder="Enter your message">
+            <button onclick="sendAdminMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        function sendAdminMessage() {
+            const messageInput = document.getElementById('admin-message-input');
+            const message = messageInput.value;
+            if (message.trim() === '') return;
+
+            // Send the message to the server (this part will be implemented in the backend)
+            // For now, just display the message in the chat
+            const messagesList = document.getElementById('messages-list');
+            const messageElement = document.createElement('div');
+            messageElement.textContent = message;
+            messagesList.appendChild(messageElement);
+
+            messageInput.value = '';
+        }
+    </script>
+</body>
+</html>

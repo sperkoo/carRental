@@ -247,6 +247,18 @@ public ModelAndView getAdminProfile() {
     return modelAndView;
 }
 
+
+    // AdminController.java
+    @GetMapping("/chat")
+    public ModelAndView chat() {
+        return new ModelAndView("chat");
+    }
+
+    @GetMapping("/admin/messages")
+    public ModelAndView adminMessages() {
+        return new ModelAndView("admin-messages");
+    }
+
     @PostMapping("/update-admin")
     public String updateAdmin(@ModelAttribute Customer customer) {
         customer.setRole("ADMIN");
