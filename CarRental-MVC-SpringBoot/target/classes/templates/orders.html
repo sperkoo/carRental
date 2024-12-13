@@ -137,6 +137,11 @@
             background-color: #ff3333;
         }
 
+        .rent.disabled {
+            background-color: #6c757d;
+            cursor: not-allowed;
+        }
+
         footer {
             background-color: var(--primary-color);
             color: white;
@@ -170,7 +175,6 @@
             }
         }
 
-        /* Animation pour les nouveaux éléments */
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -197,7 +201,7 @@
 </header>
 
 <div th:each="booking : ${bookingList}">
-    <div class="item-main-container" th:if="${booking.status == 'Reserved'}">
+    <div class="item-main-container">
         <div class="item-container">
             <div class="image-div">
                 <img class="image" th:src="@{${booking.image}}" alt="Véhicule"/>
@@ -212,21 +216,20 @@
                 <strong>Prix total : <span th:text="${booking.totalPrice} + ' MAD'"></span></strong>
 
                 <div class="rent-div">
-    <a class="rent" th:href="@{/update-booking(bookingId=${booking.bookingId})}">Modifier</a>
-    <form th:action="@{/return-car(bookingId=${booking.bookingId},carId=${booking.carId})}" th:object="${booking}" method="post">
-        <button class="rent" type="submit">Retourner</button>
-    </form>
-    <form th:action="@{/generate-invoice}" method="get" style="margin: 0;">
-        <input type="hidden" name="bookingId" th:value="${booking.bookingId}" />
-        <button type="submit" class="rent">Facture</button>
-    </form>
+                    <a class="rent" th:href="@{/update-booking(bookingId=${booking.bookingId})}">Modifier</a>
+                    <form th:action="@{/return-car(bookingId=${booking.bookingId},carId=${booking.carId})}" th:object="${booking}" method="post">
+                        <button class="rent" type="submit">Retourner</button>
+                    </form>
+                    <form th:action="@{/generate-invoice}" method="get" style="margin: 0;">
+                        <input type="hidden" name="bookingId" th:value="${booking.bookingId}" />
+                        <button type="submit" class="rent">Facture</button>
+                    </form>
                     <form th:action="@{/pay}" method="post" style="margin: 0;">
-    <input type="hidden" name="bookingId" th:value="${booking.bookingId}" />
-    <input type="hidden" name="totalPrice" th:value="${booking.totalPrice}" />
-    <button type="submit" class="rent">Pay</button>
-</form>
-</form>
-</div>
+                        <input type="hidden" name="bookingId" th:value="${booking.bookingId}" />
+                        <input type="hidden" name="totalPrice" th:value="${booking.totalPrice}" />
+                        <button type="submit" class="rent" th:classappend="${booking.status == 'Payed'} ? ' disabled' : ''">Pay</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
