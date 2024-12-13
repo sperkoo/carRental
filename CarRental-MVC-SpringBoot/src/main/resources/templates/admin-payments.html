@@ -2,9 +2,9 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Easy Rent - Dashboard</title>
+    <title>Easy Rent - Payments Dashboard</title>
     <style>
-        /* Styles CSS correspondant au design de l'image */
+        /* Styles similaires à admin-bookings.html */
         * {
             margin: 0;
             padding: 0;
@@ -23,7 +23,6 @@
             flex-grow: 1;
         }
 
-        /* Sidebar Styles */
         .sidebar {
             width: 250px;
             background-color: #ffffff;
@@ -86,7 +85,6 @@
             margin: 1rem 1.5rem;
         }
 
-        /* Main Content Styles */
         .main-content {
             margin-left: 250px;
             flex-grow: 1;
@@ -109,116 +107,48 @@
             font-size: 1.5rem;
             color: #333333;
             margin-bottom: 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
 
-        .search-form {
-            display: flex;
-            align-items: center;
-        }
-
-        .search-input {
-            padding: 0.5rem;
-            border: 1px solid #e9ecef;
-            border-radius: 4px;
-            margin-right: 0.5rem;
-        }
-
-        .search-button {
-            padding: 0.5rem 1rem;
-            background-color: #ff4d4d;
-            color: #ffffff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .search-button:hover {
-            background-color: #ff3333;
-        }
-
-        /* Car List Styles */
-        .car-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            grid-gap: 1.5rem;
-        }
-
-        .car-card {
+        .bookings-table {
+            width: 100%;
             background-color: #ffffff;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
             overflow: hidden;
         }
 
-        .car-image img {
+        .bookings-table table {
             width: 100%;
-            height: 200px;
-            object-fit: cover;
+            border-collapse: collapse;
         }
 
-        .car-details {
-            padding: 1.5rem;
+        .bookings-table th, .bookings-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
         }
 
-        .car-name {
-            font-size: 1.1rem;
-            font-weight: 600;
+        .bookings-table th {
+            background-color: #f8f9fa;
             color: #333333;
-            margin-bottom: 0.5rem;
+            font-weight: 600;
         }
 
-        .car-model, .car-price, .car-status {
-            color: #6c757d;
-            margin-bottom: 0.5rem;
+        .bookings-table tr:last-child td {
+            border-bottom: none;
         }
 
-        .action-buttons {
-            display: flex;
-            margin-bottom: 1rem;
-        }
-
-        .action-buttons a {
+        .status-chip {
             display: inline-block;
             padding: 0.25rem 0.75rem;
-            margin-right: 0.5rem;
             border-radius: 4px;
-            text-decoration: none;
-            transition: all 0.3s;
+            font-size: 0.8rem;
+            font-weight: 600;
         }
 
-        .action-buttons .update-btn {
-            color: #ffffff;
+        .status-payed {
             background-color: #28a745;
-        }
-
-        .action-buttons .delete-btn {
             color: #ffffff;
-            background-color: #dc3545;
-        }
-
-        .action-buttons a:hover {
-            opacity: 0.9;
-        }
-
-        .rent-btn {
-            display: block;
-            width: 100%;
-            background-color: #ff4d4d;
-            color: #ffffff;
-            padding: 0.5rem 1rem;
-            border: none;
-            border-radius: 4px;
-            text-decoration: none;
-            transition: background-color 0.3s;
-            cursor: pointer;
-        }
-
-        .rent-btn:hover {
-            background-color: #ff3333;
         }
 
         footer {
@@ -242,9 +172,9 @@
             <span>Rent.</span>
         </div>
         <ul class="nav-links">
-            <li><a href="#" class="active">🚗 Gerer les voitures</a></li>
+            <li><a th:href="@{/admin/vehicles}">🚗 Gerer les voitures</a></li>
             <li><a th:href="@{/admin/bookings}">📅 Bookings</a></li>
-            <li><a th:href="@{/admin/payments}">💳 Payments</a></li>
+            <li><a href="#" class="active">💳 Payments</a></li>
             <li><a th:href="@{/admin/statistics}">📊 Statistiques</a></li>
             <li><a th:href="@{/admin/customers}">👥 Customers</a></li>
             <li><a th:href="@{/admin/booking-requests}">📅 Demandes de réservation</a></li>
@@ -258,51 +188,37 @@
         <div class="breadcrumb">
             <a href="#">Home</a>
             <span>&nbsp; / &nbsp;</span>
-            <span>Cars List</span>
+            <span>Payments List</span>
         </div>
-        <div class="page-title">
-            <h1>Cars Management</h1>
-            <form class="search-form">
-                <input type="text" id="search-bar" class="search-input" placeholder="Search by car name">
-            </form>
-        </div>
-        <div class="car-list" id="car-list">
-            <div class="car-card" th:each="car: ${carList}">
-                <div class="car-image">
-                    <img th:src="@{${car.carImage}}" alt="Image de la voiture">
-                </div>
-                <div class="car-details">
-                    <h3 class="car-name" th:text="${car.carName}"></h3>
-                    <p class="car-model" th:text="${car.carModel}"></p>
-                    <p class="car-price" th:text="${car.carPrice} + ' MAD'"></p>
-                    <p class="car-status" th:text="${car.carStatus}"></p>
-                    <div class="action-buttons">
-                        <a th:href="@{/admin/vehicle(carId=${car.carId})}" class="update-btn">Update</a>
-                        <a th:href="@{/delete-cars(carId=${car.carId})}" class="delete-btn">Delete</a>
-                    </div>
-                </div>
-            </div>
+        <h1 class="page-title">Payments Management</h1>
+        <div class="bookings-table">
+            <table>
+                <thead>
+                <tr>
+                    <th>Car ID</th>
+                    <th>Car Name</th>
+                    <th>Car Model</th>
+                    <th>Car Price</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="car : ${payedCarsList}">
+                    <td th:text="${car.carId}"></td>
+                    <td th:text="${car.carName}"></td>
+                    <td th:text="${car.carModel}"></td>
+                    <td th:text="${car.carPrice} + ' MAD'"></td>
+                    <td>
+                        <span class="status-chip status-payed" th:text="${car.carStatus}"></span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
 <footer>
     <span>Cars Booking</span>
 </footer>
-
-<script>
-    document.getElementById('search-bar').addEventListener('input', function() {
-        const searchQuery = this.value.toLowerCase();
-        const carCards = document.querySelectorAll('.car-card');
-
-        carCards.forEach(card => {
-            const carName = card.querySelector('.car-name').textContent.toLowerCase();
-            if (carName.includes(searchQuery)) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
-            }
-        });
-    });
-</script>
 </body>
 </html>

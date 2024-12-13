@@ -12,6 +12,6 @@ public interface CarServices {
     void SaveCar(Car car);
     void DeleteCar(int carId);
     List<Car> searchCars(Date startDate, Date endDate, String type, Integer minPrice, Integer maxPrice);
-
     List<Car> findNonReservedCars();
+    List<Car> findAllByCarStatus(String status); // Add this method
 }

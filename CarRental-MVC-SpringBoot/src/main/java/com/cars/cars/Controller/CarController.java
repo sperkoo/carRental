@@ -72,4 +72,11 @@ public ModelAndView getCarDetails(@RequestParam Integer carId) {
         model.addAttribute("bookingList", bookingList); // Add bookings to the model
         return "cars";
     }
+
+    @GetMapping("/admin/payments")
+    public String showPayedCars(Model model) {
+        List<Car> payedCarsList = carServices.findAllByCarStatus("Payed");
+        model.addAttribute("payedCarsList", payedCarsList);
+        return "admin-payments";
+    }
 }

@@ -302,3 +302,53 @@
 2024-12-12 17:17:01,013 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
 2024-12-12 17:17:05,229 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
 2024-12-12 17:17:07,695 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-13 18:37:55,301 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-13 18:38:01,089 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-13 18:38:02,163 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-13 18:38:09,172 * INFO * com.cars.cars.Controller.UserController * getCurrentAdminId * Admin found: 19
+2024-12-13 18:38:10,116 * INFO * com.cars.cars.Controller.UserController * addAdmin * Admin trying to add a new admin
+2024-12-13 18:38:11,114 * INFO * com.cars.cars.Controller.UserController * getCurrentAdminId * Admin found: 19
+2024-12-13 18:38:11,624 * INFO * com.cars.cars.Controller.UserController * addAdmin * Admin trying to add a new admin
+2024-12-13 18:38:12,869 * INFO * com.cars.cars.Controller.UserController * getCurrentAdminId * Admin found: 19
+2024-12-13 18:38:13,461 * INFO * com.cars.cars.Controller.UserController * addAdmin * Admin trying to add a new admin
+2024-12-13 18:38:16,438 * INFO * com.cars.cars.Controller.UserController * getCurrentAdminId * Admin found: 19
+2024-12-13 18:38:18,626 * INFO * com.cars.cars.Controller.UserController * addAdmin * Admin trying to add a new admin
+2024-12-13 18:38:29,337 * INFO * com.cars.cars.Controller.UserController * getCurrentAdminId * Admin found: 19
+2024-12-13 18:38:31,905 * INFO * com.cars.cars.Controller.UserController * addAdmin * Admin trying to add a new admin
+2024-12-13 18:38:34,116 * INFO * com.cars.cars.Controller.UserController * getBookingRequests * Admin viewing booking requests
+2024-12-13 18:38:45,353 * INFO * com.cars.cars.Controller.UserController * GetAllCustomers * Admin viewing customers
+2024-12-13 18:38:47,568 * INFO * com.cars.cars.Controller.UserController * GetAllCustomers * Admin viewing customers
+2024-12-13 18:39:25,642 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-13 18:39:33,001 * INFO * com.cars.cars.Controller.UserController * UpdateCarInfo * Admin trying to update a car
+2024-12-13 18:39:34,232 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-13 18:39:37,603 * INFO * com.cars.cars.Controller.UserController * UpdateCarInfo * Admin trying to update a car
+2024-12-13 18:39:42,461 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-13 18:39:53,918 * INFO * com.cars.cars.Controller.UserController * DeleteCar * Admin deleted a car with info  Salam Salam
+2024-12-13 18:39:53,929 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-13 18:39:59,029 * INFO * com.cars.cars.Controller.UserController * DeleteError * Admin couldn't delete a car
+2024-12-13 18:40:00,495 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-13 18:40:10,142 * INFO * com.cars.cars.Controller.UserController * getAllBookings * Admin viewing all bookings
+2024-12-13 18:40:45,930 * INFO * com.cars.cars.Controller.UserController * getAllBookings * Admin viewing all bookings
+2024-12-13 18:40:48,396 * INFO * com.cars.cars.Controller.UserController * GetAllCustomers * Admin viewing customers
+2024-12-13 18:40:49,608 * INFO * com.cars.cars.Controller.UserController * getBookingRequests * Admin viewing booking requests
+2024-12-13 18:40:50,966 * INFO * com.cars.cars.Controller.UserController * GetAllCustomers * Admin viewing customers
+2024-12-13 18:40:52,413 * INFO * com.cars.cars.Controller.UserController * GetAllCustomers * Admin viewing customers
+2024-12-13 18:40:54,941 * INFO * com.cars.cars.Controller.UserController * GetAllCustomers * Admin viewing customers
+2024-12-13 18:40:55,677 * INFO * com.cars.cars.Controller.UserController * getAllBookings * Admin viewing all bookings
+2024-12-13 18:40:56,358 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-13 18:40:57,164 * INFO * com.cars.cars.Controller.UserController * getAllBookings * Admin viewing all bookings
+2024-12-13 18:40:58,693 * INFO * com.cars.cars.Controller.UserController * GetAllCustomers * Admin viewing customers
+2024-12-13 18:40:59,346 * INFO * com.cars.cars.Controller.UserController * getBookingRequests * Admin viewing booking requests
+2024-12-13 18:41:00,321 * INFO * com.cars.cars.Controller.UserController * GetAllCustomers * Admin viewing customers
+2024-12-13 18:41:05,653 * INFO * com.cars.cars.Controller.UserController * GetAllCustomers * Admin viewing customers
+2024-12-13 18:41:08,775 * INFO * com.cars.cars.Controller.UserController * getCurrentAdminId * Admin found: 19
+2024-12-13 18:41:09,439 * INFO * com.cars.cars.Controller.UserController * addAdmin * Admin trying to add a new admin
+2024-12-13 18:41:43,008 * INFO * com.cars.cars.Controller.UserController * getAllBookings * Admin viewing all bookings
+2024-12-13 18:42:08,209 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-13 18:48:02,512 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-13 18:48:02,512 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-13 18:48:05,186 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-13 18:48:06,110 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-13 18:48:13,289 * INFO * com.cars.cars.Controller.UserController * getAllBookings * Admin viewing all bookings
+2024-12-13 18:48:21,044 * INFO * com.cars.cars.Controller.UserController * getAllBookings * Admin viewing all bookings
+2024-12-13 18:48:21,590 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars

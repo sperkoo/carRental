@@ -77,4 +77,9 @@ public class CarService implements CarServices {
     car.setCarStatus(status);
     carRepo.save(car);
 }
+
+    @Override
+    public List<Car> findAllByCarStatus(String status) {
+        return carRepo.findAllByCarStatus(status);
+    }
 }
