@@ -7,13 +7,13 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #292b37;
-            --secondary-color: #181a21;
-            --accent-color: #3498db;
-            --text-color: #f4f4f4;
-            --background-color: #222433;
-            --card-background: #292b37;
-            --hover-color: #3a3c47;
+            --primary-color: #0d1117; /* Dark background */
+            --secondary-color: #161b22; /* Slightly lighter dark background */
+            --accent-color: #58a6ff; /* Vibrant blue for highlights */
+            --text-color: #c9d1d9; /* Light gray for text */
+            --background-color: #0d1117; /* Overall background color */
+            --card-background: #161b22; /* Card background */
+            --hover-color: #1f6feb; /* Bright blue for hover effects */
         }
 
         * {
@@ -32,7 +32,7 @@
         .header {
             background-color: var(--secondary-color);
             padding: 1rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
 
         .header nav {
@@ -61,7 +61,7 @@
         }
 
         .nav a:hover {
-            color: var(--accent-color);
+            color: var(--hover-color);
         }
 
         .logout-btn {
@@ -70,7 +70,7 @@
         }
 
         .logout-btn:hover {
-            background-color: #2980b9;
+            background-color: var(--hover-color);
         }
 
         .search-container {
@@ -79,7 +79,7 @@
             background-color: var(--card-background);
             padding: 1.5rem;
             border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.5);
         }
 
         .search-form {
@@ -95,13 +95,13 @@
             flex-grow: 1;
             padding: 0.5rem;
             background-color: var(--background-color);
-            border: 1px solid #444;
+            border: 1px solid #30363d;
             border-radius: 4px;
             color: var(--text-color);
         }
 
         .search-form input::placeholder {
-            color: #888;
+            color: #6e7681;
         }
 
         .search-btn {
@@ -118,7 +118,7 @@
         }
 
         .search-btn:hover {
-            background-color: #2980b9;
+            background-color: var(--hover-color);
         }
 
         .dynamic-search {
@@ -130,7 +130,7 @@
         .dynamic-search input {
             padding: 0.5rem;
             background-color: var(--background-color);
-            border: 1px solid #444;
+            border: 1px solid #30363d;
             border-radius: 4px;
             color: var(--text-color);
             width: 100%;
@@ -183,7 +183,7 @@
         .car-card {
             background-color: var(--card-background);
             border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.5);
             width: 300px;
             overflow: hidden;
             transition: transform 0.3s ease;
@@ -211,7 +211,7 @@
 
         .car-info {
             margin-bottom: 1rem;
-            color: #a0a0a0;
+            color: #8b949e;
         }
 
         .rent-btn, .details-btn {
@@ -230,7 +230,7 @@
         }
 
         .rent-btn:hover, .details-btn:hover {
-            background-color: #2980b9;
+            background-color: var(--hover-color);
         }
 
         .car-image {
@@ -238,7 +238,7 @@
         }
 
         .badge {
-            background-color: #ff4d4d;
+            background-color: #f85149;
             color: white;
             padding: 0.5rem;
             position: absolute;
