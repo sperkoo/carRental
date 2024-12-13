@@ -1,9 +1,6 @@
 package com.cars.cars.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Booking {
@@ -18,6 +15,17 @@ public class Booking {
     private String image;
     private double totalPrice;
     private String status;
+
+    @Transient
+    private String carName;
+
+    public String getCarName() {
+        return carName;
+    }
+
+    public void setCarName(String carName) {
+        this.carName = carName;
+    }
 
     public String getStatus() {
         return status;

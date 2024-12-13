@@ -15,4 +15,12 @@ public interface BookingRepo extends JpaRepository<Booking, Integer> {
 
     @Query("SELECT b FROM Booking b WHERE b.carId = :carId AND b.bookingDateFrom >= CURRENT_DATE")
     List<Booking> findFutureBookingsByCarId(@Param("carId") Integer carId);
+
+    @Query("SELECT b FROM Booking b JOIN Car c ON b.carId = c.carId WHERE b.status = 'Payed'")
+    List<Booking> findPayedBookings();
+
+
+    @Query("SELECT b, c.carName FROM Booking b JOIN Car c ON b.carId = c.carId WHERE b.status = 'Payed'")
+    List<Object[]> findPayedBookingsWithCarName();
+
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class BookingService implements BookingServices {
@@ -66,4 +67,17 @@ public boolean isBookingConflict(int carId, String startDate, String endDate) {
     }
     return false;
 }
+
+//    public List<Booking> findPayedBookings() {
+//        return bookingRepo.findPayedBookings();
+//    }
+
+    public List<Booking> findPayedBookings() {
+        List<Object[]> results = bookingRepo.findPayedBookingsWithCarName();
+        return results.stream().map(result -> {
+            Booking booking = (Booking) result[0];
+            booking.setCarName((String) result[1]);
+            return booking;
+        }).collect(Collectors.toList());
+    }
 }

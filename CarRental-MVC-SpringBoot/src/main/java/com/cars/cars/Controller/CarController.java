@@ -38,20 +38,20 @@ public class CarController {
         return "cars";
     }
 
-@GetMapping("/car-details")
-public ModelAndView getCarDetails(@RequestParam Integer carId) {
-    ModelAndView modelAndView = new ModelAndView("car-details");
-    Car car = carServices.findCarById(carId);
-    List<Booking> futureBookings = bookingService.findFutureBookingsByCarId(carId); // Ajoutez cette ligne
-    modelAndView.addObject("car", car);
-    modelAndView.addObject("futureBookings", futureBookings); // Ajoutez cette ligne
-    return modelAndView;
-}
+    @GetMapping("/car-details")
+    public ModelAndView getCarDetails(@RequestParam Integer carId) {
+        ModelAndView modelAndView = new ModelAndView("car-details");
+        Car car = carServices.findCarById(carId);
+        List<Booking> futureBookings = bookingService.findFutureBookingsByCarId(carId);
+        modelAndView.addObject("car", car);
+        modelAndView.addObject("futureBookings", futureBookings);
+        return modelAndView;
+    }
 
     @GetMapping("/cars/all")
     public ModelAndView showAllCars() {
         ModelAndView modelAndView = new ModelAndView("cars");
-        List<Car> carList = carServices.GetAllCars(); // Fetch all cars, including reserved ones
+        List<Car> carList = carServices.GetAllCars();
         modelAndView.addObject("carList", carList);
         return modelAndView;
     }
@@ -59,7 +59,7 @@ public ModelAndView getCarDetails(@RequestParam Integer carId) {
     @GetMapping("/cars/non-reserved")
     public ModelAndView showNonReservedCars() {
         ModelAndView modelAndView = new ModelAndView("cars");
-        List<Car> carList = carServices.findNonReservedCars(); // Fetch only non-reserved cars
+        List<Car> carList = carServices.findNonReservedCars();
         modelAndView.addObject("carList", carList);
         return modelAndView;
     }
@@ -67,16 +67,18 @@ public ModelAndView getCarDetails(@RequestParam Integer carId) {
     @GetMapping("/cars")
     public String showCars(Model model) {
         List<Car> carList = carServices.GetAllCars();
-        List<Booking> bookingList = bookingService.findAll(); // Fetch all bookings
+        List<Booking> bookingList = bookingService.findAll();
         model.addAttribute("carList", carList);
-        model.addAttribute("bookingList", bookingList); // Add bookings to the model
+        model.addAttribute("bookingList", bookingList);
         return "cars";
     }
 
     @GetMapping("/admin/payments")
-    public String showPayedCars(Model model) {
-        List<Car> payedCarsList = carServices.findAllByCarStatus("Payed");
-        model.addAttribute("payedCarsList", payedCarsList);
+    public String showPayedBookings(Model model) {
+        List<Booking> payedBookings = bookingService.findPayedBookings();
+        System.out.println(payedBookings);
+        System.out.println("Hello");
+        model.addAttribute("payedBookings", payedBookings);
         return "admin-payments";
     }
 }

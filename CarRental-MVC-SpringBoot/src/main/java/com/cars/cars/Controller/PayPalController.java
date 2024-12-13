@@ -60,6 +60,7 @@ public class PayPalController {
         Booking booking = bookingService.FindBooking(Math.toIntExact(bookingId));
         Car car = carService.findCarById(booking.getCarId());
         car.setCarStatus("Payed");
+        booking.setStatus("Payed");
         carService.SaveCar(car);
         return "success";
     }

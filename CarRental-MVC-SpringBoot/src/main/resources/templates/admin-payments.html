@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Easy Rent - Payments Dashboard</title>
     <style>
-        /* Styles similaires à admin-bookings.html */
         * {
             margin: 0;
             padding: 0;
@@ -23,6 +22,7 @@
             flex-grow: 1;
         }
 
+        /* Sidebar Styles */
         .sidebar {
             width: 250px;
             background-color: #ffffff;
@@ -85,6 +85,7 @@
             margin: 1rem 1.5rem;
         }
 
+        /* Main Content Styles */
         .main-content {
             margin-left: 250px;
             flex-grow: 1;
@@ -109,7 +110,8 @@
             margin-bottom: 2rem;
         }
 
-        .bookings-table {
+        /* Payments Table Styles */
+        .payments-table {
             width: 100%;
             background-color: #ffffff;
             border-radius: 8px;
@@ -117,38 +119,25 @@
             overflow: hidden;
         }
 
-        .bookings-table table {
+        .payments-table table {
             width: 100%;
             border-collapse: collapse;
         }
 
-        .bookings-table th, .bookings-table td {
+        .payments-table th, .payments-table td {
             padding: 1rem;
             text-align: left;
             border-bottom: 1px solid #e9ecef;
         }
 
-        .bookings-table th {
+        .payments-table th {
             background-color: #f8f9fa;
             color: #333333;
             font-weight: 600;
         }
 
-        .bookings-table tr:last-child td {
+        .payments-table tr:last-child td {
             border-bottom: none;
-        }
-
-        .status-chip {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .status-payed {
-            background-color: #28a745;
-            color: #ffffff;
         }
 
         footer {
@@ -191,26 +180,28 @@
             <span>Payments List</span>
         </div>
         <h1 class="page-title">Payments Management</h1>
-        <div class="bookings-table">
+        <div class="payments-table">
             <table>
                 <thead>
                 <tr>
-                    <th>Car ID</th>
+                    <th>Booking ID</th>
                     <th>Car Name</th>
-                    <th>Car Model</th>
-                    <th>Car Price</th>
+                    <th>Customer ID</th>
+                    <th>Booking Date From</th>
+                    <th>Booking Date To</th>
+                    <th>Total Price</th>
                     <th>Status</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="car : ${payedCarsList}">
-                    <td th:text="${car.carId}"></td>
-                    <td th:text="${car.carName}"></td>
-                    <td th:text="${car.carModel}"></td>
-                    <td th:text="${car.carPrice} + ' MAD'"></td>
-                    <td>
-                        <span class="status-chip status-payed" th:text="${car.carStatus}"></span>
-                    </td>
+                <tr th:each="booking : ${payedBookings}">
+                    <td th:text="${booking.bookingId}"></td>
+                    <td th:text="${booking.carName}"></td>
+                    <td th:text="${booking.customerId}"></td>
+                    <td th:text="${booking.bookingDateFrom}"></td>
+                    <td th:text="${booking.bookingDateTo}"></td>
+                    <td th:text="${booking.totalPrice} + ' MAD'"></td>
+                    <td th:text="${booking.status}"></td>
                 </tr>
                 </tbody>
             </table>
