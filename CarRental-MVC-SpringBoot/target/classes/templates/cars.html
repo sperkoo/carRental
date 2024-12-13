@@ -4,14 +4,16 @@
     <meta charset="UTF-8">
     <title>Location de Véhicules</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #4c6ef5;
-            --text-color: #ffffff;
-            --background-color: #1a1a1a;
-            --card-background: #2a2a2a;
-            --input-background: #333333;
-            --hover-color: #364fc7;
+            --primary-color: #292b37;
+            --secondary-color: #181a21;
+            --accent-color: #3498db;
+            --text-color: #f4f4f4;
+            --background-color: #222433;
+            --card-background: #292b37;
+            --hover-color: #3a3c47;
         }
 
         * {
@@ -21,14 +23,14 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Poppins', 'Arial', sans-serif;
             background-color: var(--background-color);
             color: var(--text-color);
             line-height: 1.6;
         }
 
         .header {
-            background-color: #1e1e1e;
+            background-color: var(--secondary-color);
             padding: 1rem;
             box-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
@@ -53,19 +55,22 @@
             transition: color 0.3s ease;
             padding: 0.5rem 1rem;
             border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .nav a:hover {
-            color: var(--primary-color);
+            color: var(--accent-color);
         }
 
         .logout-btn {
-            background-color: var(--primary-color);
+            background-color: var(--accent-color);
             color: white;
         }
 
         .logout-btn:hover {
-            background-color: var(--hover-color);
+            background-color: #2980b9;
         }
 
         .search-container {
@@ -89,7 +94,7 @@
         .search-form select {
             flex-grow: 1;
             padding: 0.5rem;
-            background-color: var(--input-background);
+            background-color: var(--background-color);
             border: 1px solid #444;
             border-radius: 4px;
             color: var(--text-color);
@@ -100,17 +105,20 @@
         }
 
         .search-btn {
-            background-color: var(--primary-color);
+            background-color: var(--accent-color);
             color: white;
             border: none;
             padding: 0.5rem 1rem;
             border-radius: 4px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .search-btn:hover {
-            background-color: var(--hover-color);
+            background-color: #2980b9;
         }
 
         .dynamic-search {
@@ -121,12 +129,45 @@
 
         .dynamic-search input {
             padding: 0.5rem;
-            background-color: var(--input-background);
+            background-color: var(--background-color);
             border: 1px solid #444;
             border-radius: 4px;
             color: var(--text-color);
             width: 100%;
             max-width: 400px;
+        }
+
+        .all-cars-button-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            color: var(--accent-color);
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+
+        .non-reserved-cars-btn,
+        .all-cars-btn {
+            background-color: var(--card-background);
+            color: var(--text-color);
+            border: 1px solid var(--accent-color);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .non-reserved-cars-btn:hover,
+        .all-cars-btn:hover {
+            background-color: var(--hover-color);
         }
 
         .cars-container {
@@ -164,27 +205,32 @@
         }
 
         .car-details h3 {
-            color: var(--primary-color);
+            color: var(--accent-color);
             margin-bottom: 1rem;
         }
 
         .car-info {
             margin-bottom: 1rem;
+            color: #a0a0a0;
         }
 
         .rent-btn, .details-btn {
             display: inline-block;
-            background-color: var(--primary-color);
+            background-color: var(--accent-color);
             color: white;
             padding: 0.75rem 1.5rem;
             text-decoration: none;
             border-radius: 4px;
             transition: background-color 0.3s ease;
             margin: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
         }
 
         .rent-btn:hover, .details-btn:hover {
-            background-color: var(--hover-color);
+            background-color: #2980b9;
         }
 
         .car-image {
@@ -202,7 +248,7 @@
         }
 
         footer {
-            background-color: #1e1e1e;
+            background-color: var(--secondary-color);
             color: var(--text-color);
             text-align: center;
             padding: 1rem;
@@ -214,11 +260,11 @@
 <header class="header">
     <nav>
         <ul class="nav">
-            <li><a th:href="@{/cars}">Home</a></li>
-            <li><a th:href="@{/orders(customerId=1)}">Orders</a></li>
-            <li><a th:href="@{/settings(customerId=1)}">Settings</a></li>
+            <li><a th:href="@{/cars}"><i class="fas fa-home"></i> Home</a></li>
+            <li><a th:href="@{/orders(customerId=1)}"><i class="fas fa-calendar-alt"></i> Orders</a></li>
+            <li><a th:href="@{/settings(customerId=1)}"><i class="fas fa-cogs"></i> Settings</a></li>
         </ul>
-        <a th:href="@{/logout}" class="logout-btn">Logout</a>
+        <a th:href="@{/logout}" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
     </nav>
 </header>
 
@@ -235,7 +281,9 @@
         </select>
         <input type="number" name="min-price" placeholder="Prix min">
         <input type="number" name="max-price" placeholder="Prix max">
-        <button type="submit" class="search-btn">Rechercher</button>
+        <button type="submit" class="search-btn">
+            <i class="fas fa-search"></i> Rechercher
+        </button>
     </form>
     <div class="dynamic-search">
         <input type="text" id="search-bar" placeholder="Rechercher par nom de voiture...">
@@ -244,31 +292,39 @@
 
 <div class="all-cars-button-container">
     <form th:action="@{/cars/non-reserved}" method="get">
-        <button type="submit" class="non-reserved-cars-btn">Show Non-Reserved Cars</button>
+        <button type="submit" class="non-reserved-cars-btn">
+            <i class="fas fa-car"></i> Non Réservées
+        </button>
     </form>
     <form th:action="@{/cars/all}" method="get">
-        <button type="submit" class="all-cars-btn">Show All Cars</button>
+        <button type="submit" class="all-cars-btn">
+            <i class="fas fa-list"></i> Tous les Véhicules
+        </button>
     </form>
 </div>
 
+<h2 class="section-title">Available Vehicles</h2>
+
 <main class="cars-container" id="cars-container">
-    <div th:each="car : ${carList}">
-    <div class="car-card">
+    <div th:each="car : ${carList}" class="car-card">
         <div class="car-image">
             <img th:src="@{${car.carImage}}" alt="Image de la voiture">
             <div th:if="${car.carStatus == 'Reserved'}" class="badge">
-                Réservée<br>
+                Réservée
             </div>
         </div>
         <div class="car-details">
             <h3 th:text="${car.carName}">Nom de la voiture</h3>
             <p class="car-info" th:text="${car.carModel}">Modèle de la voiture</p>
             <p class="car-info" th:text="${car.carPrice} + ' MAD/jour'">Prix de la voiture</p>
-            <a th:href="@{/bookingform(carId=${car.carId})}" class="rent-btn">Louer</a>
-            <a th:href="@{/car-details(carId=${car.carId})}" class="details-btn">Détails</a>
+            <a th:href="@{/bookingform(carId=${car.carId})}" class="rent-btn">
+                <i class="fas fa-shopping-cart"></i> Louer
+            </a>
+            <a th:href="@{/car-details(carId=${car.carId})}" class="details-btn">
+                <i class="fas fa-info-circle"></i> Détails
+            </a>
         </div>
     </div>
-</div>
 </main>
 
 <footer>
