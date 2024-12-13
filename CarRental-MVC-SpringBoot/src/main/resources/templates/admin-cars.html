@@ -221,6 +221,21 @@
             background-color: #ff3333;
         }
 
+        .add-car-btn {
+            padding: 0.5rem 1rem;
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .add-car-btn:hover {
+            background-color: #0056b3;
+        }
+
         footer {
             position: fixed;
             bottom: 0;
@@ -265,6 +280,7 @@
             <form class="search-form">
                 <input type="text" id="search-bar" class="search-input" placeholder="Search by car name">
             </form>
+            <a th:href="@{/admin/add-vehicle}" class="add-car-btn">Ajouter voiture</a>
         </div>
         <div class="car-list" id="car-list">
             <div class="car-card" th:each="car: ${carList}">
