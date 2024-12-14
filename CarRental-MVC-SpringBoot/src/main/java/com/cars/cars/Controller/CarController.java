@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
@@ -26,14 +28,17 @@ public class CarController {
 
     @GetMapping("/search")
     public String searchCars(
-            @RequestParam(value = "start-date", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
-            @RequestParam(value = "end-date", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
+            @RequestParam(value = "start-date", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam(value = "end-date", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
             @RequestParam(value = "vehicle-type", required = false) String type,
             @RequestParam(value = "min-price", required = false) Integer minPrice,
             @RequestParam(value = "max-price", required = false) Integer maxPrice,
             Model model) {
 
-        List<Car> carList = carServices.searchCars(startDate, endDate, type, minPrice, maxPrice);
+        Date startDateConverted = startDate != null ? Date.from(startDate.atStartOfDay(ZoneId.systemDefault()).toInstant()) : null;
+        Date endDateConverted = endDate != null ? Date.from(endDate.atStartOfDay(ZoneId.systemDefault()).toInstant()) : null;
+
+        List<Car> carList = carServices.searchCars(startDateConverted, endDateConverted, type, minPrice, maxPrice);
         model.addAttribute("carList", carList);
         return "cars";
     }

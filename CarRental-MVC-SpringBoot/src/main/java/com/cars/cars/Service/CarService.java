@@ -1,4 +1,3 @@
-// CarService.java
 package com.cars.cars.Service;
 
 import com.cars.cars.Model.Car;
@@ -8,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +20,13 @@ public class CarService implements CarServices {
 
     @Override
     public List<Car> searchCars(Date startDate, Date endDate, String type, Integer minPrice, Integer maxPrice) {
+        LocalDate startLocalDate = new java.sql.Date(startDate.getTime()).toLocalDate();
+        LocalDate endLocalDate = new java.sql.Date(endDate.getTime()).toLocalDate();
+        return searchCars(startLocalDate, endLocalDate, type, minPrice, maxPrice);
+    }
+
+//    @Override
+    public List<Car> searchCars(LocalDate startDate, LocalDate endDate, String type, Integer minPrice, Integer maxPrice) {
         Specification<Car> spec = Specification.where(null);
 
         if (startDate != null && endDate != null) {
@@ -59,7 +66,7 @@ public class CarService implements CarServices {
 
     @Override
     public List<Car> findNonReservedCars() {
-        return carRepo.findByCarStatus("Available"); // Fetch only non-reserved cars
+        return carRepo.findByCarStatus("Available");
     }
 
     @Override
@@ -71,12 +78,6 @@ public class CarService implements CarServices {
     public void DeleteCar(int carId) {
         carRepo.deleteById(carId);
     }
-
-    public void updateCarStatus(Integer carId, String status) {
-    Car car = carRepo.findById(carId).orElseThrow(() -> new IllegalArgumentException("Invalid car Id:" + carId));
-    car.setCarStatus(status);
-    carRepo.save(car);
-}
 
     @Override
     public List<Car> findAllByCarStatus(String status) {
