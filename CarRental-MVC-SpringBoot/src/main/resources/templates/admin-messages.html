@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Messaging Dashboard</title>
+    <title>Easy Rent - Messaging Dashboard</title>
     <style>
         * {
             margin: 0;
@@ -23,7 +23,7 @@
             flex-grow: 1;
         }
 
-        /* Sidebar Styles */
+        /* Sidebar Styles (Copied from previous design) */
         .sidebar {
             width: 250px;
             background-color: #ffffff;
@@ -80,54 +80,58 @@
             border-right: 3px solid #ff4d4d;
         }
 
+        .nav-divider {
+            height: 1px;
+            background-color: #e9ecef;
+            margin: 1rem 1.5rem;
+        }
+
         /* Main Content Styles */
         .main-content {
             margin-left: 250px;
             flex-grow: 1;
             padding: 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
         .messaging-container {
-            width: 100%;
-            max-width: 1000px;
             display: flex;
-            background: #fff;
-            border-radius: 15px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            height: 80vh;
+            height: calc(100vh - 4rem);
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
         .customer-list {
-            width: 300px;
-            background-color: #f8f9fa;
+            width: 250px;
             border-right: 1px solid #e9ecef;
-            overflow-y: auto;
-            padding: 1rem 0;
+            padding: 1rem;
+            background-color: #f8f9fa;
         }
 
         .customer-list h3 {
-            padding: 1rem 1.5rem;
-            color: #333;
-            font-size: 1.2rem;
-            border-bottom: 1px solid #e9ecef;
+            color: #333333;
             margin-bottom: 1rem;
         }
 
         .customer-item {
-            padding: 0.75rem 1.5rem;
-            cursor: pointer;
+            margin-bottom: 0.5rem;
+        }
+
+        .customer-item a {
+            display: block;
+            padding: 0.5rem 1rem;
+            color: #6c757d;
+            text-decoration: none;
+            border-radius: 4px;
             transition: all 0.3s;
         }
 
-        .customer-item:hover {
-            background-color: #f1f3f5;
+        .customer-item a:hover {
+            background-color: #e9ecef;
+            color: #ff4d4d;
         }
 
-        .customer-item.active {
+        .customer-item.active a {
             background-color: #fff1f1;
             color: #ff4d4d;
         }
@@ -136,74 +140,73 @@
             flex-grow: 1;
             display: flex;
             flex-direction: column;
+            padding: 1rem;
         }
 
         .chat-header {
-            background-color: #f8f9fa;
-            padding: 1rem 1.5rem;
             border-bottom: 1px solid #e9ecef;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
         }
 
         .chat-header h2 {
-            color: #333;
-            font-size: 1.2rem;
+            color: #333333;
         }
 
         .messages-list {
             flex-grow: 1;
             overflow-y: auto;
-            padding: 1.5rem;
+            padding: 1rem 0;
+            display: flex;
+            flex-direction: column;
         }
 
         .message-item {
             margin-bottom: 1rem;
             display: flex;
-            flex-direction: column;
+            width: 100%;
         }
 
         .message-item.user-message {
-            align-items: flex-start;
+            justify-content: flex-start;
         }
 
         .message-item.admin-message {
-            align-items: flex-end;
+            justify-content: flex-end;
         }
 
         .message-bubble {
             max-width: 70%;
-            padding: 0.75rem 1rem;
-            border-radius: 12px;
+            padding: 0.75rem;
+            border-radius: 8px;
         }
 
         .message-bubble.user {
-            background-color: #f1f3f5;
-            color: #333;
+            background-color: #f1f1f1;
+            margin-right: auto;
         }
 
         .message-bubble.admin {
             background-color: #ff4d4d;
             color: white;
+            margin-left: auto;
         }
 
         .message-input {
-            padding: 1rem 1.5rem;
-            background-color: #f8f9fa;
             border-top: 1px solid #e9ecef;
+            padding-top: 1rem;
         }
 
         .message-input form {
             display: flex;
+            gap: 1rem;
         }
 
         .message-input input {
             flex-grow: 1;
-            padding: 0.75rem 1rem;
-            border: 2px solid #e1e1e1;
-            border-radius: 8px;
-            margin-right: 1rem;
+            padding: 0.75rem;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
         }
 
         .message-input button {
@@ -211,13 +214,25 @@
             background-color: #ff4d4d;
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 4px;
             cursor: pointer;
             transition: background-color 0.3s;
         }
 
         .message-input button:hover {
             background-color: #ff3333;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 250px;
+            right: 0;
+            padding: 1rem 2rem;
+            background-color: #ffffff;
+            border-top: 1px solid #e9ecef;
+            text-align: center;
+            color: #6c757d;
         }
     </style>
 </head>
@@ -231,11 +246,13 @@
         <ul class="nav-links">
             <li><a th:href="@{/admin/cars}">🚗 Gerer les voitures</a></li>
             <li><a th:href="@{/admin/bookings}">📅 Bookings</a></li>
+            <li><a th:href="@{/admin/payments}">💳 Payments</a></li>
             <li><a th:href="@{/admin/statistics}">📊 Statistiques</a></li>
             <li><a th:href="@{/admin/customers}">👥 Customers</a></li>
             <li><a th:href="@{/admin/booking-requests}">📅 Demandes de réservation</a></li>
-            <li><a th:href="@{/admin/add-admin}">➕ Ajouter admin</a></li>
-            <li><a th:href="@{/admin/profile}">👤 Profile</a></li>
+            <li><a href="#" class="active">💬 Messages</a></li>
+            <li><a th:href="@{/admin/add-admin}" class="add-button">Ajouter admin</a></li>
+            <li><a th:href="@{/admin/profile}" class="add-button">Profile</a></li>
             <div class="nav-divider"></div>
             <li><a th:href="@{/logout}">🚪 LogOut</a></li>
         </ul>
@@ -245,29 +262,19 @@
         <div class="messaging-container">
             <div class="customer-list">
                 <h3>Customers</h3>
-                <div th:each="customer : ${customers}">
-                    <div class="customer-item"
-                         th:classappend="${customer.customerId == selectedUserId ? 'active' : ''}"
-                         th:onclick="|window.location.href='@{/admin/messages(userId=${customer.customerId})}'|">
-                        <span th:text="${customer.customerFirstName} + ' ' + ${customer.customerLastName}"></span>
-                    </div>
+                <div th:each="customer : ${customers}" class="customer-item" th:classappend="${selectedUserId == customer.customerId} ? 'active'">
+                    <a th:href="@{/admin/messages(userId=${customer.customerId})}" th:text="${customer.customerFirstName} + ' ' + ${customer.customerLastName}"></a>
                 </div>
             </div>
 
             <div class="chat-section">
                 <div class="chat-header">
-                    <h2 th:if="${selectedUser != null}"
-                        th:text="${'Chat with ' + selectedUser.customerFirstName + ' ' + selectedUser.customerLastName}">
-                        Select a Customer
-                    </h2>
+                    <h2 th:if="${selectedUser != null}" th:text="${'Chat with ' + selectedUser.customerFirstName + ' ' + selectedUser.customerLastName}">Select a Customer</h2>
                 </div>
 
                 <div class="messages-list" id="messages-list">
-                    <div th:each="message : ${messages}"
-                         class="message-item"
-                         th:classappend="${message.userName == 'Admin' ? 'admin-message' : 'user-message'}">
-                        <div class="message-bubble"
-                             th:classappend="${message.userName == 'Admin' ? 'admin' : 'user'}">
+                    <div th:each="message : ${messages}" class="message-item" th:classappend="${message.senderType == 'ADMIN'} ? 'admin-message' : 'user-message'">
+                        <div class="message-bubble" th:classappend="${message.senderType == 'ADMIN'} ? 'admin' : 'user'">
                             <strong th:text="${message.userName}"></strong>
                             <p th:text="${message.content}"></p>
                         </div>
@@ -285,5 +292,8 @@
         </div>
     </div>
 </div>
+<footer>
+    <span>Easy Rent - Messaging</span>
+</footer>
 </body>
 </html>
