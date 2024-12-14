@@ -72,34 +72,15 @@
     </style>
 </head>
 <body>
-    <div class="messages-container">
-        <div class="messages-header">
-            <h2>Admin Messages</h2>
-        </div>
-        <div class="messages-list" id="messages-list">
-            <!-- Messages will be displayed here -->
-        </div>
-        <div class="message-input">
-            <input type="text" id="admin-message-input" placeholder="Enter your message">
-            <button onclick="sendAdminMessage()">Send</button>
+<div class="messages-container">
+    <div class="messages-header">
+        <h2>Admin Messages</h2>
+    </div>
+    <div class="messages-list" id="messages-list">
+        <div th:each="message : ${messages}" class="message-item">
+            <strong th:text="${message.userName}"></strong>: <span th:text="${message.content}"></span>
         </div>
     </div>
-
-    <script>
-        function sendAdminMessage() {
-            const messageInput = document.getElementById('admin-message-input');
-            const message = messageInput.value;
-            if (message.trim() === '') return;
-
-            // Send the message to the server (this part will be implemented in the backend)
-            // For now, just display the message in the chat
-            const messagesList = document.getElementById('messages-list');
-            const messageElement = document.createElement('div');
-            messageElement.textContent = message;
-            messagesList.appendChild(messageElement);
-
-            messageInput.value = '';
-        }
-    </script>
+</div>
 </body>
 </html>

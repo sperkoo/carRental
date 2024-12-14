@@ -67,34 +67,19 @@
     </style>
 </head>
 <body>
-    <div class="chat-container">
-        <div class="chat-header">
-            <h2>Chat with Admin</h2>
-        </div>
-        <div class="chat-messages" id="chat-messages">
-            <!-- Messages will be displayed here -->
-        </div>
-        <div class="chat-input">
-            <input type="text" id="message-input" placeholder="Enter your message">
-            <button onclick="sendMessage()">Send</button>
-        </div>
+<div class="chat-container">
+    <div class="chat-header">
+        <h2>Chat with Admin</h2>
     </div>
-
-    <script>
-        function sendMessage() {
-            const messageInput = document.getElementById('message-input');
-            const message = messageInput.value;
-            if (message.trim() === '') return;
-
-            // Send the message to the server (this part will be implemented in the backend)
-            // For now, just display the message in the chat
-            const chatMessages = document.getElementById('chat-messages');
-            const messageElement = document.createElement('div');
-            messageElement.textContent = message;
-            chatMessages.appendChild(messageElement);
-
-            messageInput.value = '';
-        }
-    </script>
+    <div class="chat-messages" id="chat-messages">
+        <!-- Messages will be displayed here -->
+    </div>
+    <div class="chat-input">
+        <form th:action="@{/send-message}" method="post">
+            <input type="text" name="content" placeholder="Enter your message" required>
+            <button type="submit">Send</button>
+        </form>
+    </div>
+</div>
 </body>
 </html>

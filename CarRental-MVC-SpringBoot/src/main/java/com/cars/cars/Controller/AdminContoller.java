@@ -3,9 +3,11 @@ package com.cars.cars.Controller;
 import com.cars.cars.Model.Booking;
 import com.cars.cars.Model.Car;
 import com.cars.cars.Model.Customer;
+import com.cars.cars.Model.Message;
 import com.cars.cars.Service.BookingService;
 import com.cars.cars.Service.CarService;
 import com.cars.cars.Service.CustomerService;
+import com.cars.cars.Service.MessageService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -46,6 +48,9 @@ import java.io.ByteArrayOutputStream;
 public class AdminContoller {
 
     private static final Logger logger = Logger.getLogger(UserController.class);
+
+    @Autowired
+    private MessageService messageService;
 
     @Autowired
     private CarService carService;
@@ -254,10 +259,14 @@ public ModelAndView getAdminProfile() {
         return new ModelAndView("chat");
     }
 
-    @GetMapping("/admin/messages")
-    public ModelAndView adminMessages() {
-        return new ModelAndView("admin-messages");
-    }
+    // src/main/java/com/cars/cars/Controller/AdminController.java
+@GetMapping("/admin/messages")
+public ModelAndView adminMessages() {
+    ModelAndView modelAndView = new ModelAndView("admin-messages");
+    List<Message> messages = messageService.getAllMessages();
+    modelAndView.addObject("messages", messages);
+    return modelAndView;
+}
 
     @PostMapping("/update-admin")
     public String updateAdmin(@ModelAttribute Customer customer) {

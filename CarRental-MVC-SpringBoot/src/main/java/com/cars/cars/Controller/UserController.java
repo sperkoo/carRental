@@ -1,12 +1,15 @@
+// src/main/java/com/cars/cars/Controller/UserController.java
 package com.cars.cars.Controller;
 
 import com.cars.cars.Model.Booking;
 import com.cars.cars.Model.Car;
 import com.cars.cars.Model.Customer;
+import com.cars.cars.Model.Message;
 import com.cars.cars.Service.BookingService;
 import com.cars.cars.Service.CarService;
 import com.cars.cars.Service.CarServices;
 import com.cars.cars.Service.CustomerService;
+import com.cars.cars.Service.MessageService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -40,6 +43,9 @@ public class UserController {
     @Autowired
     private CarServices carServices;
 
+    @Autowired
+    private MessageService messageService;
+
     private Integer getCurrentCustomerId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
@@ -56,7 +62,6 @@ public class UserController {
 
     @PostMapping("/send-booking-request")
     public String sendBookingRequest(@ModelAttribute Booking booking, @RequestParam Integer carId, Model model) {
-
         booking.setCarId(carId);
         booking.setCustomerId(getCurrentCustomerId());
 
@@ -108,7 +113,6 @@ public class UserController {
         return modelAndView;
     }
 
-    // UserController.java
     @PostMapping("/update-user")
     public String UpdateUser(@ModelAttribute Customer customer, Model model) {
         customerService.SaveCustomer(customer);
@@ -126,20 +130,19 @@ public class UserController {
         return modelAndView;
     }
 
-    // src/main/java/com/cars/cars/Controller/UserController.java
-@GetMapping("/bookingform")
-public ModelAndView BookingCar(@RequestParam Integer carId){
-    ModelAndView modelAndView = new ModelAndView("bookingform");
-    Car car = carService.findCarById(carId);
-    Booking booking = new Booking();
-    booking.setCarId(car.getCarId());
-    booking.setCustomerId(getCurrentCustomerId());
-    List<Booking> futureBookings = bookingService.findFutureBookingsByCarId(carId);
-    modelAndView.addObject("booking", booking);
-    modelAndView.addObject("futureBookings", futureBookings);
-    logger.info("Some user trying to rent a car");
-    return modelAndView;
-}
+    @GetMapping("/bookingform")
+    public ModelAndView BookingCar(@RequestParam Integer carId){
+        ModelAndView modelAndView = new ModelAndView("bookingform");
+        Car car = carService.findCarById(carId);
+        Booking booking = new Booking();
+        booking.setCarId(car.getCarId());
+        booking.setCustomerId(getCurrentCustomerId());
+        List<Booking> futureBookings = bookingService.findFutureBookingsByCarId(carId);
+        modelAndView.addObject("booking", booking);
+        modelAndView.addObject("futureBookings", futureBookings);
+        logger.info("Some user trying to rent a car");
+        return modelAndView;
+    }
 
     @PostMapping("/save-booking")
     public String SaveBooking(@ModelAttribute Booking booking, @RequestParam Integer carId){
@@ -205,12 +208,17 @@ public ModelAndView BookingCar(@RequestParam Integer carId){
         return "redirect:/user-cars";
     }
 
-//    @GetMapping("/user-cars")
-//    public String GetAllCars(Model model) {
-//        model.addAttribute("carList", carServices.GetAllCars());
-//        return "user-cars";
-//    }
+    @PostMapping("/send-message")
+    public String sendMessage(@RequestParam String content) {
+        Integer userId = getCurrentCustomerId();
+        Customer customer = customerService.FindCustomerById(userId);
 
+        Message message = new Message();
+        message.setUserId(userId);
+        message.setUserName(customer.getCustomerFirstName() + " " + customer.getCustomerLastName());
+        message.setContent(content);
 
-
+        messageService.saveMessage(message);
+        return "redirect:/chat";
+    }
 }
