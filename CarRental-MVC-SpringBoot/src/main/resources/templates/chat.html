@@ -72,7 +72,9 @@
         <h2>Chat with Admin</h2>
     </div>
     <div class="chat-messages" id="chat-messages">
-        <!-- Messages will be displayed here -->
+        <div th:each="message : ${messages}" class="message-item">
+            <strong th:text="${message.userName}"></strong>: <span th:text="${message.content}"></span>
+        </div>
     </div>
     <div class="chat-input">
         <form th:action="@{/send-message}" method="post">

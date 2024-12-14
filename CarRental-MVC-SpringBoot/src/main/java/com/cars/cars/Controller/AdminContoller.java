@@ -253,20 +253,32 @@ public ModelAndView getAdminProfile() {
 }
 
 
-    // AdminController.java
-    @GetMapping("/chat")
+    @GetMapping("/admin/chat")
     public ModelAndView chat() {
         return new ModelAndView("chat");
     }
 
-    // src/main/java/com/cars/cars/Controller/AdminController.java
-@GetMapping("/admin/messages")
-public ModelAndView adminMessages() {
-    ModelAndView modelAndView = new ModelAndView("admin-messages");
-    List<Message> messages = messageService.getAllMessages();
-    modelAndView.addObject("messages", messages);
-    return modelAndView;
-}
+    @GetMapping("/admin/messages")
+    public ModelAndView adminMessages() {
+        List<Message> messages = messageService.getAllMessages();
+        ModelAndView modelAndView = new ModelAndView("admin-messages");
+        modelAndView.addObject("messages", messages);
+        return modelAndView;
+    }
+
+    @PostMapping("/reply-message")
+    public String replyMessage(@RequestParam int userId, @RequestParam String content) {
+        Customer admin = customerService.FindCustomerById(getCurrentAdminId());
+
+        Message message = new Message();
+        message.setUserId(userId);
+        message.setUserName(admin.getCustomerFirstName() + " " + admin.getCustomerLastName());
+        message.setContent(content);
+        message.setSenderType("ADMIN");
+
+        messageService.saveMessage(message);
+        return "redirect:/admin/messages";
+    }
 
     @PostMapping("/update-admin")
     public String updateAdmin(@ModelAttribute Customer customer) {
@@ -339,6 +351,7 @@ public String saveCar(
     logger.info("Admin found: " + admin.getCustomerId());
     return admin.getCustomerId();
 }
+
 
 
 }

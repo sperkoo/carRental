@@ -17,6 +17,10 @@ public class MessageService {
         return messageRepo.findAllByOrderByIdAsc();
     }
 
+    public List<Message> getMessagesByUserId(int userId) {
+        return messageRepo.findByUserIdOrderByIdAsc(userId);
+    }
+
     public void saveMessage(Message message) {
         messageRepo.save(message);
     }

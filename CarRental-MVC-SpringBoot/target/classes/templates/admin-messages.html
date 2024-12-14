@@ -81,6 +81,13 @@
             <strong th:text="${message.userName}"></strong>: <span th:text="${message.content}"></span>
         </div>
     </div>
+    <div class="message-input">
+        <form th:action="@{/reply-message}" method="post">
+            <input type="hidden" name="userId" th:value="${messages[0]?.userId}" />
+            <input type="text" name="content" placeholder="Enter your reply" required>
+            <button type="submit">Reply</button>
+        </form>
+    </div>
 </div>
 </body>
 </html>

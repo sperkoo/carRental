@@ -10,4 +10,6 @@ import java.util.List;
 @Repository
 public interface MessageRepo extends JpaRepository<Message, Integer> {
     List<Message> findAllByOrderByIdAsc();
+
+    List<Message> findByUserIdOrderByIdAsc(int userId);
 }

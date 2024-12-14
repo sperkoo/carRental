@@ -208,6 +208,15 @@ public class UserController {
         return "redirect:/user-cars";
     }
 
+    @GetMapping("/chat")
+    public ModelAndView chat() {
+        Integer userId = getCurrentCustomerId();
+        List<Message> messages = messageService.getMessagesByUserId(userId);
+        ModelAndView modelAndView = new ModelAndView("chat");
+        modelAndView.addObject("messages", messages);
+        return modelAndView;
+    }
+
     @PostMapping("/send-message")
     public String sendMessage(@RequestParam String content) {
         Integer userId = getCurrentCustomerId();
@@ -217,8 +226,11 @@ public class UserController {
         message.setUserId(userId);
         message.setUserName(customer.getCustomerFirstName() + " " + customer.getCustomerLastName());
         message.setContent(content);
+        message.setSenderType("USER");
 
         messageService.saveMessage(message);
         return "redirect:/chat";
     }
+
+
 }

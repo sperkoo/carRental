@@ -14,6 +14,7 @@ public class Message {
     private int userId;
     private String userName;
     private String content;
+    private String senderType;
 
     public int getId() {
         return id;
@@ -45,5 +46,13 @@ public class Message {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getSenderType() {
+        return senderType;
+    }
+
+    public void setSenderType(String senderType) {
+        this.senderType = senderType;
     }
 }
