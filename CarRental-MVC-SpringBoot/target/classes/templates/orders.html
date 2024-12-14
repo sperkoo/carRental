@@ -2,15 +2,18 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Mes Réservations</title>
+    <title>Mes Réservations - Location de Véhicules</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #ff4d4d;
-            --text-color: #333;
-            --background-color: #f4f4f4;
-            --card-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            --border-radius: 8px;
+            --primary-color: #0d1117; /* Dark background */
+            --secondary-color: #161b22; /* Slightly lighter dark background */
+            --accent-color: #4c6ef5;
+            --text-color: #c9d1d9; /* Light gray for text */
+            --background-color: #0d1117; /* Overall background color */
+            --card-background: #161b22; /* Card background */
+            --hover-color: #1f6feb; /* Bright blue for hover effects */
         }
 
         * {
@@ -20,7 +23,7 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Poppins', 'Arial', sans-serif;
             background-color: var(--background-color);
             color: var(--text-color);
             line-height: 1.6;
@@ -30,12 +33,17 @@
         }
 
         .header {
-            background-color: var(--primary-color);
+            background-color: var(--secondary-color);
             padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .header nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .nav {
@@ -44,35 +52,57 @@
             gap: 1.5rem;
         }
 
-        .nav a, .right {
-            color: white;
+        .nav a, .logout-btn {
+            color: var(--text-color);
             text-decoration: none;
-            font-weight: 500;
-            transition: opacity 0.3s ease;
+            transition: color 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        .nav a:hover, .right:hover {
-            opacity: 0.8;
+        .nav a:hover {
+            color: var(--hover-color);
+        }
+
+        .logout-btn {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .logout-btn:hover {
+            background-color: var(--hover-color);
+        }
+
+        .section-title {
+            text-align: center;
+            color: var(--accent-color);
+            margin: 2rem 0;
+            font-size: 2rem;
         }
 
         .item-main-container {
-            max-width: 900px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 0 1rem;
             margin-bottom: 2rem;
         }
 
         .item-container {
-            background-color: white;
-            border-radius: var(--border-radius);
-            box-shadow: var(--card-shadow);
+            background-color: var(--card-background);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.5);
             display: flex;
             overflow: hidden;
             transition: transform 0.3s ease;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .item-container:hover {
-            transform: translateY(-2px);
+            transform: translateY(-5px);
         }
 
         .image-div {
@@ -99,6 +129,7 @@
             flex-direction: column;
             gap: 0.75rem;
             flex-grow: 1;
+            color: #8b949e;
         }
 
         .details strong {
@@ -106,7 +137,8 @@
             justify-content: space-between;
             align-items: center;
             padding-bottom: 0.5rem;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            color: var(--text-color);
         }
 
         .details strong:last-of-type {
@@ -121,20 +153,24 @@
 
         .rent {
             padding: 0.75rem 1.5rem;
-            background-color: var(--primary-color);
+            background-color: var(--accent-color);
             color: white;
             text-decoration: none;
-            border-radius: var(--border-radius);
+            border-radius: 4px;
             border: none;
             cursor: pointer;
             font-size: 1rem;
             transition: background-color 0.3s ease;
             text-align: center;
             min-width: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
         }
 
         .rent:hover {
-            background-color: #ff3333;
+            background-color: var(--hover-color);
         }
 
         .rent.disabled {
@@ -143,8 +179,8 @@
         }
 
         footer {
-            background-color: var(--primary-color);
-            color: white;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
             text-align: center;
             padding: 1rem;
             position: fixed;
@@ -192,42 +228,55 @@
     </style>
 </head>
 <body>
-<header class='header'>
-    <ul class='nav'>
-        <li><a th:href="@{/cars}">Accueil</a></li>
-        <li><a th:href="@{/orders(customerId=1)}">Réservations</a></li>
-    </ul>
-    <a th:href="@{/logout}" class="right">Déconnexion</a>
+<header class="header">
+    <nav>
+        <ul class="nav">
+            <li><a th:href="@{/cars}"><i class="fas fa-home"></i> Home</a></li>
+            <li><a th:href="@{/orders(customerId=1)}"><i class="fas fa-calendar-alt"></i> Orders</a></li>
+            <li><a th:href="@{/settings(customerId=1)}"><i class="fas fa-cogs"></i> Settings</a></li>
+        </ul>
+        <a th:href="@{/logout}" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </nav>
 </header>
+
+<h2 class="section-title">My Bookings</h2>
 
 <div th:each="booking : ${bookingList}">
     <div class="item-main-container">
         <div class="item-container">
             <div class="image-div">
-                <img class="image" th:src="@{${booking.image}}" alt="Véhicule"/>
+                <img class="image" th:src="@{${booking.image}}" alt="Vehicle"/>
             </div>
             <div class="details">
-                <strong>N° de réservation : <span th:text="${booking.bookingId}"></span></strong>
-                <strong>N° de véhicule : <span th:text="${booking.carId}"></span></strong>
-                <strong>N° de client : <span th:text="${booking.customerId}"></span></strong>
-                <strong>Date de début : <span th:text="${booking.bookingDateFrom}"></span></strong>
-                <strong>Date de fin : <span th:text="${booking.bookingDateTo}"></span></strong>
-                <strong>Prix par jour : <span th:text="${booking.priceDay} + ' MAD'"></span></strong>
-                <strong>Prix total : <span th:text="${booking.totalPrice} + ' MAD'"></span></strong>
+                <strong>Booking Number: <span th:text="${booking.bookingId}"></span></strong>
+                <strong>Vehicle Number: <span th:text="${booking.carId}"></span></strong>
+                <strong>Customer Number: <span th:text="${booking.customerId}"></span></strong>
+                <strong>Start Date: <span th:text="${booking.bookingDateFrom}"></span></strong>
+                <strong>End Date: <span th:text="${booking.bookingDateTo}"></span></strong>
+                <strong>Price per Day: <span th:text="${booking.priceDay} + ' MAD'"></span></strong>
+                <strong>Total Price: <span th:text="${booking.totalPrice} + ' MAD'"></span></strong>
 
                 <div class="rent-div">
-                    <a class="rent" th:href="@{/update-booking(bookingId=${booking.bookingId})}">Modifier</a>
+                    <a class="rent" th:href="@{/update-booking(bookingId=${booking.bookingId})}">
+                        <i class="fas fa-edit"></i> Modify
+                    </a>
                     <form th:action="@{/return-car(bookingId=${booking.bookingId},carId=${booking.carId})}" th:object="${booking}" method="post">
-                        <button class="rent" type="submit">Retourner</button>
+                        <button class="rent" type="submit">
+                            <i class="fas fa-undo"></i> Return
+                        </button>
                     </form>
                     <form th:action="@{/generate-invoice}" method="get" style="margin: 0;">
                         <input type="hidden" name="bookingId" th:value="${booking.bookingId}" />
-                        <button type="submit" class="rent">Facture</button>
+                        <button type="submit" class="rent">
+                            <i class="fas fa-file-invoice"></i> Invoice
+                        </button>
                     </form>
                     <form th:action="@{/pay}" method="post" style="margin: 0;">
                         <input type="hidden" name="bookingId" th:value="${booking.bookingId}" />
                         <input type="hidden" name="totalPrice" th:value="${booking.totalPrice}" />
-                        <button type="submit" class="rent" th:classappend="${booking.status == 'Payed'} ? ' disabled' : ''">Pay</button>
+                        <button type="submit" class="rent" th:classappend="${booking.status == 'Payed'} ? ' disabled' : ''">
+                            <i class="fas fa-credit-card"></i> Pay
+                        </button>
                     </form>
                 </div>
             </div>
@@ -236,7 +285,13 @@
 </div>
 
 <footer>
-    <span>Location de Véhicules</span>
+    <p>&copy; 2024 Cars Booking. All Rights Reserved.</p>
 </footer>
+
+<button class="chat-button" onclick="window.location.href='/chat'">
+    <i class="fas fa-comments"></i>
+</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
 </body>
 </html>
