@@ -722,3 +722,15 @@
 2024-12-14 22:40:22,650 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
 2024-12-14 22:40:25,246 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
 2024-12-14 22:40:29,910 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-14 22:51:38,671 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-14 22:51:45,723 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-14 22:53:04,011 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-14 22:53:09,847 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-14 22:54:32,533 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-14 22:54:38,711 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-14 22:55:08,128 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-14 22:55:37,970 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-14 22:55:55,238 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-14 22:55:59,924 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-14 22:56:00,885 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-14 22:56:17,353 * INFO * com.cars.cars.Controller.UserController * getCurrentAdminId * Admin found: 19
