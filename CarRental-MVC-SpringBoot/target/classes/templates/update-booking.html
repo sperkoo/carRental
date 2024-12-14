@@ -4,31 +4,39 @@
     <meta charset="UTF-8">
     <title>Update Your Booking</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #ff4d4d;
-            --text-color: #333;
-            --background-color: #f4f4f4;
+            --primary-color: #0d1117;
+            --secondary-color: #161b22;
+            --accent-color: #4c6ef5;
+            --text-color: #c9d1d9;
+            --background-color: #0d1117;
+            --card-background: #161b22;
+            --hover-color: #1f6feb;
+            --error-color: #f85149;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
         }
 
         body {
+            font-family: 'Poppins', 'Arial', sans-serif;
             background-color: var(--background-color);
+            color: var(--text-color);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            line-height: 1.6;
         }
 
         .header {
-            background-color: var(--primary-color);
+            background-color: var(--secondary-color);
             padding: 1rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
 
         .header nav {
@@ -42,18 +50,31 @@
         .nav {
             display: flex;
             list-style: none;
-            gap: 2rem;
+            gap: 1.5rem;
         }
 
-        .nav a, .right {
-            color: white;
+        .nav a, .logout-btn {
+            color: var(--text-color);
             text-decoration: none;
-            font-weight: 500;
-            transition: opacity 0.3s ease;
+            transition: color 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        .nav a:hover, .right:hover {
-            opacity: 0.8;
+        .nav a:hover {
+            color: var(--hover-color);
+        }
+
+        .logout-btn {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .logout-btn:hover {
+            background-color: var(--hover-color);
         }
 
         .container {
@@ -65,10 +86,10 @@
         }
 
         .sub-container-update {
-            background: white;
+            background-color: var(--card-background);
             padding: 2.5rem;
             border-radius: 12px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.5);
             width: 100%;
             max-width: 500px;
         }
@@ -81,7 +102,7 @@
         .confirm-update span {
             font-size: 1.8rem;
             font-weight: bold;
-            color: var(--primary-color);
+            color: var(--accent-color);
         }
 
         .element form {
@@ -90,22 +111,36 @@
             gap: 1.5rem;
         }
 
+        .date-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .date-label {
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
         input[type="date"] {
             width: 100%;
             padding: 1rem;
-            border: 2px solid #e1e1e1;
+            background-color: var(--background-color);
+            border: 1px solid #30363d;
             border-radius: 8px;
+            color: var(--text-color);
             font-size: 1rem;
             transition: border-color 0.3s ease;
             outline: none;
         }
 
         input[type="date"]:focus {
-            border-color: var(--primary-color);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 2px rgba(76, 110, 245, 0.1);
         }
 
         .confirm-button {
-            background-color: var(--primary-color);
+            background-color: var(--accent-color);
             color: white;
             border: none;
             padding: 1rem;
@@ -114,10 +149,14 @@
             font-weight: 600;
             cursor: pointer;
             transition: transform 0.3s ease, background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
         }
 
         .confirm-button:hover {
-            background-color: #ff3333;
+            background-color: var(--hover-color);
             transform: translateY(-2px);
         }
 
@@ -125,9 +164,15 @@
             transform: translateY(0);
         }
 
+        .error-message {
+            color: var(--error-color);
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
         footer {
-            background-color: var(--primary-color);
-            color: white;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
             text-align: center;
             padding: 1rem;
             margin-top: auto;
@@ -155,13 +200,14 @@
     </style>
 </head>
 <body>
-<header class='header'>
+<header class="header">
     <nav>
-        <ul class='nav'>
-            <li><a th:href="@{/cars}">Home</a></li>
-            <li><a th:href="@{/orders(customerId=1)}">Orders</a></li>
+        <ul class="nav">
+            <li><a th:href="@{/cars}"><i class="fas fa-home"></i> Home</a></li>
+            <li><a th:href="@{/orders(customerId=1)}"><i class="fas fa-calendar-alt"></i> Orders</a></li>
+            <li><a th:href="@{/settings(customerId=1)}"><i class="fas fa-cogs"></i> Settings</a></li>
         </ul>
-        <a th:href="@{/logout}" class="right">Logout</a>
+        <a th:href="@{/logout}" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
     </nav>
 </header>
 
@@ -171,30 +217,76 @@
             <span>Update Your Order</span>
         </div>
         <div class="element">
-            <form th:action="@{/save-update(bookingId=${booking.getBookingId()})}" th:object="${booking}" method="post">
+            <form th:action="@{/save-update(bookingId=${booking.getBookingId()})}" th:object="${booking}" method="post" onsubmit="return validateDates()">
                 <input type="hidden" th:value="*{bookingId}" />
                 <input type="hidden" th:value="*{carId}" />
-                <input type="date" id="datefrom" th:field="*{bookingDateFrom}" placeholder="From" required />
-                <input type="date" id="dateto" th:field="*{bookingDateTo}" placeholder="To" required />
-                <button type="submit" class="confirm-button">Update Booking</button>
+
+                <div class="date-input-group">
+                    <label class="date-label" for="datefrom">Start Date:</label>
+                    <input type="date"
+                           id="datefrom"
+                           th:field="*{bookingDateFrom}"
+                           required />
+                </div>
+
+                <div class="date-input-group">
+                    <label class="date-label" for="dateto">End Date:</label>
+                    <input type="date"
+                           id="dateto"
+                           th:field="*{bookingDateTo}"
+                           required />
+                </div>
+
+                <div id="error-message" class="error-message" style="display: none;">
+                    Please ensure the end date is after the start date.
+                </div>
+
+                <button type="submit" class="confirm-button">
+                    <i class="fas fa-save"></i> Update Booking
+                </button>
             </form>
         </div>
     </div>
 </div>
 
 <footer>
-    <span>Cars Booking</span>
+    <span>Vehicle Rental Service</span>
 </footer>
 
 <script>
     // Set min date to today for both inputs
     const today = new Date().toISOString().split('T')[0];
-    document.getElementById('datefrom').min = today;
+    const datefromInput = document.getElementById('datefrom');
+    const datetoInput = document.getElementById('dateto');
+    const errorMessageElement = document.getElementById('error-message');
+
+    datefromInput.min = today;
+    datetoInput.min = today;
 
     // Update dateto min when datefrom changes
-    document.getElementById('datefrom').addEventListener('change', function() {
-        document.getElementById('dateto').min = this.value;
+    datefromInput.addEventListener('change', function() {
+        datetoInput.min = this.value;
+        validateDates();
     });
+
+    // Validate dates on change and submission
+    datetoInput.addEventListener('change', function() {
+        validateDates();
+    });
+
+    function validateDates() {
+        const startDate = new Date(datefromInput.value);
+        const endDate = new Date(datetoInput.value);
+
+        if (endDate <= startDate) {
+            errorMessageElement.style.display = 'block';
+            return false;
+        } else {
+            errorMessageElement.style.display = 'none';
+            return true;
+        }
+    }
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
 </body>
 </html>
