@@ -553,3 +553,18 @@
 2024-12-14 15:52:45,472 * INFO * com.cars.cars.Controller.UserController * GetSettings * User accessing settings
 2024-12-14 15:52:47,107 * INFO * com.cars.cars.Controller.UserController * GetMyOrders * User viewing orders
 2024-12-14 15:52:47,765 * INFO * com.cars.cars.Controller.UserController * GetSettings * User accessing settings
+2024-12-14 15:53:51,903 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-14 15:53:58,081 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-14 15:54:01,376 * INFO * com.cars.cars.Controller.UserController * GetMyOrders * User viewing orders
+2024-12-14 15:54:02,627 * INFO * com.cars.cars.Controller.UserController * GetSettings * User accessing settings
+2024-12-14 15:54:03,741 * INFO * com.cars.cars.Controller.UserController * GetMyOrders * User viewing orders
+2024-12-14 15:55:34,667 * INFO * com.cars.cars.Controller.UserController * BookingCar * Some user trying to rent a car
+2024-12-14 15:55:40,698 * INFO * com.cars.cars.Controller.UserController * GetMyOrders * User viewing orders
+2024-12-14 15:55:44,005 * INFO * com.cars.cars.Controller.UserController * UpdateBooking * User trying to update booking
+2024-12-14 15:55:44,762 * INFO * com.cars.cars.Controller.UserController * GetMyOrders * User viewing orders
+2024-12-14 15:55:52,621 * INFO * com.cars.cars.Controller.UserController * GetMyOrders * User viewing orders
+2024-12-14 15:55:53,315 * INFO * com.cars.cars.Controller.UserController * UpdateBooking * User trying to update booking
+2024-12-14 15:55:55,522 * INFO * com.cars.cars.Controller.UserController * GetMyOrders * User viewing orders
+2024-12-14 15:59:51,738 * INFO * com.cars.cars.Controller.UserController * GetMyOrders * User viewing orders
+2024-12-14 16:01:57,125 * INFO * com.cars.cars.Controller.UserController * UpdateBooking * User trying to update booking
+2024-12-14 16:01:59,440 * INFO * com.cars.cars.Controller.UserController * GetMyOrders * User viewing orders
