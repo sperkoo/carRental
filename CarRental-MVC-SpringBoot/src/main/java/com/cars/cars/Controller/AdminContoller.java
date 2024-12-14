@@ -259,10 +259,13 @@ public ModelAndView getAdminProfile() {
     }
 
     @GetMapping("/admin/messages")
-    public ModelAndView adminMessages() {
-        List<Message> messages = messageService.getAllMessages();
+    public ModelAndView adminMessages(@RequestParam(required = false) Integer userId) {
+        List<Customer> customers = customerService.getCustomersWithMessages();
+        List<Message> messages = userId != null ? messageService.getMessagesByUserId(userId) : List.of();
         ModelAndView modelAndView = new ModelAndView("admin-messages");
+        modelAndView.addObject("customers", customers);
         modelAndView.addObject("messages", messages);
+        modelAndView.addObject("selectedUserId", userId);
         return modelAndView;
     }
 

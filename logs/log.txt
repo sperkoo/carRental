@@ -705,3 +705,20 @@
 2024-12-14 22:28:04,096 * INFO * com.cars.cars.Controller.UserController * getCurrentAdminId * Admin found: 19
 2024-12-14 22:28:08,703 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
 2024-12-14 22:28:17,576 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-14 22:29:28,490 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-14 22:31:03,103 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-14 22:31:20,865 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-14 22:31:21,616 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-14 22:31:30,809 * INFO * com.cars.cars.Controller.UserController * getCurrentAdminId * Admin found: 19
+2024-12-14 22:31:44,760 * INFO * com.cars.cars.Controller.UserController * getCurrentAdminId * Admin found: 19
+2024-12-14 22:31:59,157 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-14 22:32:05,749 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-14 22:39:29,257 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-14 22:39:34,386 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-14 22:39:40,209 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-14 22:39:41,548 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-14 22:39:56,266 * INFO * com.cars.cars.Controller.UserController * getCurrentAdminId * Admin found: 19
+2024-12-14 22:40:04,623 * INFO * com.cars.cars.Controller.UserController * getCurrentAdminId * Admin found: 19
+2024-12-14 22:40:22,650 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-14 22:40:25,246 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-14 22:40:29,910 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in

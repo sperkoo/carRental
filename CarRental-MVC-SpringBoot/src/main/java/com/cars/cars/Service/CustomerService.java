@@ -50,4 +50,8 @@ public Customer findByCustomerUserName(String username) {
     public void DeleteCustomer(Customer customer) {
         customerRepo.delete(customer);
     }
+
+    public List<Customer> getCustomersWithMessages() {
+        return customerRepo.findCustomersWithMessages();
+    }
 }

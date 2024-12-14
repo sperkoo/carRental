@@ -9,8 +9,27 @@
             background-color: #f4f4f4;
             color: #333;
             display: flex;
-            flex-direction: column;
             height: 100vh;
+        }
+
+        .sidebar {
+            width: 200px;
+            background-color: #007bff;
+            color: white;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #0056b3;
+        }
+
+        .sidebar a:hover {
+            background-color: #0056b3;
         }
 
         .messages-container {
@@ -72,6 +91,12 @@
     </style>
 </head>
 <body>
+<div class="sidebar">
+    <h3>Customers</h3>
+    <div th:each="customer : ${customers}">
+        <a th:href="@{/admin/messages(userId=${customer.customerId})}" th:text="${customer.customerFirstName} + ' ' + ${customer.customerLastName}"></a>
+    </div>
+</div>
 <div class="messages-container">
     <div class="messages-header">
         <h2>Admin Messages</h2>
@@ -81,9 +106,9 @@
             <strong th:text="${message.userName}"></strong>: <span th:text="${message.content}"></span>
         </div>
     </div>
-    <div class="message-input">
+    <div class="message-input" th:if="${selectedUserId != null}">
         <form th:action="@{/reply-message}" method="post">
-            <input type="hidden" name="userId" th:value="${messages[0]?.userId}" />
+            <input type="hidden" name="userId" th:value="${selectedUserId}" />
             <input type="text" name="content" placeholder="Enter your reply" required>
             <button type="submit">Reply</button>
         </form>
