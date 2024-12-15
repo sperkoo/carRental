@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.WeekFields;
 import java.util.List;
 import java.util.Locale;
+import java.util.logging.Logger;
 
 @Service
 public class CarRentalService {
@@ -46,12 +48,25 @@ public class CarRentalService {
                 .count();
     }
 
+
     public int getTotalAmountToday() {
+        Logger logger = Logger.getLogger(CarRentalService.class.getName());
         LocalDate today = LocalDate.now();
-        return (int) bookingRepo.findAllByStatus("Payed").stream()
-                .filter(booking -> LocalDate.parse(booking.getBookingDateFrom()).equals(today))
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        logger.info("Calculating total amount for today: " + today);
+
+        double totalAmountToday = bookingRepo.findAllByStatus("Payed").stream()
+                .filter(booking -> {
+                    LocalDate bookingDate = LocalDate.parse(booking.getBookingDateFrom(), formatter);
+                    boolean isToday = bookingDate.equals(today);
+                    logger.info("Booking date: " + bookingDate + ", is today: " + isToday);
+                    return isToday;
+                })
                 .mapToDouble(Booking::getTotalPrice)
                 .sum();
+
+        logger.info("Total amount today: " + totalAmountToday);
+        return (int) totalAmountToday;
     }
 
     public int getTotalReservedCarsWeek() {
