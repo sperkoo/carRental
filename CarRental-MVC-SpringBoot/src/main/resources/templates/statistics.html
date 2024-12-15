@@ -354,7 +354,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const ctxEarningsSummaryByHours = document.getElementById('earningsSummaryByHoursChart').getContext('2d');
-        const earningsSummaryByHours = /*[[${earningsSummaryByHours}]]*/ [];
+        const earningsSummaryByHours = [[${earningsSummaryByHours}]];
         const earningsSummaryByHoursChart = new Chart(ctxEarningsSummaryByHours, {
             type: 'bar',
             data: {
