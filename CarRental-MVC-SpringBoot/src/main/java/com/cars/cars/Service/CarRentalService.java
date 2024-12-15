@@ -12,7 +12,9 @@ import java.time.LocalDateTime;
 import java.time.temporal.WeekFields;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @Service
 public class CarRentalService {
@@ -237,5 +239,65 @@ public class CarRentalService {
 
         logger.info("Total payed cars this month: " + totalPayedCarsMonth);
         return (int) totalPayedCarsMonth;
+    }
+
+    public List<Integer> getEarningsSummary() {
+        LocalDate now = LocalDate.now();
+        int currentYear = now.getYear();
+
+        Map<Integer, Double> monthlyEarnings = bookingRepo.findAllByStatus("Payed").stream()
+                .filter(booking -> {
+                    LocalDateTime createdDate = booking.getCreatedDate();
+                    return createdDate != null && createdDate.getYear() == currentYear;
+                })
+                .collect(Collectors.groupingBy(
+                        booking -> booking.getCreatedDate().getMonthValue(),
+                        Collectors.summingDouble(Booking::getTotalPrice)
+                ));
+
+        return monthlyEarnings.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey())
+                .map(entry -> entry.getValue().intValue())
+                .collect(Collectors.toList());
+    }
+
+    public List<Integer> getEarningsSummaryByHours() {
+        LocalDate today = LocalDate.now();
+
+        Map<Integer, Double> hourlyEarnings = bookingRepo.findAllByStatus("Payed").stream()
+                .filter(booking -> {
+                    LocalDateTime createdDate = booking.getCreatedDate();
+                    return createdDate != null && createdDate.toLocalDate().isEqual(today);
+                })
+                .collect(Collectors.groupingBy(
+                        booking -> booking.getCreatedDate().getHour(),
+                        Collectors.summingDouble(Booking::getTotalPrice)
+                ));
+
+        return hourlyEarnings.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey())
+                .map(entry -> entry.getValue().intValue())
+                .collect(Collectors.toList());
+    }
+
+    public List<Integer> getEarningsSummaryByDays() {
+        LocalDate now = LocalDate.now();
+        WeekFields weekFields = WeekFields.of(Locale.getDefault());
+        int currentWeek = now.get(weekFields.weekOfWeekBasedYear());
+
+        Map<Integer, Double> dailyEarnings = bookingRepo.findAllByStatus("Payed").stream()
+                .filter(booking -> {
+                    LocalDateTime createdDate = booking.getCreatedDate();
+                    return createdDate != null && createdDate.get(weekFields.weekOfWeekBasedYear()) == currentWeek;
+                })
+                .collect(Collectors.groupingBy(
+                        booking -> booking.getCreatedDate().getDayOfWeek().getValue(),
+                        Collectors.summingDouble(Booking::getTotalPrice)
+                ));
+
+        return dailyEarnings.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey())
+                .map(entry -> entry.getValue().intValue())
+                .collect(Collectors.toList());
     }
 }

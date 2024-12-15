@@ -333,47 +333,67 @@
         </div>
     </div>
 
-    <!-- Ajout du graphique -->
+    <!-- New earnings summary chart -->
     <div class="stat-card">
         <div class="stat-header">
-            <i class="fas fa-chart-area"></i>
-            <span>Évolution du Montant Total</span>
+            <i class="fas fa-chart-line"></i>
+            <span>Résumé des Gains par Heure (Aujourd'hui)</span>
         </div>
-        <canvas id="totalAmountChart"></canvas>
+        <canvas id="earningsSummaryByHoursChart"></canvas>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-header">
+            <i class="fas fa-chart-line"></i>
+            <span>Résumé des Gains par Jour (Cette Semaine)</span>
+        </div>
+        <canvas id="earningsSummaryByDaysChart"></canvas>
     </div>
 </div>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const ctx = document.getElementById('totalAmountChart').getContext('2d');
-        const totalAmounts = /*[[${totalAmounts}]]*/ [];
-        const totalAmountChart = new Chart(ctx, {
-            type: 'line',
+        const ctxEarningsSummaryByHours = document.getElementById('earningsSummaryByHoursChart').getContext('2d');
+        const earningsSummaryByHours = /*[[${earningsSummaryByHours}]]*/ [];
+        const earningsSummaryByHoursChart = new Chart(ctxEarningsSummaryByHours, {
+            type: 'bar',
             data: {
-                labels: totalAmounts.map((_, index) => `Période ${index + 1}`),
+                labels: Array.from({length: 24}, (_, i) => i + ":00"),
                 datasets: [{
-                    label: 'Montant Total',
-                    data: totalAmounts,
-                    borderColor: 'rgba(255, 77, 77, 1)',
-                    backgroundColor: 'rgba(255, 77, 77, 0.2)',
-                    fill: true,
-                    tension: 0.1
+                    label: 'Earnings',
+                    data: earningsSummaryByHours,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
                 }]
             },
             options: {
-                responsive: true,
                 scales: {
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Période'
-                        }
-                    },
                     y: {
-                        title: {
-                            display: true,
-                            text: 'Montant (€)'
-                        }
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        const ctxEarningsSummaryByDays = document.getElementById('earningsSummaryByDaysChart').getContext('2d');
+        const earningsSummaryByDays = [[${earningsSummaryByDays}]] ;
+        const earningsSummaryByDaysChart = new Chart(ctxEarningsSummaryByDays, {
+            type: 'bar',
+            data: {
+                labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+                datasets: [{
+                    label: 'Earnings',
+                    data: earningsSummaryByDays,
+                    backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                    borderColor: 'rgba(153, 102, 255, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
                     }
                 }
             }

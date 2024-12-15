@@ -83,9 +83,11 @@ public class StatisticsController {
         model.addAttribute("totalAmountMonth", totalAmountMonth);
         model.addAttribute("totalPayedCarsMonth", totalPayedCarsMonth);
 
-        // Add data for the chart
-        List<Integer> totalAmounts = carRentalService.getTotalAmountsOverTime();
-        model.addAttribute("totalAmounts", totalAmounts);
+        List<Integer> earningsSummaryByHours = carRentalService.getEarningsSummaryByHours();
+        List<Integer> earningsSummaryByDays = carRentalService.getEarningsSummaryByDays();
+
+        model.addAttribute("earningsSummaryByHours", earningsSummaryByHours);
+        model.addAttribute("earningsSummaryByDays", earningsSummaryByDays);
 
         return "statistics";
     }
