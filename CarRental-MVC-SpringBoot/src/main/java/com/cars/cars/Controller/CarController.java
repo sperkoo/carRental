@@ -82,7 +82,6 @@ public class CarController {
     public String showPayedBookings(Model model) {
         List<Booking> payedBookings = bookingService.findPayedBookings();
         System.out.println(payedBookings);
-        System.out.println("Hello");
         model.addAttribute("payedBookings", payedBookings);
         return "admin-payments";
     }
