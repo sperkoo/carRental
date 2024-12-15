@@ -85,12 +85,25 @@ public class CarRentalService {
     }
 
     public int getTotalReservedCarsWeek() {
+        Logger logger = Logger.getLogger(CarRentalService.class.getName());
         LocalDate now = LocalDate.now();
         WeekFields weekFields = WeekFields.of(Locale.getDefault());
         int currentWeek = now.get(weekFields.weekOfWeekBasedYear());
-        return (int) bookingRepo.findAllByStatus("Reserved").stream()
-                .filter(booking -> LocalDate.parse(booking.getBookingDateFrom()).get(weekFields.weekOfWeekBasedYear()) == currentWeek)
+        logger.info("Calculating total reserved cars for the current week: " + currentWeek);
+
+        long totalReservedCarsWeek = bookingRepo.findAllByStatus("Reserved").stream()
+                .filter(booking -> {
+                    LocalDateTime createdDate = booking.getCreatedDate();
+                    if (createdDate == null) {
+                        return false;
+                    }
+                    int bookingWeek = createdDate.toLocalDate().get(weekFields.weekOfWeekBasedYear());
+                    return bookingWeek == currentWeek;
+                })
                 .count();
+
+        logger.info("Total reserved cars this week: " + totalReservedCarsWeek);
+        return (int) totalReservedCarsWeek;
     }
 
     public List<Integer> getTotalAmountsOverTime() {

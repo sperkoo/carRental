@@ -1028,3 +1028,17 @@
 2024-12-15 17:01:15,642 * INFO * com.cars.cars.Controller.UserController * getAllBookings * Admin viewing all bookings
 2024-12-15 17:01:33,358 * INFO * com.cars.cars.Controller.UserController * GetMyOrders * User viewing orders
 2024-12-15 17:02:03,762 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-15 17:05:42,394 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-15 17:05:48,364 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-15 17:05:52,776 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-15 17:05:56,290 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-15 17:05:56,974 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-15 17:05:59,591 * INFO * com.cars.cars.Controller.UserController * getBookingRequests * Admin viewing booking requests
+2024-12-15 17:06:06,767 * INFO * com.cars.cars.Controller.UserController * BookingCar * Some user trying to rent a car
+2024-12-15 17:06:21,368 * INFO * com.cars.cars.Controller.UserController * sendBookingRequest * User sent a booking request and car status set to Maintenance
+2024-12-15 17:06:21,377 * INFO * com.cars.cars.Controller.UserController * GetAllCars * User viewing available cars
+2024-12-15 17:06:23,473 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-15 17:06:24,604 * INFO * com.cars.cars.Controller.UserController * getBookingRequests * Admin viewing booking requests
+2024-12-15 17:06:36,553 * INFO * com.cars.cars.Controller.UserController * getBookingRequests * Admin viewing booking requests
+2024-12-15 17:06:37,885 * INFO * com.cars.cars.Controller.UserController * confirmBooking * Admin confirmed booking with ID: 89 and car status set to Reserved
+2024-12-15 17:06:37,893 * INFO * com.cars.cars.Controller.UserController * getBookingRequests * Admin viewing booking requests
