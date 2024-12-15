@@ -111,12 +111,24 @@ public class CarRentalService {
     }
 
     public int getTotalAmountWeek() {
-        LocalDate now = LocalDate.now();
-        WeekFields weekFields = WeekFields.of(Locale.getDefault());
-        int currentWeek = now.get(weekFields.weekOfWeekBasedYear());
-        return (int) bookingRepo.findAllByStatus("Payed").stream()
-                .filter(booking -> LocalDate.parse(booking.getBookingDateFrom()).get(weekFields.weekOfWeekBasedYear()) == currentWeek)
-                .mapToDouble(Booking::getTotalPrice)
-                .sum();
-    }
+    LocalDate now = LocalDate.now();
+    WeekFields weekFields = WeekFields.of(Locale.getDefault());
+    int currentWeek = now.get(weekFields.weekOfWeekBasedYear());
+    logger.info("Calculating total amount for the current week: " + currentWeek);
+
+    double totalAmountWeek = bookingRepo.findAllByStatus("Payed").stream()
+            .filter(booking -> {
+                LocalDateTime createdDate = booking.getCreatedDate();
+                if (createdDate == null) {
+                    return false;
+                }
+                int bookingWeek = createdDate.toLocalDate().get(weekFields.weekOfWeekBasedYear());
+                return bookingWeek == currentWeek;
+            })
+            .mapToDouble(Booking::getTotalPrice)
+            .sum();
+
+    logger.info("Total amount this week: " + totalAmountWeek);
+    return (int) totalAmountWeek;
+}
 }

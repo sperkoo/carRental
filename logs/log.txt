@@ -1042,3 +1042,11 @@
 2024-12-15 17:06:36,553 * INFO * com.cars.cars.Controller.UserController * getBookingRequests * Admin viewing booking requests
 2024-12-15 17:06:37,885 * INFO * com.cars.cars.Controller.UserController * confirmBooking * Admin confirmed booking with ID: 89 and car status set to Reserved
 2024-12-15 17:06:37,893 * INFO * com.cars.cars.Controller.UserController * getBookingRequests * Admin viewing booking requests
+2024-12-15 17:09:05,052 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-15 17:09:10,085 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-15 17:09:14,581 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-15 17:09:18,516 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-15 17:09:20,513 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-15 17:09:24,338 * INFO * com.cars.cars.Controller.UserController * GetMyOrders * User viewing orders
+2024-12-15 17:09:59,191 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-15 17:10:01,102 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
