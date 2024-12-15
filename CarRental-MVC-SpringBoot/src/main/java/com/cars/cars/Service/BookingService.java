@@ -5,6 +5,7 @@ import com.cars.cars.Repository.BookingRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -57,7 +58,17 @@ public List<Booking> findFutureBookingsByCarId(int carId) {
         return bookingRepo.findAllByStatus(status); // Add this line
     }
 
-// src/main/java/com/cars/cars/Service/BookingService.java
+    @Override
+    public List<Booking> findAllByDate(LocalDate date) {
+        return bookingRepo.findAllByDate(date);
+    }
+
+    @Override
+    public List<Booking> findAllByDateRange(LocalDate startDate, LocalDate endDate) {
+        return bookingRepo.findAllByDateRange(startDate, endDate);
+    }
+
+    // src/main/java/com/cars/cars/Service/BookingService.java
 public boolean isBookingConflict(int carId, String startDate, String endDate) {
     List<Booking> futureBookings = bookingRepo.findFutureBookingsByCarId(carId);
     for (Booking booking : futureBookings) {

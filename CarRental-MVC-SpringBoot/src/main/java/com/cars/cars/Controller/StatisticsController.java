@@ -1,19 +1,38 @@
 package com.cars.cars.Controller;
 
+import com.cars.cars.Model.Booking;
+import com.cars.cars.Service.BookingService;
 import com.cars.cars.Service.CarRentalService;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.logging.Logger;
+
 
 @Controller
 public class StatisticsController {
 
     @Autowired
     private CarRentalService carRentalService;
+
+    @Autowired
+    private BookingService bookingService;
 
     private static final Logger logger = Logger.getLogger(StatisticsController.class.getName());
 
@@ -69,5 +88,51 @@ public class StatisticsController {
         model.addAttribute("totalAmounts", totalAmounts);
 
         return "statistics";
+    }
+
+    @GetMapping("/admin/statistics/download")
+    public ResponseEntity<InputStreamResource> downloadStatistics(@RequestParam String period) throws DocumentException, IOException {
+        List<Booking> bookings;
+        LocalDate now = LocalDate.now();
+
+        switch (period) {
+            case "today":
+                bookings = bookingService.findAllByDate(now);
+                break;
+            case "week":
+                bookings = bookingService.findAllByDateRange(now.minusDays(7), now);
+                break;
+            case "month":
+                bookings = bookingService.findAllByDateRange(now.minusDays(30), now);
+                break;
+            case "total":
+            default:
+                bookings = bookingService.findAll();
+                break;
+        }
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        Document document = new Document();
+        PdfWriter.getInstance(document, out);
+        document.open();
+        document.add(new Paragraph("Bookings Report - " + period));
+        for (Booking booking : bookings) {
+            document.add(new Paragraph("Booking ID: " + booking.getBookingId()));
+            document.add(new Paragraph("Car ID: " + booking.getCarId()));
+            document.add(new Paragraph("Customer ID: " + booking.getCustomerId()));
+            document.add(new Paragraph("Booking Date From: " + booking.getBookingDateFrom()));
+            document.add(new Paragraph("Booking Date To: " + booking.getBookingDateTo()));
+            document.add(new Paragraph("Total Price: " + booking.getTotalPrice()));
+            document.add(new Paragraph("Status: " + booking.getStatus()));
+            document.add(new Paragraph(" "));
+        }
+        document.close();
+
+        ByteArrayInputStream bis = new ByteArrayInputStream(out.toByteArray());
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDispositionFormData("attachment", "bookings_" + period + ".pdf");
+
+        return ResponseEntity.ok().headers(headers).body(new InputStreamResource(bis));
     }
 }
