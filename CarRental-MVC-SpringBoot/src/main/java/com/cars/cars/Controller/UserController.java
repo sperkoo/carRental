@@ -235,7 +235,6 @@ public class UserController {
     @GetMapping("/local")
     public ModelAndView viewLocal() {
         ModelAndView modelAndView = new ModelAndView("local");
-        // Add any necessary attributes to the model here
         return modelAndView;
     }
 

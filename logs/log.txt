@@ -1142,3 +1142,5 @@
 2024-12-15 19:40:25,333 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
 2024-12-15 19:41:21,247 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
 2024-12-15 19:41:27,209 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-15 19:43:42,111 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-15 19:43:48,178 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
