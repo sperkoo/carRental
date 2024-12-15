@@ -32,6 +32,11 @@ public class StatisticsController {
         int totalPayedCarsToday = carRentalService.getTotalPayedCarsToday();
         int totalPayedCarsWeek = carRentalService.getTotalPayedCarsWeek();
 
+        // New statistics for the month
+        int totalReservedCarsMonth = carRentalService.getTotalReservedCarsMonth();
+        int totalAmountMonth = carRentalService.getTotalAmountMonth();
+        int totalPayedCarsMonth = carRentalService.getTotalPayedCarsMonth();
+
         logger.info("Total Reserved Cars: " + totalReservedCars);
         logger.info("Total Available Cars: " + totalAvailableCars);
         logger.info("Total Maintenance Cars: " + totalMaintenanceCars);
@@ -53,6 +58,11 @@ public class StatisticsController {
         model.addAttribute("totalPayedCars", totalPayedCars);
         model.addAttribute("totalPayedCarsToday", totalPayedCarsToday);
         model.addAttribute("totalPayedCarsWeek", totalPayedCarsWeek);
+
+        // Add new attributes for the month
+        model.addAttribute("totalReservedCarsMonth", totalReservedCarsMonth);
+        model.addAttribute("totalAmountMonth", totalAmountMonth);
+        model.addAttribute("totalPayedCarsMonth", totalPayedCarsMonth);
 
         // Add data for the chart
         List<Integer> totalAmounts = carRentalService.getTotalAmountsOverTime();

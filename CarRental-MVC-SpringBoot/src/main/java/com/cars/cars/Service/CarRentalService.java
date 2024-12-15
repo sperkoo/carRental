@@ -171,4 +171,71 @@ public class CarRentalService {
         logger.info("Total payed cars this week: " + totalPayedCarsWeek);
         return (int) totalPayedCarsWeek;
     }
+
+    public int getTotalReservedCarsMonth() {
+        LocalDate now = LocalDate.now();
+        int currentMonth = now.getMonthValue();
+        int currentYear = now.getYear();
+        logger.info("Calculating total reserved cars for the current month: " + currentMonth);
+
+        long totalReservedCarsMonth = bookingRepo.findAllByStatus("Reserved").stream()
+                .filter(booking -> {
+                    LocalDateTime createdDate = booking.getCreatedDate();
+                    if (createdDate == null) {
+                        return false;
+                    }
+                    int bookingMonth = createdDate.getMonthValue();
+                    int bookingYear = createdDate.getYear();
+                    return bookingMonth == currentMonth && bookingYear == currentYear;
+                })
+                .count();
+
+        logger.info("Total reserved cars this month: " + totalReservedCarsMonth);
+        return (int) totalReservedCarsMonth;
+    }
+
+    public int getTotalAmountMonth() {
+        LocalDate now = LocalDate.now();
+        int currentMonth = now.getMonthValue();
+        int currentYear = now.getYear();
+        logger.info("Calculating total amount for the current month: " + currentMonth);
+
+        double totalAmountMonth = bookingRepo.findAllByStatus("Payed").stream()
+                .filter(booking -> {
+                    LocalDateTime createdDate = booking.getCreatedDate();
+                    if (createdDate == null) {
+                        return false;
+                    }
+                    int bookingMonth = createdDate.getMonthValue();
+                    int bookingYear = createdDate.getYear();
+                    return bookingMonth == currentMonth && bookingYear == currentYear;
+                })
+                .mapToDouble(Booking::getTotalPrice)
+                .sum();
+
+        logger.info("Total amount this month: " + totalAmountMonth);
+        return (int) totalAmountMonth;
+    }
+
+    public int getTotalPayedCarsMonth() {
+        LocalDate now = LocalDate.now();
+        int currentMonth = now.getMonthValue();
+        int currentYear = now.getYear();
+        logger.info("Calculating total payed cars for the current month: " + currentMonth);
+
+        long totalPayedCarsMonth = bookingRepo.findAllByStatus("Payed").stream()
+                .filter(booking -> {
+                    LocalDateTime createdDate = booking.getCreatedDate();
+                    if (createdDate == null) {
+                        return false;
+                    }
+                    int bookingMonth = createdDate.getMonthValue();
+                    int bookingYear = createdDate.getYear();
+                    return bookingMonth == currentMonth && bookingYear == currentYear;
+                })
+                .count();
+
+        logger.info("Total payed cars this month: " + totalPayedCarsMonth);
+        return (int) totalPayedCarsMonth;
+    }
 }

@@ -219,8 +219,11 @@
 <div class="main-content">
     <h1 class="title">Tableau de Bord</h1>
 
+
+    <!-- statistics.html -->
     <div class="stats-grid">
-        <!-- Cartes de statistiques existantes -->
+        <!-- Existing cards... -->
+
         <!-- Aujourd'hui -->
         <div class="stat-card">
             <div class="stat-header">
@@ -233,6 +236,10 @@
                     <div class="stat-value" th:text="${totalReservedCarsToday}">0</div>
                 </div>
                 <div class="stat-item">
+                    <div class="stat-label">Voitures Payées</div>
+                    <div class="stat-value" th:text="${totalPayedCarsToday}">0</div>
+                </div>
+                <div class="stat-item">
                     <div class="stat-label">Montant Total</div>
                     <div class="stat-value money">
                         <span th:text="${totalAmountToday}">0</span> MAD
@@ -241,78 +248,73 @@
             </div>
         </div>
 
-        <!-- statistics.html -->
-        <div class="stats-grid">
-            <!-- Existing cards... -->
-
-            <!-- Aujourd'hui -->
-            <div class="stat-card">
-                <div class="stat-header">
-                    <i class="fas fa-calendar-day"></i>
-                    <span>Aujourd'hui</span>
+        <!-- Cette semaine -->
+        <div class="stat-card">
+            <div class="stat-header">
+                <i class="fas fa-calendar-week"></i>
+                <span>Cette Semaine</span>
+            </div>
+            <div class="stat-content">
+                <div class="stat-item">
+                    <div class="stat-label">Voitures Réservées</div>
+                    <div class="stat-value" th:text="${totalReservedCarsWeek}">0</div>
                 </div>
-                <div class="stat-content">
-                    <div class="stat-item">
-                        <div class="stat-label">Voitures Réservées</div>
-                        <div class="stat-value" th:text="${totalReservedCarsToday}">0</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-label">Voitures Payées</div>
-                        <div class="stat-value" th:text="${totalPayedCarsToday}">0</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-label">Montant Total</div>
-                        <div class="stat-value money">
-                            <span th:text="${totalAmountToday}">0</span> MAD
-                        </div>
+                <div class="stat-item">
+                    <div class="stat-label">Voitures Payées</div>
+                    <div class="stat-value" th:text="${totalPayedCarsWeek}">0</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Montant Total</div>
+                    <div class="stat-value money">
+                        <span th:text="${totalAmountWeek}">0</span> MAD
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Cette semaine -->
-            <div class="stat-card">
-                <div class="stat-header">
-                    <i class="fas fa-calendar-week"></i>
-                    <span>Cette Semaine</span>
+        <!-- Ce mois -->
+        <div class="stat-card">
+            <div class="stat-header">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Ce Mois</span>
+            </div>
+            <div class="stat-content">
+                <div class="stat-item">
+                    <div class="stat-label">Voitures Réservées</div>
+                    <div class="stat-value" th:text="${totalReservedCarsMonth}">0</div>
                 </div>
-                <div class="stat-content">
-                    <div class="stat-item">
-                        <div class="stat-label">Voitures Réservées</div>
-                        <div class="stat-value" th:text="${totalReservedCarsWeek}">0</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-label">Voitures Payées</div>
-                        <div class="stat-value" th:text="${totalPayedCarsWeek}">0</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-label">Montant Total</div>
-                        <div class="stat-value money">
-                            <span th:text="${totalAmountWeek}">0</span> MAD
-                        </div>
+                <div class="stat-item">
+                    <div class="stat-label">Voitures Payées</div>
+                    <div class="stat-value" th:text="${totalPayedCarsMonth}">0</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Montant Total</div>
+                    <div class="stat-value money">
+                        <span th:text="${totalAmountMonth}">0</span> MAD
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Total -->
-            <div class="stat-card">
-                <div class="stat-header">
-                    <i class="fas fa-car"></i>
-                    <span>Total</span>
+        <!-- Total -->
+        <div class="stat-card">
+            <div class="stat-header">
+                <i class="fas fa-car"></i>
+                <span>Total</span>
+            </div>
+            <div class="stat-content">
+                <div class="stat-item">
+                    <div class="stat-label">Voitures Réservées</div>
+                    <div class="stat-value" th:text="${totalReservedCars}">0</div>
                 </div>
-                <div class="stat-content">
-                    <div class="stat-item">
-                        <div class="stat-label">Voitures Réservées</div>
-                        <div class="stat-value" th:text="${totalReservedCars}">0</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-label">Voitures Payées</div>
-                        <div class="stat-value" th:text="${totalPayedCars}">0</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-label">Montant Total</div>
-                        <div class="stat-value money">
-                            <span th:text="${totalAmount}">0</span> MAD
-                        </div>
+                <div class="stat-item">
+                    <div class="stat-label">Voitures Payées</div>
+                    <div class="stat-value" th:text="${totalPayedCars}">0</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Montant Total</div>
+                    <div class="stat-value money">
+                        <span th:text="${totalAmount}">0</span> MAD
                     </div>
                 </div>
             </div>
