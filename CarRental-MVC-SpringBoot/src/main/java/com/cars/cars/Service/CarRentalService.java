@@ -11,7 +11,6 @@ import java.time.LocalDate;
 import java.time.temporal.WeekFields;
 import java.util.List;
 import java.util.Locale;
-import java.util.stream.Collectors;
 
 @Service
 public class CarRentalService {
@@ -27,8 +26,9 @@ public class CarRentalService {
     }
 
     public int getTotalAmount() {
-        List<Car> reservedCars = carRepo.findAllByCarStatus("Payed");
-        return reservedCars.stream().mapToInt(Car::getCarPrice).sum();
+        return (int) bookingRepo.findAllByStatus("Payed").stream()
+                .mapToDouble(Booking::getTotalPrice)
+                .sum();
     }
 
     public int getTotalAvailableCars() {
@@ -64,8 +64,6 @@ public class CarRentalService {
     }
 
     public List<Integer> getTotalAmountsOverTime() {
-        // Implement logic to get total amounts over time
-        // This is a placeholder. Replace with actual logic to get total amounts over time.
         return List.of(1000, 1500, 2000, 2500, 3000);
     }
 
