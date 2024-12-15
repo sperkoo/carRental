@@ -131,4 +131,44 @@ public class CarRentalService {
     logger.info("Total amount this week: " + totalAmountWeek);
     return (int) totalAmountWeek;
 }
+
+    public int getTotalPayedCars() {
+        return bookingRepo.findAllByStatus("Payed").size();
+    }
+
+    public int getTotalPayedCarsToday() {
+        LocalDate today = LocalDate.now();
+        logger.info("Calculating total payed cars for today: " + today);
+
+        long totalPayedCarsToday = bookingRepo.findAllByStatus("Payed").stream()
+                .filter(booking -> {
+                    LocalDateTime createdDate = booking.getCreatedDate();
+                    return createdDate != null && createdDate.toLocalDate().isEqual(today);
+                })
+                .count();
+
+        logger.info("Total payed cars today: " + totalPayedCarsToday);
+        return (int) totalPayedCarsToday;
+    }
+
+    public int getTotalPayedCarsWeek() {
+        LocalDate now = LocalDate.now();
+        WeekFields weekFields = WeekFields.of(Locale.getDefault());
+        int currentWeek = now.get(weekFields.weekOfWeekBasedYear());
+        logger.info("Calculating total payed cars for the current week: " + currentWeek);
+
+        long totalPayedCarsWeek = bookingRepo.findAllByStatus("Payed").stream()
+                .filter(booking -> {
+                    LocalDateTime createdDate = booking.getCreatedDate();
+                    if (createdDate == null) {
+                        return false;
+                    }
+                    int bookingWeek = createdDate.toLocalDate().get(weekFields.weekOfWeekBasedYear());
+                    return bookingWeek == currentWeek;
+                })
+                .count();
+
+        logger.info("Total payed cars this week: " + totalPayedCarsWeek);
+        return (int) totalPayedCarsWeek;
+    }
 }

@@ -28,6 +28,10 @@ public class StatisticsController {
         int totalReservedCarsWeek = carRentalService.getTotalReservedCarsWeek();
         int totalAmountWeek = carRentalService.getTotalAmountWeek();
 
+        int totalPayedCars = carRentalService.getTotalPayedCars();
+        int totalPayedCarsToday = carRentalService.getTotalPayedCarsToday();
+        int totalPayedCarsWeek = carRentalService.getTotalPayedCarsWeek();
+
         logger.info("Total Reserved Cars: " + totalReservedCars);
         logger.info("Total Available Cars: " + totalAvailableCars);
         logger.info("Total Maintenance Cars: " + totalMaintenanceCars);
@@ -45,6 +49,10 @@ public class StatisticsController {
         model.addAttribute("totalAmountToday", totalAmountToday);
         model.addAttribute("totalReservedCarsWeek", totalReservedCarsWeek);
         model.addAttribute("totalAmountWeek", totalAmountWeek);
+
+        model.addAttribute("totalPayedCars", totalPayedCars);
+        model.addAttribute("totalPayedCarsToday", totalPayedCarsToday);
+        model.addAttribute("totalPayedCarsWeek", totalPayedCarsWeek);
 
         // Add data for the chart
         List<Integer> totalAmounts = carRentalService.getTotalAmountsOverTime();
