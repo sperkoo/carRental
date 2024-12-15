@@ -1,6 +1,7 @@
 package com.cars.cars.Model;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 public class Booking {
@@ -15,9 +16,11 @@ public class Booking {
     private String image;
     private double totalPrice;
     private String status;
+    private LocalDateTime createdDate;
 
     @Transient
     private String carName;
+
 
     public String getCarName() {
         return carName;
@@ -35,8 +38,8 @@ public class Booking {
         this.status = status;
     }
 
-    public Booking(){
-
+    public Booking() {
+        this.createdDate = LocalDateTime.now();
     }
 
     public Booking(int bookingId, int carId, int customerId, String bookingDateFrom, String bookingDateTo, int priceDay, String image, double totalPrice) {
@@ -48,6 +51,7 @@ public class Booking {
         this.priceDay = priceDay;
         this.image = image;
         this.totalPrice = totalPrice;
+        this.createdDate = LocalDateTime.now();
     }
 
     public int getPriceDay() {
@@ -112,5 +116,13 @@ public class Booking {
 
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
     }
 }

@@ -1,14 +1,14 @@
+// CarRentalService.java
 package com.cars.cars.Service;
 
 import com.cars.cars.Model.Booking;
-import com.cars.cars.Model.Car;
 import com.cars.cars.Repository.BookingRepo;
 import com.cars.cars.Repository.CarRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 import java.time.temporal.WeekFields;
 import java.util.List;
 import java.util.Locale;
@@ -22,6 +22,8 @@ public class CarRentalService {
 
     @Autowired
     private BookingRepo bookingRepo;
+
+    private static final Logger logger = Logger.getLogger(CarRentalService.class.getName());
 
     public int getTotalReservedCars() {
         return carRepo.findAllByCarStatus("Reserved").size();
@@ -42,24 +44,37 @@ public class CarRentalService {
     }
 
     public int getTotalReservedCarsToday() {
-        LocalDate today = LocalDate.now();
-        return (int) bookingRepo.findAllByStatus("Reserved").stream()
-                .filter(booking -> LocalDate.parse(booking.getBookingDateFrom()).equals(today))
-                .count();
-    }
-
-
-    public int getTotalAmountToday() {
         Logger logger = Logger.getLogger(CarRentalService.class.getName());
         LocalDate today = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        logger.info("Calculating total reserved cars for today: " + today);
+
+        long totalReservedCarsToday = bookingRepo.findAllByStatus("Reserved").stream()
+                .filter(booking -> {
+                    LocalDateTime createdDate = booking.getCreatedDate();
+                    boolean isToday = createdDate != null && createdDate.toLocalDate().equals(today);
+                    logger.info("Booking created date: " + createdDate + ", is today: " + isToday);
+                    return isToday;
+                })
+                .count();
+
+        logger.info("Total reserved cars today: " + totalReservedCarsToday);
+        return (int) totalReservedCarsToday;
+    }
+
+    public int getTotalAmountToday() {
+        LocalDate today = LocalDate.now();
         logger.info("Calculating total amount for today: " + today);
 
         double totalAmountToday = bookingRepo.findAllByStatus("Payed").stream()
                 .filter(booking -> {
-                    LocalDate bookingDate = LocalDate.parse(booking.getBookingDateFrom(), formatter);
-                    boolean isToday = bookingDate.equals(today);
-                    logger.info("Booking date: " + bookingDate + ", is today: " + isToday);
+                    LocalDateTime createdDate = booking.getCreatedDate();
+                    if (createdDate == null) {
+                        logger.warning("Booking with ID " + booking.getBookingId() + " has null createdDate");
+                        return false;
+                    }
+                    LocalDate bookingCreatedDate = createdDate.toLocalDate();
+                    boolean isToday = bookingCreatedDate.equals(today);
+                    logger.info("Booking created date: " + bookingCreatedDate + ", is today: " + isToday);
                     return isToday;
                 })
                 .mapToDouble(Booking::getTotalPrice)
