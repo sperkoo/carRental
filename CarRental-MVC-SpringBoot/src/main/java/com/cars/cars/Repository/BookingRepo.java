@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -15,10 +14,10 @@ public interface BookingRepo extends JpaRepository<Booking, Integer> {
     List<Booking> findAllByStatus(String status);
 
     @Query("SELECT b FROM Booking b WHERE b.bookingDateFrom = :date")
-    List<Booking> findAllByDate(@Param("date") LocalDate date);
+    List<Booking> findAllByDate(@Param("date") String date);
 
     @Query("SELECT b FROM Booking b WHERE b.bookingDateFrom BETWEEN :startDate AND :endDate")
-    List<Booking> findAllByDateRange(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+    List<Booking> findAllByDateRange(@Param("startDate") String startDate, @Param("endDate") String endDate);
 
     @Query("SELECT b FROM Booking b WHERE b.carId = :carId AND b.bookingDateFrom >= CURRENT_DATE")
     List<Booking> findFutureBookingsByCarId(@Param("carId") Integer carId);

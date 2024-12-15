@@ -49,39 +49,34 @@ public class BookingService implements BookingServices {
     }
 
     @Override
-public List<Booking> findFutureBookingsByCarId(int carId) {
-    return bookingRepo.findFutureBookingsByCarId(carId);
-}
+    public List<Booking> findFutureBookingsByCarId(int carId) {
+        return bookingRepo.findFutureBookingsByCarId(carId);
+    }
 
     @Override
     public List<Booking> findAllByStatus(String status) {
-        return bookingRepo.findAllByStatus(status); // Add this line
+        return bookingRepo.findAllByStatus(status);
     }
 
     @Override
     public List<Booking> findAllByDate(LocalDate date) {
-        return bookingRepo.findAllByDate(date);
+        return bookingRepo.findAllByDate(date.toString());
     }
 
     @Override
     public List<Booking> findAllByDateRange(LocalDate startDate, LocalDate endDate) {
-        return bookingRepo.findAllByDateRange(startDate, endDate);
+        return bookingRepo.findAllByDateRange(startDate.toString(), endDate.toString());
     }
 
-    // src/main/java/com/cars/cars/Service/BookingService.java
-public boolean isBookingConflict(int carId, String startDate, String endDate) {
-    List<Booking> futureBookings = bookingRepo.findFutureBookingsByCarId(carId);
-    for (Booking booking : futureBookings) {
-        if ((startDate.compareTo(booking.getBookingDateTo()) <= 0) && (endDate.compareTo(booking.getBookingDateFrom()) >= 0)) {
-            return true;
+    public boolean isBookingConflict(int carId, String startDate, String endDate) {
+        List<Booking> futureBookings = bookingRepo.findFutureBookingsByCarId(carId);
+        for (Booking booking : futureBookings) {
+            if ((startDate.compareTo(booking.getBookingDateTo()) <= 0) && (endDate.compareTo(booking.getBookingDateFrom()) >= 0)) {
+                return true;
+            }
         }
+        return false;
     }
-    return false;
-}
-
-//    public List<Booking> findPayedBookings() {
-//        return bookingRepo.findPayedBookings();
-//    }
 
     public List<Booking> findPayedBookings() {
         List<Object[]> results = bookingRepo.findPayedBookingsWithCarName();
