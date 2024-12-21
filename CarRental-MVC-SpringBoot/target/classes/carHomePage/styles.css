@@ -610,7 +610,7 @@ nav {
 
 .footer__col p {
   margin-bottom: 2rem;
-  color: var(--extra-light);
+  color: #ffffff;
   line-height: 1.5rem;
 }
 
@@ -999,11 +999,9 @@ input::placeholder {
 .about__grid,
 .deals__tabs,
 .choose__grid,
-.client__details,
 .footer__container,
-.footer__col,
 .footer__bar {
-  background-color: #111111;
+  background-color: #040408;
 }
 
 }

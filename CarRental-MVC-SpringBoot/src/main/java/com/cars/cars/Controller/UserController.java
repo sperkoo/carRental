@@ -189,22 +189,31 @@ public class UserController {
         return "redirect:/user-cars";
     }
 
+    // src/main/java/com/cars/cars/Controller/UserController.java
     @PostMapping("/save-update")
-    public String SaveUpdate(@ModelAttribute Booking booking, @RequestParam Integer bookingId) {
-        Booking booking1 = bookingService.FindBooking(bookingId);
+    public String SaveUpdate(@ModelAttribute Booking booking, @RequestParam Integer bookingId, Model model) {
+        Booking existingBooking = bookingService.FindBooking(bookingId);
+        boolean isConflict = isBookingConflict(existingBooking.getCarId(), booking.getBookingDateFrom(), booking.getBookingDateTo());
+
+        if (isConflict) {
+            model.addAttribute("errorMessage", "Impossible de réserver dans cette date car la voiture est déjà réservée.");
+            model.addAttribute("booking", booking);
+            return "update-booking";
+        }
+
         LocalDate dateBefore = LocalDate.parse(booking.getBookingDateFrom());
         LocalDate dateAfter = LocalDate.parse(booking.getBookingDateTo());
         long noOfDaysBetween = ChronoUnit.DAYS.between(dateBefore, dateAfter);
-        if(noOfDaysBetween < 1) {
-            booking1.setTotalPrice(booking1.getPriceDay());
+        if (noOfDaysBetween < 1) {
+            existingBooking.setTotalPrice(existingBooking.getPriceDay());
+        } else {
+            existingBooking.setTotalPrice(existingBooking.getPriceDay() * noOfDaysBetween);
         }
-        else{
-            booking1.setTotalPrice(booking1.getPriceDay() * noOfDaysBetween);
-        }
-        booking1.setBookingDateFrom(booking.getBookingDateFrom());
-        booking1.setBookingDateTo(booking.getBookingDateTo());
-        bookingService.BookingSave(booking1);
-        logger.info("User updated booking");
+        existingBooking.setBookingDateFrom(booking.getBookingDateFrom());
+        existingBooking.setBookingDateTo(booking.getBookingDateTo());
+        existingBooking.setStatus("Modification Pending");
+        bookingService.BookingSave(existingBooking);
+        logger.info("User requested a booking modification");
         return "redirect:/user-cars";
     }
 
@@ -236,6 +245,10 @@ public class UserController {
     public ModelAndView viewLocal() {
         ModelAndView modelAndView = new ModelAndView("local");
         return modelAndView;
+    }
+
+    public boolean isBookingConflict(Integer carId, String startDate, String endDate) {
+        return bookingService.isBookingConflict(carId, startDate, endDate);
     }
 
 }

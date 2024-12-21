@@ -218,6 +218,7 @@
         </div>
         <div class="element">
             <form th:action="@{/save-update(bookingId=${booking.getBookingId()})}" th:object="${booking}" method="post" onsubmit="return validateDates()">
+                <div class="error-message" th:if="${errorMessage}" th:text="${errorMessage}"></div>
                 <input type="hidden" th:value="*{bookingId}" />
                 <input type="hidden" th:value="*{carId}" />
 

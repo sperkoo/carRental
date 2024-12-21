@@ -355,6 +355,37 @@ public String saveCar(
     return admin.getCustomerId();
 }
 
+    @GetMapping("/admin/modification-requests")
+    public ModelAndView getModificationRequests() {
+        ModelAndView modelAndView = new ModelAndView("modification-requests");
+        List<Booking> modificationRequests = bookingService.findAllByStatus("Modification Pending");
+        modelAndView.addObject("modificationRequests", modificationRequests);
+        logger.info("Admin viewing modification requests");
+        return modelAndView;
+    }
 
+    @PostMapping("/confirm-modification")
+    public String confirmModification(@RequestParam Integer bookingId) {
+        Booking booking = bookingService.FindBooking(bookingId);
+        booking.setStatus("Reserved");
+        bookingService.BookingSave(booking);
+
+        Car car = carService.findCarById(booking.getCarId());
+        car.setCarStatus("Reserved");
+        carService.SaveCar(car);
+
+        logger.info("Admin confirmed modification with ID: " + bookingId + " and car status set to Reserved");
+        return "redirect:/admin/modification-requests";
+    }
+
+    @PostMapping("/reject-modification")
+    public String rejectModification(@RequestParam Integer bookingId) {
+        Booking booking = bookingService.FindBooking(bookingId);
+        booking.setStatus("Reserved");
+        bookingService.BookingSave(booking);
+
+        logger.info("Admin rejected modification with ID: " + bookingId);
+        return "redirect:/admin/modification-requests";
+    }
 
 }

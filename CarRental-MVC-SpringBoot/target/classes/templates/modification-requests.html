@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Demandes de modification</title>
+    <style>
+        /* Ajoutez vos styles ici */
+    </style>
+</head>
+<body>
+    <h1>Demandes de modification</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID de réservation</th>
+                <th>Nom de la voiture</th>
+                <th>Date de début</th>
+                <th>Date de fin</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="booking : ${modificationRequests}">
+                <td th:text="${booking.bookingId}"></td>
+                <td th:text="${booking.carName}"></td>
+                <td th:text="${booking.bookingDateFrom}"></td>
+                <td th:text="${booking.bookingDateTo}"></td>
+                <td>
+                    <form th:action="@{/confirm-modification(bookingId=${booking.bookingId})}" method="post">
+                        <button type="submit">Confirmer</button>
+                    </form>
+                    <form th:action="@{/reject-modification(bookingId=${booking.bookingId})}" method="post">
+                        <button type="submit">Rejeter</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
