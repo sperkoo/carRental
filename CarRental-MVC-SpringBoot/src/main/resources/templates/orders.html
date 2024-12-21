@@ -284,7 +284,7 @@
                 <strong>Total Price: <span th:text="${booking.totalPrice} + ' MAD'"></span></strong>
 
                 <div class="rent-div">
-                    <a class="rent" th:href="@{/update-booking(bookingId=${booking.bookingId})}">
+                    <a class="rent" th:href="@{/update-booking(bookingId=${booking.bookingId})}" th:classappend="${booking.status == 'Payed'} ? ' disabled' : ''">
                         <i class="fas fa-edit"></i> Modify
                     </a>
                     <form th:action="@{/return-car(bookingId=${booking.bookingId},carId=${booking.carId})}" th:object="${booking}" method="post">
