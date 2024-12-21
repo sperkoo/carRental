@@ -48,3 +48,7 @@
 2024-12-21 19:37:11,057 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
 2024-12-21 19:37:18,049 * INFO * com.cars.cars.Controller.UserController * GetMyOrders * User viewing orders
 2024-12-21 19:37:29,609 * INFO * com.cars.cars.Controller.UserController * UpdateBooking * User trying to update booking
+2024-12-21 19:38:39,943 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-21 19:38:49,032 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-21 19:38:50,266 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-21 19:38:53,381 * INFO * com.cars.cars.Controller.UserController * getBookingRequests * Admin viewing booking requests
