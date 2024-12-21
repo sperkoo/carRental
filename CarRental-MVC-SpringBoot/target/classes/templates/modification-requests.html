@@ -2,39 +2,251 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Demandes de modification</title>
     <style>
-        /* Ajoutez vos styles ici */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+        body {
+            background-color: #f8f9fa;
+            min-height: 100vh;
+            display: flex;
+        }
+
+        .container {
+            display: flex;
+            flex-grow: 1;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 250px;
+            background-color: #ffffff;
+            padding: 2rem 0;
+            border-right: 1px solid #e9ecef;
+            height: 100vh;
+            position: fixed;
+        }
+
+        .logo {
+            padding: 0 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo span:first-child {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333333;
+        }
+
+        .logo span:last-child {
+            color: #ff4d4d;
+            font-weight: 600;
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            color: #6c757d;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #f8f9fa;
+            color: #ff4d4d;
+        }
+
+        .nav-links a.active {
+            color: #ff4d4d;
+            background-color: #fff1f1;
+            border-right: 3px solid #ff4d4d;
+        }
+
+        .nav-divider {
+            height: 1px;
+            background-color: #e9ecef;
+            margin: 1rem 1.5rem;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            margin-left: 250px;
+            flex-grow: 1;
+            padding: 2rem;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            color: #6c757d;
+        }
+
+        .breadcrumb a {
+            color: #6c757d;
+            text-decoration: none;
+        }
+
+        .page-title {
+            font-size: 1.5rem;
+            color: #333333;
+            margin-bottom: 2rem;
+        }
+
+        /* Modification Requests Table Styles */
+        .modification-requests-table {
+            width: 100%;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        .modification-requests-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .modification-requests-table th, .modification-requests-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .modification-requests-table th {
+            background-color: #f8f9fa;
+            color: #333333;
+            font-weight: 600;
+        }
+
+        .modification-requests-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .confirm-btn {
+            color: #ffffff;
+            background-color: #28a745;
+        }
+
+        .confirm-btn:hover {
+            background-color: #218838;
+        }
+
+        .reject-btn {
+            color: #ffffff;
+            background-color: #dc3545;
+        }
+
+        .reject-btn:hover {
+            background-color: #c82333;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 250px;
+            right: 0;
+            padding: 1rem 2rem;
+            background-color: #ffffff;
+            border-top: 1px solid #e9ecef;
+            text-align: center;
+            color: #6c757d;
+        }
     </style>
 </head>
 <body>
-    <h1>Demandes de modification</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>ID de réservation</th>
-                <th>Nom de la voiture</th>
-                <th>Date de début</th>
-                <th>Date de fin</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="booking : ${modificationRequests}">
-                <td th:text="${booking.bookingId}"></td>
-                <td th:text="${booking.carName}"></td>
-                <td th:text="${booking.bookingDateFrom}"></td>
-                <td th:text="${booking.bookingDateTo}"></td>
-                <td>
-                    <form th:action="@{/confirm-modification(bookingId=${booking.bookingId})}" method="post">
-                        <button type="submit">Confirmer</button>
-                    </form>
-                    <form th:action="@{/reject-modification(bookingId=${booking.bookingId})}" method="post">
-                        <button type="submit">Rejeter</button>
-                    </form>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+<div class="container">
+    <div class="sidebar">
+        <div class="logo">
+            <span>Easy</span>
+            <span>Rent.</span>
+        </div>
+        <ul class="nav-links">
+            <li><a th:href="@{/admin/vehicles}">🚗 Gerer les voitures</a></li>
+            <li><a th:href="@{/admin/bookings}">📅 Bookings</a></li>
+            <li><a th:href="@{/admin/payments}">💳 Payments</a></li>
+            <li><a th:href="@{/admin/statistics}">📊 Statistiques</a></li>
+            <li><a th:href="@{/admin/customers}">👥 Customers</a></li>
+            <li><a th:href="@{/admin/booking-requests}">📅 Demandes de réservation</a></li>
+            <li><a href="#" class="active">🔄 Demandes de modification</a></li>
+            <li><a th:href="@{/admin/messages}">💬 Messages</a></li>
+            <li><a th:href="@{/admin/add-admin}">➕ Ajouter admin</a></li>
+            <li><a th:href="@{/admin/profile}">👤 Profile</a></li>
+            <div class="nav-divider"></div>
+            <li><a th:href="@{/logout}">🚪 LogOut</a></li>
+        </ul>
+    </div>
+    <div class="main-content">
+        <div class="breadcrumb">
+            <a href="#">Home</a>
+            <span>&nbsp; / &nbsp;</span>
+            <span>Demandes de modification</span>
+        </div>
+        <h1 class="page-title">Demandes de modification</h1>
+        <div class="modification-requests-table">
+            <table>
+                <thead>
+                <tr>
+                    <th>ID de réservation</th>
+                    <th>Nom de la voiture</th>
+                    <th>Date de début</th>
+                    <th>Date de fin</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="booking : ${modificationRequests}">
+                    <td th:text="${booking.bookingId}"></td>
+                    <td th:text="${booking.carName}"></td>
+                    <td th:text="${booking.bookingDateFrom}"></td>
+                    <td th:text="${booking.bookingDateTo}"></td>
+                    <td class="actions">
+                        <form th:action="@{/confirm-modification(bookingId=${booking.bookingId})}" method="post" style="display: inline;">
+                            <button type="submit" class="action-btn confirm-btn">Confirmer</button>
+                        </form>
+                        <form th:action="@{/reject-modification(bookingId=${booking.bookingId})}" method="post" style="display: inline;">
+                            <button type="submit" class="action-btn reject-btn">Rejeter</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<footer>
+    <span>Cars Booking</span>
+</footer>
 </body>
 </html>
