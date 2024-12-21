@@ -173,7 +173,7 @@
             background-color: var(--hover-color);
         }
 
-        .Cars.disabled {
+        .rent.disabled {
             background-color: #6c757d;
             cursor: not-allowed;
         }
@@ -298,7 +298,7 @@
                             <i class="fas fa-file-invoice"></i> Invoice
                         </button>
                     </form>
-                    <form th:action="@{/pay}" method="post" style="margin: 0;" target="_self">
+                    <form th:action="@{/pay}" method="post" style="margin: 0;">
                         <input type="hidden" name="bookingId" th:value="${booking.bookingId}" />
                         <input type="hidden" name="totalPrice" th:value="${booking.totalPrice}" />
                         <button type="submit" class="rent" th:classappend="${booking.status == 'Payed'} ? ' disabled' : ''">
