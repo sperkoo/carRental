@@ -2,7 +2,7 @@
 
 :root {
   --primary-color: #4c6ef5;
-  --primary-color-dark: #2e2a40;
+  --primary-color-dark: #ffffff;
   --text-light: #ffffff;
   --text-light: #c6c3bb;
   --extra-light: #0d1116;
@@ -605,7 +605,7 @@ nav {
 
 .footer__logo span {
   font-size: 1.5rem;
-  color: var(--white);
+  color: #4c6ef5;
 }
 
 .footer__col p {
