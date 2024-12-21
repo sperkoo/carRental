@@ -266,9 +266,7 @@
 
             <strong><i class="fas fa-money-bill-wave"></i> Price</strong>
             <span th:text="${car.carPrice} + ' MAD/day'">Vehicle Price</span>
-
-<!--            <strong><i class="fas fa-check-circle"></i> Status</strong>-->
-<!--            <span th:text="${car.carStatus == 'Available' ? 'Available' : 'Unavailable'}">Vehicle Status</span>        </div>-->
+        </div>
         <a th:href="@{/bookingform(carId=${car.carId})}" class="rent-btn">
             <i class="fas fa-shopping-cart"></i> Rent Now
         </a>
@@ -284,9 +282,9 @@
     </div>
 </div>
 
-<!--<footer>-->
-<!--    <p>&copy; 2024 Cars Booking. All Rights Reserved.</p>-->
-<!--</footer>-->
+<footer>
+    <p>&copy; 2024 Cars Booking. All Rights Reserved.</p>
+</footer>
 
 <button class="chat-button" onclick="window.location.href='/chat'">
     <i class="fas fa-comments"></i>
