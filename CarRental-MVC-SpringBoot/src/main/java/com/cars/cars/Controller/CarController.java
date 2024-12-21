@@ -2,6 +2,7 @@ package com.cars.cars.Controller;
 
 import com.cars.cars.Model.Booking;
 import com.cars.cars.Model.Car;
+import com.cars.cars.Repository.CarRepo;
 import com.cars.cars.Service.BookingService;
 import com.cars.cars.Service.CarServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class CarController {
 
     @Autowired
     private BookingService bookingService;
+
+    @Autowired
+    private CarRepo carRepository;
 
     @GetMapping("/search")
     public String searchCars(
@@ -84,5 +88,12 @@ public class CarController {
         System.out.println(payedBookings);
         model.addAttribute("payedBookings", payedBookings);
         return "admin-payments";
+    }
+
+    @GetMapping("/home")
+    public String showHomePage(Model model) {
+        List<Car> cars = carRepository.findAll();
+        model.addAttribute("cars", cars);
+        return "carHomePage/index";
     }
 }
