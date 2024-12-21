@@ -122,3 +122,4 @@
 2024-12-21 22:57:34,275 * INFO * com.cars.cars.Controller.UserController * getAllBookings * Admin viewing all bookings
 2024-12-21 22:57:34,879 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
 2024-12-21 22:57:40,794 * INFO * com.cars.cars.Controller.UserController * getModificationRequests * Admin viewing modification requests
+2024-12-21 23:02:11,903 * INFO * com.cars.cars.Controller.UserController * getBookingRequests * Admin viewing booking requests
