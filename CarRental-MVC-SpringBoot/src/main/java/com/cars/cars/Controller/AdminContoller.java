@@ -216,8 +216,8 @@ public ModelAndView getBookingRequests() {
     @GetMapping("/admin/add-admin")
     public ModelAndView addAdmin() {
         ModelAndView modelAndView = new ModelAndView("new-admin");
-        Customer customer = new Customer();
-        modelAndView.addObject("customer", customer);
+        Customer customer = new Customer(); // Create a new instance of Customer
+        modelAndView.addObject("customer", customer); // Add the new instance to the model
         logger.info("Admin trying to add a new admin");
         return modelAndView;
     }
