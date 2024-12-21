@@ -2,11 +2,140 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Payment Cancelled</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Cancelled - EasyRent</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .cancelled-card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            padding: 2rem;
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .logo {
+            margin-bottom: 2rem;
+        }
+
+        .logo span:first-child {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333333;
+        }
+
+        .logo span:last-child {
+            color: #ff4d4d;
+            font-weight: 600;
+            font-size: 1.5rem;
+        }
+
+        .error-icon {
+            width: 64px;
+            height: 64px;
+            background-color: #dc3545;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 2rem;
+        }
+
+        h1 {
+            color: #333333;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            color: #6c757d;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .status-badge {
+            background-color: #fff1f1;
+            color: #dc3545;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .home-button {
+            display: inline-block;
+            background-color: #ff4d4d;
+            color: white;
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+
+        .home-button:hover {
+            background-color: #ff3333;
+        }
+
+        .try-again-button {
+            display: inline-block;
+            background-color: #ffffff;
+            color: #ff4d4d;
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 500;
+            border: 1px solid #ff4d4d;
+            margin-right: 1rem;
+            transition: background-color 0.2s;
+        }
+
+        .try-again-button:hover {
+            background-color: #fff1f1;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+    </style>
 </head>
 <body>
+<div class="cancelled-card">
+    <div class="logo">
+        <span>Easy</span><span>Rent.</span>
+    </div>
+    <div class="error-icon">×</div>
     <h1>Payment Cancelled</h1>
-    <p>Your payment has been cancelled.</p>
-    <a href="/">Go back to home</a>
+    <div class="status-badge">
+        Transaction Not Completed
+    </div>
+    <p>Your payment process has been cancelled. If you experienced any issues, please try again or contact our support team for assistance.</p>
+    <div class="button-group">
+        <a href="/payment" class="try-again-button">Try Again</a>
+        <a href="/" class="home-button">Return to Home</a>
+    </div>
+</div>
 </body>
 </html>
