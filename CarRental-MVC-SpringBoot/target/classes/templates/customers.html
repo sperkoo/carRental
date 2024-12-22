@@ -128,34 +128,14 @@
         .add-button {
             background-color: #ff4d4d;
             color: white;
-            padding: 0.75rem 1.25rem;
-            border-radius: 6px;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
             text-decoration: none;
-            transition: all 0.3s ease;
-            font-weight: 500;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            border: none;
-            box-shadow: 0 2px 4px rgba(255, 77, 77, 0.2);
+            transition: background-color 0.3s;
         }
 
         .add-button:hover {
             background-color: #ff3333;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 6px rgba(255, 77, 77, 0.25);
-        }
-
-        .add-button:active {
-            transform: translateY(0);
-            box-shadow: 0 2px 4px rgba(255, 77, 77, 0.2);
-        }
-
-        /* Add this before the button text */
-        .add-button::before {
-            content: "+";
-            font-size: 1.2rem;
-            font-weight: 600;
         }
 
         table {
@@ -227,7 +207,7 @@
         <li><a href="#" class="active">👥 Customers</a></li>
         <li><a th:href="@{/admin/booking-requests}">📅 Demandes de réservation</a></li>
         <li><a th:href="@{/admin/modification-requests}">🔄️ Demandes de modification</a></li>
-        <li><a th:href="@{/admin/messages}" class="add-button">💬 Messages</a></li>
+        <li><a th:href="@{/admin/messages}">💬 Messages</a></li>
         <li><a th:href="@{/admin/add-admin}">➕ Ajouter admin</a></li>
         <li><a th:href="@{/admin/profile}">👤 Profile</a></li>
         <div class="nav-divider"></div>
