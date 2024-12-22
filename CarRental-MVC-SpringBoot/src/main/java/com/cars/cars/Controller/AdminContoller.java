@@ -355,10 +355,18 @@ public String saveCar(
     return admin.getCustomerId();
 }
 
+    // src/main/java/com/cars/cars/Controller/AdminController.java
     @GetMapping("/admin/modification-requests")
     public ModelAndView getModificationRequests() {
         ModelAndView modelAndView = new ModelAndView("modification-requests");
         List<Booking> modificationRequests = bookingService.findAllByStatus("Modification Pending");
+
+        // Set carName for each booking
+        for (Booking booking : modificationRequests) {
+            Car car = carService.findCarById(booking.getCarId());
+            booking.setCarName(car.getCarName());
+        }
+
         modelAndView.addObject("modificationRequests", modificationRequests);
         logger.info("Admin viewing modification requests");
         return modelAndView;
