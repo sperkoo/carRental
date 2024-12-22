@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Admin Dashboard | Update Vehicle Information</title>
+    <title>Admin Dashboard | Vehicle Management</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         :root {
@@ -10,10 +10,12 @@
             --primary-dark: #ff1a1a;
             --primary-light: #ff8080;
             --text-color: #2d3748;
-            --background-color: #f7fafc;
+            --text-muted: #718096;
+            --background-color: #f8fafc;
             --border-color: #e2e8f0;
-            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --success-color: #48bb78;
         }
 
         * {
@@ -60,20 +62,18 @@
             color: var(--text-color);
             text-decoration: none;
             font-weight: 500;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
             transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .nav a:hover, .right:hover {
             background-color: var(--background-color);
             color: var(--primary-color);
-        }
-
-        .right {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            transform: translateY(-1px);
         }
 
         .container {
@@ -81,38 +81,39 @@
             margin: 3rem auto;
             background-color: white;
             padding: 2.5rem;
-            border-radius: 12px;
+            border-radius: 16px;
             box-shadow: var(--shadow-md);
         }
 
         .confirm {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
             color: var(--text-color);
         }
 
         .confirm span {
-            font-size: 1.75rem;
-            font-weight: 600;
+            font-size: 2rem;
+            font-weight: 700;
             position: relative;
             display: inline-block;
+            letter-spacing: -0.5px;
         }
 
         .confirm span::after {
             content: '';
             position: absolute;
-            bottom: -8px;
+            bottom: -12px;
             left: 50%;
             transform: translateX(-50%);
-            width: 40px;
-            height: 3px;
+            width: 50px;
+            height: 4px;
             background-color: var(--primary-color);
             border-radius: 2px;
         }
 
         .element-customer form {
             display: grid;
-            gap: 1.5rem;
+            gap: 1.75rem;
         }
 
         .element-customer label {
@@ -123,31 +124,86 @@
             color: var(--text-color);
         }
 
-        .element-customer input[type="text"] {
-            padding: 0.75rem 1rem;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
+        .element-customer input[type="text"],
+        .element-customer select {
+            padding: 0.875rem 1rem;
+            border: 1.5px solid var(--border-color);
+            border-radius: 8px;
             font-size: 1rem;
             transition: all 0.2s ease;
+            background-color: white;
         }
 
-        .element-customer input[type="text"]:focus {
+        .element-customer input[type="text"]:focus,
+        .element-customer select:focus {
             outline: none;
             border-color: var(--primary-color);
             box-shadow: 0 0 0 3px var(--primary-light);
+        }
+
+        .element-customer select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%232d3748'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1.25rem;
+            padding-right: 2.5rem;
+        }
+
+        .file-input-container {
+            margin: 1rem 0;
+        }
+
+        .file-input-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.875rem 1.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        .file-input-label:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .file-input {
+            position: absolute;
+            left: -9999px;
+        }
+
+        .image-preview-container {
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .image-preview {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+            display: none;
+            object-fit: cover;
         }
 
         .confirm-button {
             background-color: var(--primary-color);
             color: white;
             border: none;
-            padding: 1rem;
-            border-radius: 6px;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
             font-weight: 600;
             font-size: 1rem;
             cursor: pointer;
             transition: all 0.2s ease;
-            margin-top: 0.5rem;
+            margin-top: 1rem;
+            width: 100%;
         }
 
         .confirm-button:hover {
@@ -162,64 +218,32 @@
         footer {
             background-color: white;
             border-top: 1px solid var(--border-color);
-            color: var(--text-color);
+            color: var(--text-muted);
             text-align: center;
             padding: 1rem;
             position: absolute;
             bottom: 0;
             width: 100%;
+            font-size: 0.875rem;
         }
 
         @media (max-width: 768px) {
             .container {
-                margin: 1rem;
+                margin: 1.5rem;
                 padding: 1.5rem;
             }
 
             .header {
-                padding: 1rem;
+                padding: 0.75rem 1rem;
             }
 
             .nav {
                 gap: 1rem;
             }
-        }
 
-        .file-input-container {
-            position: relative;
-            margin: 1rem 0;
-        }
-
-        .file-input-label {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            background-color: var(--primary-color);
-            color: white;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .file-input-label:hover {
-            background-color: #ff1a1a;
-        }
-
-        .file-input {
-            position: absolute;
-            left: -9999px;
-        }
-
-        .image-preview-container {
-            margin: 1rem 0;
-            text-align: center;
-        }
-
-        .image-preview {
-            max-width: 300px;
-            max-height: 200px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            display: none;
+            .confirm span {
+                font-size: 1.75rem;
+            }
         }
     </style>
 </head>
@@ -227,7 +251,7 @@
 <header class='header'>
     <div class="header-content">
         <ul class='nav'>
-            <li><a th:href="@{/admin/vehicles}">Vehicles</a></li>
+            <li><a th:href="@{/admin/home}">Home</a></li>
         </ul>
         <a th:href="@{/logout}" class="right">
             <span>Logout</span>
@@ -255,13 +279,29 @@
                 </label>
 
                 <label>
+                    Type
+                    <select th:field="*{carType}">
+                        <option value="">Select vehicle type</option>
+                        <option value="compact">Compact</option>
+                        <option value="sedan">Sedan</option>
+                        <option value="suv">SUV</option>
+                        <option value="luxe">Luxury</option>
+                    </select>
+                </label>
+
+                <label>
                     Price
                     <input type="text" th:field="*{carPrice}" placeholder="Enter vehicle price" />
                 </label>
 
                 <div class="file-input-container">
                     <label class="file-input-label">
-                        Choose Image
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="17 8 12 3 7 8"/>
+                            <line x1="12" y1="3" x2="12" y2="15"/>
+                        </svg>
+                        Upload Image
                         <input type="file" name="imageFile" accept="image/*" class="file-input" onchange="previewImage(event)" />
                     </label>
                 </div>
@@ -280,7 +320,7 @@
 </div>
 
 <footer>
-    <span>Vehicle Management System</span>
+    <span>Vehicle Management System © 2024</span>
 </footer>
 
 <script>
@@ -288,16 +328,14 @@
         const file = event.target.files[0];
         if (!file) return;
 
-        // Check file type
         if (!file.type.startsWith('image/')) {
-            alert('Please select a valid image');
+            alert('Please select a valid image file');
             event.target.value = '';
             return;
         }
 
-        // Check file size (max 5MB)
         if (file.size > 5 * 1024 * 1024) {
-            alert('Image is too large. Maximum size: 5MB');
+            alert('Image size should not exceed 5MB');
             event.target.value = '';
             return;
         }
