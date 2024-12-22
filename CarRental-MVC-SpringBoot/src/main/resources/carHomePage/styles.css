@@ -2,9 +2,9 @@
 
 :root {
   --primary-color: #4c6ef5;
-  --primary-color-dark: #ffffff;
+  --primary-color-dark: #4c6ef5;
   --text-light: #ffffff;
-  --text-light: #c6c3bb;
+  --text-secondary: #c6c3bb;
   --extra-light: #0d1116;
   --white: #161b22;
   --max-width: 1200px;
@@ -32,7 +32,7 @@
 }
 
 .section__description {
-  color: var(--text-light);
+  color: var(--text-secondary);
   text-align: center;
   line-height: 1.5rem;
 }
