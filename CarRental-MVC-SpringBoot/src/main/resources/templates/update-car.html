@@ -2,13 +2,18 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Admin : Update cars info</title>
+    <title>Admin Dashboard | Update Vehicle Information</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         :root {
             --primary-color: #ff4d4d;
-            --text-color: #333;
-            --background-color: #f4f4f4;
+            --primary-dark: #ff1a1a;
+            --primary-light: #ff8080;
+            --text-color: #2d3748;
+            --background-color: #f7fafc;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
         * {
@@ -18,15 +23,28 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
             background-color: var(--background-color);
             color: var(--text-color);
-            line-height: 1.6;
+            line-height: 1.5;
+            min-height: 100vh;
+            position: relative;
+            padding-bottom: 60px;
         }
 
         .header {
-            background-color: var(--primary-color);
-            padding: 1rem;
+            background-color: white;
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -34,120 +52,272 @@
 
         .nav {
             display: flex;
+            gap: 2rem;
             list-style: none;
         }
 
         .nav a, .right {
-            color: white;
+            color: var(--text-color);
             text-decoration: none;
-            margin-right: 1rem;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .nav a:hover, .right:hover {
+            background-color: var(--background-color);
+            color: var(--primary-color);
+        }
+
+        .right {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .container {
-            max-width: 600px;
-            margin: 2rem auto;
+            max-width: 800px;
+            margin: 3rem auto;
             background-color: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
         }
 
         .confirm {
             text-align: center;
-            margin-bottom: 1.5rem;
-            color: var(--primary-color);
-            font-size: 1.5rem;
-            font-weight: bold;
+            margin-bottom: 2rem;
+            color: var(--text-color);
+        }
+
+        .confirm span {
+            font-size: 1.75rem;
+            font-weight: 600;
+            position: relative;
+            display: inline-block;
+        }
+
+        .confirm span::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 3px;
+            background-color: var(--primary-color);
+            border-radius: 2px;
         }
 
         .element-customer form {
-            display: flex;
-            flex-direction: column;
+            display: grid;
+            gap: 1.5rem;
         }
 
         .element-customer label {
-            margin-bottom: 1rem;
             display: flex;
             flex-direction: column;
+            gap: 0.5rem;
+            font-weight: 500;
+            color: var(--text-color);
         }
 
         .element-customer input[type="text"] {
-            padding: 0.5rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            margin-top: 0.5rem;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+        }
+
+        .element-customer input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px var(--primary-light);
         }
 
         .confirm-button {
             background-color: var(--primary-color);
             color: white;
             border: none;
-            padding: 0.75rem;
-            border-radius: 4px;
+            padding: 1rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 1rem;
             cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-top: 1rem;
-            width: 100%;
+            transition: all 0.2s ease;
+            margin-top: 0.5rem;
         }
 
         .confirm-button:hover {
-            background-color: #ff1a1a;
+            background-color: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .confirm-button:active {
+            transform: translateY(0);
         }
 
         footer {
-            background-color: var(--primary-color);
-            color: white;
+            background-color: white;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-color);
             text-align: center;
             padding: 1rem;
-            position: fixed;
+            position: absolute;
             bottom: 0;
             width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+
+            .header {
+                padding: 1rem;
+            }
+
+            .nav {
+                gap: 1rem;
+            }
+        }
+
+        .file-input-container {
+            position: relative;
+            margin: 1rem 0;
+        }
+
+        .file-input-label {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .file-input-label:hover {
+            background-color: #ff1a1a;
+        }
+
+        .file-input {
+            position: absolute;
+            left: -9999px;
+        }
+
+        .image-preview-container {
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        .image-preview {
+            max-width: 300px;
+            max-height: 200px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: none;
         }
     </style>
 </head>
 <body>
 <header class='header'>
-    <ul class='nav'>
-        <li><a th:href="@{/admin/vehicles}">Cars</a></li>
-    </ul>
-    <a th:href="@{/logout}" class="right">Logout</a>
+    <div class="header-content">
+        <ul class='nav'>
+            <li><a th:href="@{/admin/vehicles}">Vehicles</a></li>
+        </ul>
+        <a th:href="@{/logout}" class="right">
+            <span>Logout</span>
+        </a>
+    </div>
 </header>
 
 <div class="container">
     <div class="sub-container">
         <div class="confirm">
-            <span>Update Car</span>
+            <span>Update Vehicle Information</span>
         </div>
         <div class="element-customer">
-            <form th:action="@{/save-cars}" th:object="${car}" method="post">
-                <input type="hidden" th:field="*{carId}" placeholder="Car Id" />
+            <form th:action="@{/save-cars}" th:object="${car}" method="post" enctype="multipart/form-data">
+                <input type="hidden" th:field="*{carId}" />
 
-                <label>Car Name:
-                    <input type="text" th:field="*{carName}" placeholder="Car Name" />
+                <label>
+                    Vehicle Name
+                    <input type="text" th:field="*{carName}" placeholder="Enter vehicle name" />
                 </label>
 
-                <label>Car Model:
-                    <input type="text" th:field="*{carModel}" placeholder="Model" />
+                <label>
+                    Model
+                    <input type="text" th:field="*{carModel}" placeholder="Enter vehicle model" />
                 </label>
 
-                <label>Car Price:
-                    <input type="text" th:field="*{carPrice}" placeholder="Price" />
+                <label>
+                    Price
+                    <input type="text" th:field="*{carPrice}" placeholder="Enter vehicle price" />
                 </label>
 
-                <label>Car Image:
-                    <input type="text" th:field="*{carImage}" placeholder="Phone" />
-                </label>
+                <div class="file-input-container">
+                    <label class="file-input-label">
+                        Choose Image
+                        <input type="file" name="imageFile" accept="image/*" class="file-input" onchange="previewImage(event)" />
+                    </label>
+                </div>
 
-                <input type="hidden" th:field="*{carStatus}" placeholder="Status" />
+                <div class="image-preview-container">
+                    <img id="image-preview" class="image-preview" alt="Image Preview" />
+                </div>
 
-                <input class="confirm-button" type="submit" value="Update" />
+                <input type="hidden" th:field="*{carImage}" id="carImageUrl" />
+                <input type="hidden" th:field="*{carStatus}" />
+
+                <button class="confirm-button" type="submit">Update Vehicle</button>
             </form>
         </div>
     </div>
 </div>
 
 <footer>
-    <span>Cars Booking</span>
+    <span>Vehicle Management System</span>
 </footer>
+
+<script>
+    function previewImage(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        // Check file type
+        if (!file.type.startsWith('image/')) {
+            alert('Please select a valid image');
+            event.target.value = '';
+            return;
+        }
+
+        // Check file size (max 5MB)
+        if (file.size > 5 * 1024 * 1024) {
+            alert('Image is too large. Maximum size: 5MB');
+            event.target.value = '';
+            return;
+        }
+
+        const reader = new FileReader();
+        const preview = document.getElementById('image-preview');
+
+        reader.onload = function(e) {
+            preview.src = e.target.result;
+            preview.style.display = 'block';
+            document.getElementById('carImageUrl').value = e.target.result;
+        }
+
+        reader.onerror = function() {
+            alert('Error reading file');
+            event.target.value = '';
+        }
+
+        reader.readAsDataURL(file);
+    }
+</script>
 </body>
 </html>
