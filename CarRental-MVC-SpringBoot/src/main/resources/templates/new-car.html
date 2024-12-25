@@ -4,11 +4,16 @@
     <meta charset="UTF-8">
     <title>Admin : Ajouter un nouveau véhicule</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
             --primary-color: #ff4d4d;
+            --primary-dark: #ff1a1a;
+            --primary-light: #ff8080;
             --text-color: #333;
-            --background-color: #f4f4f4;
+            --background-color: #f8f9fa;
+            --border-color: #e9ecef;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         * {
@@ -18,15 +23,26 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             background-color: var(--background-color);
             color: var(--text-color);
             line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 60px;
         }
 
         .header {
-            background-color: var(--primary-color);
-            padding: 1rem;
+            background-color: white;
+            box-shadow: var(--shadow);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -34,80 +50,93 @@
 
         .nav {
             display: flex;
-            list-style: none;
+            gap: 2rem;
+            align-items: center;
         }
 
         .nav a, .right {
-            color: white;
+            color: var(--text-color);
             text-decoration: none;
-            margin-right: 1rem;
+            font-weight: 500;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav a:hover, .right:hover {
+            color: var(--primary-color);
         }
 
         .container {
-            max-width: 600px;
+            max-width: 800px;
             margin: 2rem auto;
             background-color: white;
             padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
         }
 
         .confirm {
-            text-align: center;
-            margin-bottom: 1.5rem;
-            color: var(--primary-color);
-            font-size: 1.5rem;
-            font-weight: bold;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 1rem;
+        }
+
+        .confirm span {
+            color: var(--text-color);
+            font-size: 1.75rem;
+            font-weight: 600;
         }
 
         .element-customer form {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .form-group {
             display: flex;
             flex-direction: column;
+            gap: 0.5rem;
         }
 
-        .element-customer label {
-            margin-bottom: 1rem;
-            display: flex;
-            flex-direction: column;
+        .form-group label {
+            font-weight: 500;
+            color: var(--text-color);
         }
 
-        .element-customer input[type="text"],
-        .element-customer input[type="file"] {
-            padding: 0.5rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            margin-top: 0.5rem;
-        }
-
-        .image-preview {
-            max-width: 200px;
-            margin: 1rem 0;
-            border-radius: 4px;
-        }
-
-        .confirm-button {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
+        .form-control {
             padding: 0.75rem;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-top: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
         }
 
-        .confirm-button:hover {
-            background-color: #ff1a1a;
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px var(--primary-light);
         }
 
-        footer {
+        .file-input-container {
+            margin: 1rem 0;
+        }
+
+        .file-input-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
             background-color: var(--primary-color);
             color: white;
-            text-align: center;
-            padding: 1rem;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .file-input-label:hover {
+            background-color: var(--primary-dark);
         }
 
         .image-preview-container {
@@ -116,99 +145,114 @@
         }
 
         .image-preview {
-            max-width: 300px;
-            max-height: 200px;
+            max-width: 100%;
+            height: auto;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow);
             display: none;
         }
 
-        .file-input-container {
-            position: relative;
-            margin: 1rem 0;
-        }
-
-        .file-input-label {
-            display: inline-block;
-            padding: 0.5rem 1rem;
+        .confirm-button {
             background-color: var(--primary-color);
             color: white;
-            border-radius: 4px;
+            border: none;
+            padding: 1rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 500;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s;
+            width: 100%;
         }
 
-        .file-input-label:hover {
-            background-color: #ff1a1a;
+        .confirm-button:hover {
+            background-color: var(--primary-dark);
         }
 
-        .file-input {
-            position: absolute;
-            left: -9999px;
+        footer {
+            background-color: white;
+            color: var(--text-color);
+            text-align: center;
+            padding: 1rem;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 1rem;
+                padding: 1rem;
+            }
         }
     </style>
 </head>
 <body>
 <header class='header'>
-    <ul class='nav'>
-        <li><a th:href="@{/admin/vehicles}">Véhicules</a></li>
-    </ul>
-    <a th:href="@{/logout}" class="right">Déconnexion</a>
+    <div class="nav-container">
+        <ul class='nav'>
+            <li><a th:href="@{/admin/vehicles}"><i class="fas fa-car"></i> Véhicules</a></li>
+        </ul>
+        <a th:href="@{/logout}" class="right"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
+    </div>
 </header>
 
 <div class="container">
-    <div class="sub-container">
-        <div class="confirm">
-            <span>Nouveau Véhicule</span>
-        </div>
-        <div class="element-customer">
-            <form th:action="@{/save-cars}" th:object="${car}" method="post" enctype="multipart/form-data">
-                <input type="hidden" th:field="*{carId}" />
+    <div class="confirm">
+        <span><i class="fas fa-plus-circle"></i> Nouveau Véhicule</span>
+    </div>
+    <div class="element-customer">
+        <form th:action="@{/save-cars}" th:object="${car}" method="post" enctype="multipart/form-data">
+            <input type="hidden" th:field="*{carId}" />
 
-                <label>Nom du véhicule:
-                    <input type="text" th:field="*{carName}" placeholder="Entrez le nom du véhicule" required />
+            <div class="form-group">
+                <label>Nom du véhicule</label>
+                <input type="text" class="form-control" th:field="*{carName}" placeholder="Entrez le nom du véhicule" required />
+            </div>
+
+            <div class="form-group">
+                <label>Modèle du véhicule</label>
+                <input type="text" class="form-control" th:field="*{carModel}" placeholder="Entrez le modèle" required />
+            </div>
+
+            <div class="form-group">
+                <label>Type de véhicule</label>
+                <select class="form-control" th:field="*{carType}" required>
+                    <option value="">Sélectionnez le type de véhicule</option>
+                    <option value="compact">Compact</option>
+                    <option value="sedan">Sedan</option>
+                    <option value="suv">SUV</option>
+                    <option value="luxe">Luxe</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Prix de location par jour (MAD)</label>
+                <input type="text" class="form-control" th:field="*{carPrice}" placeholder="Entrez le prix" required pattern="[0-9]+(\.[0-9]{1,2})?" />
+            </div>
+
+            <div class="file-input-container">
+                <label class="file-input-label">
+                    <i class="fas fa-upload"></i> Choisir une image
+                    <input type="file" name="imageFile" accept="image/*" class="file-input" style="display: none;" onchange="previewImage(event)" required />
                 </label>
+            </div>
 
-                <label>Modèle du véhicule:
-                    <input type="text" th:field="*{carModel}" placeholder="Entrez le modèle" required />
-                </label>
+            <div class="image-preview-container">
+                <img id="image-preview" class="image-preview" alt="Prévisualisation de l'image" />
+            </div>
 
-                <label>Type de véhicule:
-                    <select th:field="*{carType}" required>
-                        <option value="">Sélectionnez le type de véhicule</option>
-                        <option value="compact">Compact</option>
-                        <option value="sedan">Sedan</option>
-                        <option value="suv">SUV</option>
-                        <option value="luxe">Luxe</option>
-                    </select>
-                </label>
+            <input type="hidden" th:field="*{carImage}" id="carImageUrl" />
+            <input type="hidden" th:field="*{carStatus}" value="true" />
 
-                <label>Prix de location par jour (MAD):
-                    <input type="text" th:field="*{carPrice}" placeholder="Entrez le prix" required pattern="[0-9]+(\.[0-9]{1,2})?" />
-                </label>
-
-                <div class="file-input-container">
-                    <label class="file-input-label">
-                        Choisir une image
-                        <input type="file" name="imageFile" accept="image/*" class="file-input" onchange="previewImage(event)" required />
-                    </label>
-                </div>
-
-                <div class="image-preview-container">
-                    <img id="image-preview" class="image-preview" alt="Prévisualisation de l'image" />
-                </div>
-
-                <input type="hidden" th:field="*{carImage}" id="carImageUrl" />
-                <input type="hidden" th:field="*{carStatus}" value="true" />
-
-                <button class="confirm-button" type="submit">Confirmer</button>
-            </form>
-        </div>
+            <button class="confirm-button" type="submit"><i class="fas fa-check"></i> Confirmer</button>
+        </form>
     </div>
 </div>
 
 <footer>
-    <span>Location de Véhicules</span>
+    <span>© 2024 Location de Véhicules</span>
 </footer>
 
 <script>
@@ -216,14 +260,12 @@
         const file = event.target.files[0];
         if (!file) return;
 
-        // Vérification du type de fichier
         if (!file.type.startsWith('image/')) {
             alert('Veuillez sélectionner une image valide');
             event.target.value = '';
             return;
         }
 
-        // Vérification de la taille du fichier (max 5MB)
         if (file.size > 5 * 1024 * 1024) {
             alert('L\'image est trop grande. Taille maximum : 5MB');
             event.target.value = '';

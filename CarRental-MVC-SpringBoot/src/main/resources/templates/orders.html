@@ -320,5 +320,40 @@
 </button>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const bookings = document.querySelectorAll('.item-container');
+        const today = new Date();
+
+        bookings.forEach(booking => {
+            const endDateElement = booking.querySelector('span[th\\:text="${booking.bookingDateTo}"]');
+            const endDate = new Date(endDateElement.textContent);
+
+            if (endDate < today) {
+                const carId = booking.querySelector('span[th\\:text="${booking.carId}"]').textContent;
+                updateCarStatus(carId, 'Available');
+            }
+        });
+    });
+
+    function updateCarStatus(carId, status) {
+        fetch(`/update-car-status`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ carId, status })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log(`Car status updated to ${status}`);
+                } else {
+                    console.error('Failed to update car status');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+</script>
 </body>
 </html>

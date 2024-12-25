@@ -15,10 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -30,6 +27,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Base64;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 
@@ -292,12 +290,12 @@ public ModelAndView getAdminProfile() {
 
 
     @PostMapping("/save-cars")
-public String saveCar(
+    public String saveCar(
         @ModelAttribute Car car,
         BindingResult result,
         @RequestParam(value = "imageFile", required = false) MultipartFile imageFile,
         RedirectAttributes redirectAttributes
-) {
+    ) {
     try {
         if (result.hasErrors()) {
             redirectAttributes.addFlashAttribute("errorMessage", "Validation failed");
@@ -320,7 +318,13 @@ public String saveCar(
             car.setCarImage("/uploads/" + fileName);
         }
 
-        car.setCarStatus("Available"); // Set status to Available by default
+        Car existingCar = carService.findCarById(car.getCarId());
+        if (existingCar != null) {
+            car.setCarStatus(existingCar.getCarStatus());
+        }
+        else {
+            car.setCarStatus("Available");
+        }
         carService.SaveCar(car);
         redirectAttributes.addFlashAttribute("successMessage", "Vehicle successfully added!");
         return "redirect:/admin/vehicles";
@@ -395,5 +399,21 @@ public String saveCar(
         logger.info("Admin rejected modification with ID: " + bookingId);
         return "redirect:/admin/modification-requests";
     }
+
+    @PostMapping("/update-car-status")
+    @ResponseBody
+    public Map<String, Object> updateCarStatus(@RequestBody Map<String, String> request) {
+    int carId = Integer.parseInt(request.get("carId"));
+    String status = request.get("status");
+
+    Car car = carService.findCarById(carId);
+    if (car != null) {
+        car.setCarStatus(status);
+        carService.SaveCar(car);
+        return Map.of("success", true);
+    } else {
+        return Map.of("success", false);
+    }
+}
 
 }
