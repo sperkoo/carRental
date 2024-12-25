@@ -182,7 +182,12 @@ public class UserController {
     public String ReturnCar(@ModelAttribute Booking booking,@RequestParam Integer bookingId, @RequestParam Integer carId) {
         Booking booking1 = bookingService.FindBooking(bookingId);
         Car car = carService.findCarById(carId);
-        car.setCarStatus("Available");
+        if (booking1.getStatus().equals("Payed")) {
+            car.setCarStatus("Under Inspection");
+        }
+        else {
+            car.setCarStatus("Available");
+        }
         bookingService.DeleteBooking(booking1.getBookingId());
         carService.SaveCar(car);
         logger.info("User returned a car");

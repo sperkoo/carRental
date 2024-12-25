@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Super Rent - Under Inspection</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            min-height: 100vh;
+            display: flex;
+        }
+
+        .container {
+            display: flex;
+            flex-grow: 1;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 250px;
+            background-color: #ffffff;
+            padding: 2rem 0;
+            border-right: 1px solid #e9ecef;
+            height: 100vh;
+            position: fixed;
+        }
+
+        .logo {
+            padding: 0 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo span:first-child {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333333;
+        }
+
+        .logo span:last-child {
+            color: #ff4d4d;
+            font-weight: 600;
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            color: #6c757d;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #f8f9fa;
+            color: #ff4d4d;
+        }
+
+        .nav-links a.active {
+            color: #ff4d4d;
+            background-color: #fff1f1;
+            border-right: 3px solid #ff4d4d;
+        }
+
+        .nav-divider {
+            height: 1px;
+            background-color: #e9ecef;
+            margin: 1rem 1.5rem;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            margin-left: 250px;
+            flex-grow: 1;
+            padding: 2rem;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            color: #6c757d;
+        }
+
+        .breadcrumb a {
+            color: #6c757d;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            color: #ff4d4d;
+        }
+
+        .page-title {
+            font-size: 1.5rem;
+            color: #333333;
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+
+        /* Car List Styles */
+        .car-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-gap: 1.5rem;
+        }
+
+        .car-card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .car-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .car-image img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .car-details {
+            padding: 1.5rem;
+        }
+
+        .car-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #333333;
+            margin-bottom: 0.5rem;
+        }
+
+        .car-model, .car-status {
+            color: #6c757d;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .car-status {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            background-color: #fff1f1;
+            color: #ff4d4d;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .validate-btn, .contact-btn {
+            flex: 1;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            text-align: center;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .validate-btn {
+            background-color: #ff4d4d;
+            color: #ffffff;
+        }
+
+        .validate-btn:hover {
+            background-color: #ff3333;
+        }
+
+        .contact-btn {
+            background-color: #f8f9fa;
+            color: #6c757d;
+            border: 1px solid #e9ecef;
+        }
+
+        .contact-btn:hover {
+            background-color: #e9ecef;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 250px;
+            right: 0;
+            padding: 1rem 2rem;
+            background-color: #ffffff;
+            border-top: 1px solid #e9ecef;
+            text-align: center;
+            color: #6c757d;
+            z-index: 10;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 0;
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            footer {
+                left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="sidebar">
+        <div class="logo">
+            <span>Super</span>
+            <span>Cars.</span>
+        </div>
+        <ul class="nav-links">
+            <li><a th:href="@{/admin/vehicles}">🚗 Gerer les voitures</a></li>
+            <li><a th:href="@{/admin/bookings}">📅 Bookings</a></li>
+            <li><a th:href="@{/admin/payments}">💳 Payments</a></li>
+            <li><a th:href="@{/admin/statistics}">📊 Statistiques</a></li>
+            <li><a th:href="@{/admin/customers}">👥 Customers</a></li>
+            <li><a th:href="@{/admin/booking-requests}">📅 Demandes de réservation</a></li>
+            <li><a th:href="@{/admin/modification-requests}">🔄️ Demandes de modification</a></li>
+            <li><a th:href="@{/admin/messages}">💬 Messages</a></li>
+            <li><a th:href="@{/admin/add-admin}">➕ Ajouter admin</a></li>
+            <li><a th:href="@{/admin/profile}">👤 Profile</a></li>
+            <li><a th:href="@{/admin/under-inspection}" class="active">🔍 En cours d'inspection</a></li>
+            <div class="nav-divider"></div>
+            <li><a th:href="@{/logout}">🚪 LogOut</a></li>
+        </ul>
+    </div>
+    <div class="main-content">
+        <div class="breadcrumb">
+            <a href="#">Home</a>
+            <span>&nbsp; / &nbsp;</span>
+            <span>Under Inspection</span>
+        </div>
+        <h1 class="page-title">Cars Under Inspection</h1>
+        <div class="car-list" id="car-list">
+            <div class="car-card" th:each="car: ${carList}">
+                <div class="car-image">
+                    <img th:src="@{${car.carImage}}" alt="Image de la voiture">
+                </div>
+                <div class="car-details">
+                    <h3 class="car-name" th:text="${car.carName}"></h3>
+                    <p class="car-model" th:text="${car.carModel}"></p>
+                    <p class="car-status" th:text="${car.carStatus}"></p>
+                    <div class="action-buttons">
+                        <form th:action="@{/admin/validate-car}" method="post" style="display: inline;">
+                            <input type="hidden" name="carId" th:value="${car.carId}" />
+                            <button type="submit" class="action-btn validate-btn">Validate</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer>
+    <span>Cars Booking</span>
+</footer>
+</body>
+</html>
+<script>
+    function validateCar(button) {
+        const carId = button.getAttribute('data-car-id');
+        fetch('/admin/update-car-status', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ carId: carId, status: 'Available' })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Car status updated to Available');
+                    location.reload();
+                } else {
+                    alert('Failed to update car status');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+</script>

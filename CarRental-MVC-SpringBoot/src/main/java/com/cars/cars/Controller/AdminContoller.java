@@ -400,20 +400,46 @@ public ModelAndView getAdminProfile() {
         return "redirect:/admin/modification-requests";
     }
 
-    @PostMapping("/update-car-status")
+    @PostMapping("/admin/update-car-status")
     @ResponseBody
     public Map<String, Object> updateCarStatus(@RequestBody Map<String, String> request) {
-    int carId = Integer.parseInt(request.get("carId"));
-    String status = request.get("status");
+        int carId = Integer.parseInt(request.get("carId"));
+        String status = request.get("status");
 
-    Car car = carService.findCarById(carId);
-    if (car != null) {
-        car.setCarStatus(status);
-        carService.SaveCar(car);
-        return Map.of("success", true);
-    } else {
-        return Map.of("success", false);
+        Car car = carService.findCarById(carId);
+        if (car != null) {
+            car.setCarStatus(status);
+            carService.SaveCar(car);
+            return Map.of("success", true);
+        } else {
+            return Map.of("success", false);
+        }
     }
-}
+
+    @GetMapping("/admin/under-inspection")
+    public ModelAndView getCarsUnderInspection() {
+        ModelAndView modelAndView = new ModelAndView("under-inspection");
+        List<Car> carList = carService.findAllByCarStatus("Under Inspection");
+        modelAndView.addObject("carList", carList);
+        logger.info("Admin viewing cars under inspection");
+        return modelAndView;
+    }
+
+
+    @PostMapping("/admin/validate-car")
+    public String validateCar(@RequestParam Integer carId, RedirectAttributes redirectAttributes) {
+        Car car = carService.findCarById(carId);
+        if (car != null) {
+            car.setCarStatus("Available");
+            carService.SaveCar(car);
+            redirectAttributes.addFlashAttribute("successMessage", "The car has been successfully inspected and is now available.");
+            return "redirect:/admin/vehicles";
+        } else {
+            redirectAttributes.addFlashAttribute("errorMessage", "Car not found.");
+            return "redirect:/admin/under-inspection";
+        }
+    }
+
+
 
 }

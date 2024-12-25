@@ -331,7 +331,7 @@
 
             if (endDate < today) {
                 const carId = booking.querySelector('span[th\\:text="${booking.carId}"]').textContent;
-                updateCarStatus(carId, 'Available');
+                updateCarStatus(carId, 'Under Inspection');
             }
         });
     });

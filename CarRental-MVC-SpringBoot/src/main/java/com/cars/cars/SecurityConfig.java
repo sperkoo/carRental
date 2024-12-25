@@ -41,8 +41,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/error-delete").hasRole("ADMIN")
                 .antMatchers("/customers/**").hasRole("ADMIN")
                 .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/admin/vehicles").hasRole("ADMIN")
-                .antMatchers("/admin/customers").hasRole("ADMIN")
                 .and()
                 .formLogin()
                 .loginPage("/login")
