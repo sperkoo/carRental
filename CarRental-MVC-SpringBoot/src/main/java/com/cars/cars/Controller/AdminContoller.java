@@ -103,7 +103,7 @@ public String confirmBooking(@RequestParam Integer bookingId) {
     bookingService.BookingSave(booking);
 
     Car car = carService.findCarById(booking.getCarId());
-    car.setCarStatus("Reserved"); // Set status to Reserved
+    car.setCarStatus("Reserved");
     carService.SaveCar(car);
 
     logger.info("Admin confirmed booking with ID: " + bookingId + " and car status set to Reserved");

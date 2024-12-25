@@ -97,3 +97,60 @@
 2024-12-23 00:43:14,184 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
 2024-12-23 00:43:37,307 * INFO * com.cars.cars.Controller.UserController * GetSettings * User accessing settings
 2024-12-23 00:43:41,818 * INFO * com.cars.cars.Controller.UserController * GetMyOrders * User viewing orders
+2024-12-25 15:39:41,955 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-25 15:39:46,760 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-25 15:39:47,917 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-25 15:39:54,401 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-25 15:40:01,366 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-25 15:41:23,855 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-25 15:41:33,323 * INFO * com.cars.cars.Controller.UserController * addAdmin * Admin trying to add a new admin
+2024-12-25 15:45:40,093 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-25 15:46:07,971 * INFO * com.cars.cars.Controller.UserController * getBookingRequests * Admin viewing booking requests
+2024-12-25 15:46:09,654 * INFO * com.cars.cars.Controller.UserController * getModificationRequests * Admin viewing modification requests
+2024-12-25 15:46:10,510 * INFO * com.cars.cars.Controller.UserController * GetAllCustomers * Admin viewing customers
+2024-12-25 15:46:25,948 * INFO * com.cars.cars.Controller.UserController * GetAllCustomers * Admin viewing customers
+2024-12-25 15:48:40,719 * INFO * com.cars.cars.Controller.UserController * GetMyOrders * User viewing orders
+2024-12-25 15:49:42,331 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-25 15:49:45,436 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-25 15:49:46,016 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-25 15:49:48,899 * INFO * com.cars.cars.Controller.UserController * addAdmin * Admin trying to add a new admin
+2024-12-25 15:52:12,911 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-25 15:52:17,962 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-25 15:52:18,855 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-25 15:52:20,398 * INFO * com.cars.cars.Controller.UserController * addAdmin * Admin trying to add a new admin
+2024-12-25 15:52:50,606 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-25 15:53:01,586 * INFO * com.cars.cars.Controller.UserController * getAllBookings * Admin viewing all bookings
+2024-12-25 15:53:02,671 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-25 15:53:03,971 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-25 15:53:13,684 * INFO * com.cars.cars.Controller.UserController * UpdateCarInfo * Admin trying to update a car
+2024-12-25 15:53:17,375 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-25 15:53:18,639 * INFO * com.cars.cars.Controller.UserController * UpdateCarInfo * Admin trying to update a car
+2024-12-25 15:53:19,179 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-25 15:53:24,426 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-25 15:53:28,739 * INFO * com.cars.cars.Controller.UserController * DeleteError * Admin couldn't delete a car
+2024-12-25 15:53:35,927 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-25 15:54:01,995 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-25 15:54:05,558 * INFO * com.cars.cars.Controller.UserController * UpdateCarInfo * Admin trying to update a car
+2024-12-25 15:54:06,156 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-25 16:06:55,587 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-25 16:07:05,449 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-25 16:07:06,329 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-25 16:07:16,807 * INFO * com.cars.cars.Controller.UserController * getAllBookings * Admin viewing all bookings
+2024-12-25 16:07:17,384 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-25 16:09:30,723 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-25 16:09:35,292 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-25 16:09:36,224 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-25 16:10:05,961 * INFO * com.cars.cars.Controller.UserController * GetAllCustomers * Admin viewing customers
+2024-12-25 16:12:03,961 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-25 16:12:07,359 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-25 16:12:07,993 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-25 16:12:10,541 * INFO * com.cars.cars.Controller.UserController * GetAllCustomers * Admin viewing customers
+2024-12-25 16:12:38,652 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-25 16:12:41,349 * INFO * com.cars.cars.Controller.UserController * GetHomeView * Someone in
+2024-12-25 16:12:41,850 * INFO * com.cars.cars.Controller.UserController * GetAllCarsForAdmin * Admin viewing cars
+2024-12-25 16:12:48,784 * INFO * com.cars.cars.Controller.UserController * GetAllCustomers * Admin viewing customers
+2024-12-25 16:13:51,474 * INFO * com.cars.cars.Controller.UserController * DeleteCustomer * Admin deleted a customer
+2024-12-25 16:13:51,485 * INFO * com.cars.cars.Controller.UserController * GetAllCustomers * Admin viewing customers
+2024-12-25 16:14:00,044 * INFO * com.cars.cars.Controller.UserController * DeleteCustomer * Admin deleted a customer
+2024-12-25 16:14:00,059 * INFO * com.cars.cars.Controller.UserController * GetAllCustomers * Admin viewing customers
+2024-12-25 16:14:27,433 * INFO * com.cars.cars.Controller.UserController * getBookingRequests * Admin viewing booking requests

@@ -235,6 +235,7 @@
                 <th>Address</th>
                 <th>Email</th>
                 <th>Phone</th>
+                <th>Role</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -244,6 +245,7 @@
                 <td th:text="${customer.getCustomerAddress()}"></td>
                 <td th:text="${customer.getCustomerEmail()}"></td>
                 <td th:text="${customer.getCustomerPhone()}"></td>
+                <td th:text="${customer.getRole()}"></td>
                 <td class="action-buttons">
                     <a th:href="@{/admin/customer/customer-id(customerId=${customer.getCustomerId()})}" class="update-btn">Update</a>
                     <a th:href="@{/delete/customer(customerId=${customer.getCustomerId()})}" class="delete-btn">Delete</a>
