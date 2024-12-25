@@ -2,6 +2,7 @@ package com.cars.cars.Service;
 
 import com.cars.cars.Model.Car;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -14,4 +15,6 @@ public interface CarServices {
     List<Car> searchCars(Date startDate, Date endDate, String type, Integer minPrice, Integer maxPrice);
     List<Car> findNonReservedCars();
     List<Car> findAllByCarStatus(String status); // Add this method
+
+    List<Car> searchAvailableCars(LocalDate startDate, LocalDate endDate, String type, Integer minPrice, Integer maxPrice);
 }

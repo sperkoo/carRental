@@ -39,10 +39,7 @@ public class CarController {
             @RequestParam(value = "max-price", required = false) Integer maxPrice,
             Model model) {
 
-        Date startDateConverted = startDate != null ? Date.from(startDate.atStartOfDay(ZoneId.systemDefault()).toInstant()) : null;
-        Date endDateConverted = endDate != null ? Date.from(endDate.atStartOfDay(ZoneId.systemDefault()).toInstant()) : null;
-
-        List<Car> carList = carServices.searchCars(startDateConverted, endDateConverted, type, minPrice, maxPrice);
+        List<Car> carList = carServices.searchAvailableCars(startDate, endDate, type, minPrice, maxPrice);
         model.addAttribute("carList", carList);
         return "cars";
     }

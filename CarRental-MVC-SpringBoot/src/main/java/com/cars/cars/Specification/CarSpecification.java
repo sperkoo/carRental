@@ -8,8 +8,11 @@ import java.util.Date;
 public class CarSpecification {
 
     public static Specification<Car> hasType(String type) {
-        return (root, query, criteriaBuilder) ->
-                type == null ? null : criteriaBuilder.equal(root.get("carType"), type);
+        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("carType"), type);
+    }
+
+    public static Specification<Car> hasStatus(String status) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("carStatus"), status);
     }
 
     public static Specification<Car> hasPriceRange(Integer minPrice, Integer maxPrice) {

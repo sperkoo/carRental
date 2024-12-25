@@ -8,15 +8,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 @Service
 public class CarService implements CarServices {
 
     @Autowired
     private CarRepo carRepo;
+
+    @Autowired
+    private BookingService bookingService;
 
     @Override
     public List<Car> searchCars(Date startDate, Date endDate, String type, Integer minPrice, Integer maxPrice) {
@@ -34,6 +40,99 @@ public class CarService implements CarServices {
 
         return carRepo.findAll(spec);
     }
+
+
+    @Override
+public List<Car> searchAvailableCars(LocalDate startDate, LocalDate endDate, String type, Integer minPrice, Integer maxPrice) {
+    Specification<Car> spec = Specification.where(null);
+
+    if (type != null && !type.isEmpty()) {
+        spec = spec.and(CarSpecification.hasType(type));
+    }
+
+    if (minPrice != null || maxPrice != null) {
+        spec = spec.and(CarSpecification.hasPriceRange(minPrice, maxPrice));
+    }
+
+    List<Car> availableCars = carRepo.findAll(Specification.where(spec).and(CarSpecification.hasStatus("Available")));
+    List<Car> reservedCars = carRepo.findAll(Specification.where(spec).and(CarSpecification.hasStatus("Reserved")));
+
+    if (startDate != null && endDate != null) {
+        reservedCars = reservedCars.stream()
+                .filter(car -> !bookingService.isBookingConflict(car.getCarId(), startDate.toString(), endDate.toString()))
+                .collect(Collectors.toList());
+    }
+
+    availableCars.addAll(reservedCars);
+    return availableCars;
+}
+
+
+//    @Override
+//    public List<Car> searchAvailableCars(LocalDate startDate, LocalDate endDate, String type, Integer minPrice, Integer maxPrice) {
+//        List<Car> availableCars = carRepo.findAllByCarStatus("Available");
+//        List<Car> reservedCars = carRepo.findAllByCarStatus("Reserved");
+//
+//        final LocalDate finalStartDate = startDate;
+//        final LocalDate finalEndDate = endDate;
+//
+//        if (finalStartDate != null && finalEndDate != null) {
+//            reservedCars = reservedCars.stream()
+//                    .filter(car -> !bookingService.isBookingConflict(car.getCarId(), finalStartDate.toString(), finalEndDate.toString()))
+//                    .collect(Collectors.toList());
+//        }
+//
+//        Predicate<Car> typePredicate = car -> type == null || type.isEmpty() || car.getCarType().equalsIgnoreCase(type);
+//        Predicate<Car> pricePredicate = car -> (minPrice == null || car.getCarPrice() >= minPrice) && (maxPrice == null || car.getCarPrice() <= maxPrice);
+//
+//        List<Car> filteredAvailableCars = availableCars.stream()
+//                .filter(typePredicate.and(pricePredicate))
+//                .collect(Collectors.toList());
+//
+//        List<Car> filteredReservedCars = reservedCars.stream()
+//                .filter(typePredicate.and(pricePredicate))
+//                .collect(Collectors.toList());
+//
+//        filteredAvailableCars.addAll(filteredReservedCars);
+//        return filteredAvailableCars;
+//    }
+
+
+
+//    @Override
+//    public List<Car> searchAvailableCars(LocalDate startDate, LocalDate endDate, String type, Integer minPrice, Integer maxPrice) {
+//        Specification<Car> spec = Specification.where(null);
+//        List<Car> availableCars = carRepo.findAllByCarStatus("Available");
+//        List<Car> reservedCars = carRepo.findAllByCarStatus("Reserved");
+//
+//        final LocalDate finalStartDate = startDate;
+//        final LocalDate finalEndDate = endDate;
+//
+//        if (finalStartDate != null && finalEndDate != null) {
+//            reservedCars = reservedCars.stream()
+//                    .filter(car -> !bookingService.isBookingConflict(car.getCarId(), finalStartDate.toString(), finalEndDate.toString()))
+//                    .collect(Collectors.toList());
+//        }
+//
+//        if (type != null && !type.isEmpty()) {
+//            spec = spec.and(CarSpecification.hasType(type));
+//        }
+//
+//        if (minPrice != null || maxPrice != null) {
+//            spec = spec.and(CarSpecification.hasPriceRange(minPrice, maxPrice));
+//        }
+//
+//        List<Car> filteredAvailableCars = availableCars.stream()
+//                .filter(car -> spec.toPredicate(car, null, null))
+//                .collect(Collectors.toList());
+//
+//        List<Car> filteredReservedCars = reservedCars.stream()
+//                .filter(car -> spec.toPredicate(car, null, null))
+//                .collect(Collectors.toList());
+//
+//        filteredAvailableCars.addAll(filteredReservedCars);
+//        return filteredAvailableCars;
+//    }
 
     @Override
     public List<Car> findAllByCarStatusTrue() {
